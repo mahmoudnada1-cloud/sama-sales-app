@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>مخطط سما الروسان - غرناطة</title>
+<meta name="theme-color" content="#1A1208">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="سما الروسان">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icon.svg">
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').catch(()=>{});});}</script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#B8962E;--gold-light:#D4AF52;--gold-pale:#F7EDD4;--dark:#1A1208;--dark-2:#2C1F0A;--charcoal:#3D3020;--sand:#F2E8D0;--sand-light:#FAF5EA;--white:#FFFDF8;--text:#2C1F0A;--text-muted:#6B5A3A;--residential:#1A6B3C;--commercial:#1A3D6B;--sold:#8B0000;--reserved:#7A4A00;--radius:16px;--shadow:0 4px 24px rgba(26,18,8,0.12);}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Cairo',sans-serif;background:var(--sand-light);color:var(--text);min-height:100vh;direction:rtl;overflow-x:hidden;}
+.app{max-width:430px;margin:0 auto;background:var(--white);min-height:100vh;}
+.screen{display:none;flex-direction:column;min-height:100vh;}.screen.active{display:flex;}
+.status-bar{background:var(--dark);color:var(--gold-light);display:flex;justify-content:space-between;align-items:center;padding:8px 20px;font-size:11px;font-weight:600;}
+.hero{background:linear-gradient(160deg,var(--dark) 0%,var(--dark-2) 55%,#3A2810 100%);padding:28px 24px 32px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-60px;left:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(184,150,46,0.18) 0%,transparent 70%);pointer-events:none;}
+.hero-logo{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.hero-logo-mark{width:44px;height:44px;background:var(--gold);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:var(--dark);}
+.hero-logo-text h1{font-size:17px;font-weight:700;color:#fff;line-height:1.2;}
+.hero-logo-text p{font-size:11px;color:var(--gold-light);}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(184,150,46,0.15);border:1px solid rgba(184,150,46,0.35);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--gold-light);margin-bottom:14px;}
+.hero-title{font-size:28px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:8px;}
+.hero-title span{color:var(--gold-light);}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:20px;line-height:1.6;}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.hero-stat{background:rgba(255,255,255,0.06);border:1px solid rgba(184,150,46,0.2);border-radius:12px;padding:12px;text-align:center;}
+.hero-stat-n{font-size:22px;font-weight:800;color:var(--gold-light);}
+.hero-stat-l{font-size:10px;color:rgba(255,255,255,0.5);margin-top:4px;}
+.legend{display:flex;gap:12px;padding:10px 16px;background:var(--sand-light);flex-wrap:wrap;}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-muted);}
+.legend-dot{width:10px;height:10px;border-radius:50%;}
+.filter-bar{padding:14px 16px 0;background:var(--white);position:sticky;top:0;z-index:10;border-bottom:1px solid rgba(0,0,0,0.06);}
+.filter-tabs{display:flex;gap:8px;padding-bottom:14px;overflow-x:auto;scrollbar-width:none;}
+.filter-tabs::-webkit-scrollbar{display:none;}
+.filter-tab{flex-shrink:0;padding:7px 16px;border-radius:20px;border:1.5px solid rgba(0,0,0,0.1);background:transparent;font-family:'Cairo',sans-serif;font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;white-space:nowrap;}
+.filter-tab.active{background:var(--dark);border-color:var(--dark);color:var(--gold-light);}
+.filter-tab.res.active{background:var(--residential);border-color:var(--residential);color:#fff;}
+.filter-tab.com.active{background:var(--commercial);border-color:var(--commercial);color:#fff;}
+.plots-section{padding:14px;flex:1;}
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.section-title{font-size:15px;font-weight:700;}
+.section-count{font-size:12px;color:var(--text-muted);background:var(--sand);padding:3px 10px;border-radius:10px;font-weight:600;}
+.plots-grid{display:flex;flex-direction:column;gap:12px;}
+.plot-card{background:var(--white);border:1.5px solid rgba(0,0,0,0.07);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);cursor:pointer;position:relative;}
+.plot-card.unavailable{opacity:0.6;}
+.plot-card-accent{height:5px;background:var(--residential);}
+.plot-card-accent.commercial{background:var(--commercial);}
+.plot-card-accent.sold{background:var(--sold);}
+.plot-card-accent.reserved{background:var(--reserved);}
+.plot-card-body{padding:14px 16px 16px;}
+.plot-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+.plot-number{font-size:11px;color:var(--text-muted);margin-bottom:2px;}
+.plot-id{font-size:20px;font-weight:800;color:var(--text);}
+.plot-badge{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;}
+.plot-badge.residential{background:rgba(26,107,60,0.1);color:var(--residential);}
+.plot-badge.commercial{background:rgba(26,61,107,0.1);color:var(--commercial);}
+.plot-badge.sold{background:rgba(139,0,0,0.1);color:var(--sold);}
+.plot-badge.reserved{background:rgba(122,74,0,0.1);color:var(--reserved);}
+.plot-card-specs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+.spec-label{font-size:10px;color:var(--text-muted);margin-bottom:2px;}
+.spec-value{font-size:14px;font-weight:700;color:var(--text);}
+.spec-unit{font-size:10px;color:var(--text-muted);}
+.plot-card-footer{display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(0,0,0,0.06);padding-top:10px;}
+.plot-price-label{font-size:10px;color:var(--text-muted);margin-bottom:2px;}
+.plot-price{font-size:17px;font-weight:800;color:var(--dark);}
+.plot-price .currency{font-size:11px;color:var(--text-muted);}
+.plot-cta{background:var(--dark);color:var(--gold-light);border:none;border-radius:10px;padding:8px 16px;font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;}
+.plot-cta.disabled{background:rgba(0,0,0,0.08);color:var(--text-muted);}
+.plot-block-tag{position:absolute;top:13px;left:13px;font-size:10px;font-weight:700;color:var(--text-muted);background:var(--sand);padding:3px 8px;border-radius:6px;}
+.detail-header{background:var(--dark);padding:16px 20px;display:flex;align-items:center;gap:14px;}
+.back-btn{width:36px;height:36px;background:rgba(255,255,255,0.1);border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--gold-light);}
+.detail-header-info h2{font-size:17px;font-weight:700;color:#fff;}
+.detail-header-info p{font-size:12px;color:var(--gold-light);}
+.detail-body{flex:1;overflow-y:auto;padding-bottom:90px;}
+.detail-hero{background:linear-gradient(135deg,var(--dark-2) 0%,var(--charcoal) 100%);padding:28px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.detail-plot-icon{width:80px;height:80px;border:3px solid var(--gold);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:14px;background:rgba(184,150,46,0.1);}
+.detail-plot-id{font-size:12px;color:var(--gold-light);margin-bottom:4px;}
+.detail-plot-name{font-size:24px;font-weight:900;color:#fff;margin-bottom:6px;}
+.detail-specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:18px;background:var(--white);}
+.detail-spec{background:var(--sand-light);border-radius:12px;padding:14px;}
+.detail-spec-icon{font-size:20px;margin-bottom:6px;}
+.detail-spec-label{font-size:11px;color:var(--text-muted);margin-bottom:3px;}
+.detail-spec-value{font-size:16px;font-weight:800;color:var(--text);}
+.detail-section{padding:0 18px 18px;}
+.detail-section-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+.detail-section-title::before{content:'';display:block;width:4px;height:16px;background:var(--gold);border-radius:2px;}
+.contract-info-card{background:var(--sand-light);border:1px solid rgba(184,150,46,0.2);border-radius:12px;padding:14px;}
+.contract-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.06);}
+.contract-row:last-child{border-bottom:none;}
+.contract-key{font-size:12px;color:var(--text-muted);}
+.contract-val{font-size:12px;font-weight:700;color:var(--text);}
+.payment-plan{display:flex;flex-direction:column;gap:7px;}
+.payment-step{display:flex;align-items:center;gap:10px;background:var(--sand-light);border-radius:10px;padding:10px 12px;}
+.payment-dot{width:28px;height:28px;border-radius:50%;background:var(--gold-pale);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--dark);flex-shrink:0;}
+.payment-info{flex:1;}
+.payment-desc{font-size:11px;color:var(--text);font-weight:500;}
+.payment-pct{font-size:14px;font-weight:800;color:var(--gold);}
+.cta-footer{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:var(--white);border-top:1px solid rgba(0,0,0,0.08);padding:12px 18px 20px;display:flex;gap:10px;z-index:20;box-shadow:0 -4px 20px rgba(0,0,0,0.08);}
+.cta-call{flex:1;padding:13px;border:2px solid var(--dark);border-radius:12px;background:transparent;font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;color:var(--dark);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;}
+.cta-book{flex:2;padding:13px;border:none;border-radius:12px;background:var(--gold);font-family:'Cairo',sans-serif;font-size:13px;font-weight:800;color:var(--dark);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:0 4px 14px rgba(184,150,46,0.35);}
+.map-container{flex:1;background:var(--sand-light);display:flex;align-items:center;justify-content:center;overflow:auto;}
+.map-svg-wrapper{width:100%;padding:16px;}
+svg.plot-map{width:100%;height:auto;}
+.nav-bar{background:var(--white);border-top:1px solid rgba(0,0,0,0.08);display:flex;position:sticky;bottom:0;z-index:15;}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 6px 12px;background:none;border:none;cursor:pointer;font-family:'Cairo',sans-serif;font-size:10px;font-weight:600;color:var(--text-muted);gap:4px;}
+.nav-btn .nav-icon{font-size:20px;line-height:1;}
+.nav-btn.active{color:var(--gold);}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--dark);color:var(--gold-light);padding:10px 22px;border-radius:28px;font-size:13px;font-weight:600;z-index:100;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap;max-width:90%;text-align:center;}
+.toast.show{opacity:1;}
+.contact-screen-body{flex:1;padding:18px;overflow-y:auto;}
+.contact-card{background:linear-gradient(135deg,var(--dark) 0%,var(--dark-2) 100%);border-radius:18px;padding:24px;margin-bottom:18px;}
+.contact-card h3{font-size:17px;font-weight:800;color:#fff;margin-bottom:4px;}
+.contact-card p{font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:18px;}
+.contact-btns{display:flex;flex-direction:column;gap:9px;}
+.contact-btn{display:flex;align-items:center;gap:11px;background:rgba(255,255,255,0.08);border:1px solid rgba(184,150,46,0.2);border-radius:11px;padding:12px 15px;cursor:pointer;text-decoration:none;}
+.contact-btn-icon{font-size:20px;width:26px;text-align:center;}
+.contact-btn-info{text-align:right;}
+.contact-btn-label{font-size:10px;color:rgba(255,255,255,0.5);font-family:'Cairo',sans-serif;}
+.contact-btn-value{font-size:14px;font-weight:700;color:var(--gold-light);font-family:'Cairo',sans-serif;}
+.info-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px;}
+.info-card{background:var(--white);border:1.5px solid rgba(0,0,0,0.07);border-radius:14px;padding:16px;box-shadow:var(--shadow);text-align:center;}
+.info-card-icon{font-size:26px;margin-bottom:6px;}
+.info-card-label{font-size:10px;color:var(--text-muted);margin-bottom:3px;}
+.info-card-value{font-size:14px;font-weight:800;color:var(--text);}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="screen active" id="screen-home">
+<div class="status-bar"><span>سما الروسان</span><span>مخطط غرناطة</span><span>📶</span></div>
+<div class="hero">
+<div class="hero-logo"><div class="hero-logo-mark">س</div><div class="hero-logo-text"><h1>مخطط سما الروسان</h1><p>شركة سما الروسان للتطوير العقاري</p></div></div>
+<div class="hero-badge">📍 الرياض – حي غرناطة – مخطط 1822/هـ</div>
+<div class="hero-title">قطعتك <span>المثالية</span><br>في غرناطة</div>
+<div class="hero-sub">مخطط عقاري راقٍ بموقع مميز في قلب حي غرناطة</div>
+<div class="hero-stats">
+<div class="hero-stat"><div class="hero-stat-n">16</div><div class="hero-stat-l">إجمالي القطع</div></div>
+<div class="hero-stat"><div class="hero-stat-n" id="avail-count">11</div><div class="hero-stat-l">متاح للبيع</div></div>
+<div class="hero-stat"><div class="hero-stat-n">1710</div><div class="hero-stat-l">م² مرجعية</div></div>
+</div></div>
+<div class="legend">
+<div class="legend-item"><div class="legend-dot" style="background:var(--residential)"></div>سكني</div>
+<div class="legend-item"><div class="legend-dot" style="background:var(--commercial)"></div>تجاري</div>
+<div class="legend-item"><div class="legend-dot" style="background:var(--reserved)"></div>محجوز</div>
+<div class="legend-item"><div class="legend-dot" style="background:var(--sold)"></div>مباع</div>
+</div>
+<div class="filter-bar"><div class="filter-tabs">
+<button class="filter-tab active" onclick="filterPlots('all',this)">الكل</button>
+<button class="filter-tab res" onclick="filterPlots('residential',this)">سكني</button>
+<button class="filter-tab com" onclick="filterPlots('commercial',this)">تجاري</button>
+<button class="filter-tab" onclick="filterPlots('available',this)">متاح فقط</button>
+</div></div>
+<div class="plots-section">
+<div class="section-header"><div class="section-title">قائمة القطع</div><div class="section-count" id="filter-count">16 قطعة</div></div>
+<div class="plots-grid" id="plots-grid"></div>
+</div>
+<div class="nav-bar">
+<button class="nav-btn active" onclick="showScreen('home')"><span class="nav-icon">🏠</span>الرئيسية</button>
+<button class="nav-btn" onclick="showScreen('map')"><span class="nav-icon">🗺️</span>المخطط</button>
+<button class="nav-btn" onclick="showScreen('contact')"><span class="nav-icon">📞</span>تواصل</button>
+</div></div>
+<div class="screen" id="screen-detail">
+<div class="detail-header"><button class="back-btn" onclick="showScreen('home')">→</button><div class="detail-header-info"><h2 id="detail-title">تفاصيل القطعة</h2><p id="detail-subtitle">مخطط سما الروسان</p></div></div>
+<div class="detail-body" id="detail-body"></div>
+<div class="cta-footer"><button class="cta-call" onclick="callSales()">📞 اتصال</button><button class="cta-book" id="book-btn" onclick="bookPlot()">📝 احجز الآن</button></div>
+</div>
+<div class="screen" id="screen-map">
+<div class="status-bar"><span>المخطط التفاعلي</span><span>اضغط على قطعة</span><span>📶</span></div>
+<div class="legend" style="border-top:none;">
+<div class="legend-item"><div class="legend-dot" style="background:var(--residential)"></div>سكني</div>
+<div class="legend-item"><div class="legend-dot" style="background:var(--commercial)"></div>تجاري</div>
+<div class="legend-item"><div class="legend-dot" style="background:var(--reserved)"></div>محجوز</div>
+<div class="legend-item"><div class="legend-dot" style="background:var(--sold)"></div>مباع</div>
+</div>
+<div class="map-container"><div class="map-svg-wrapper"><svg class="plot-map" viewBox="0 0 500 700" xmlns="http://www.w3.org/2000/svg" id="map-svg"></svg></div></div>
+<div class="nav-bar">
+<button class="nav-btn" onclick="showScreen('home')"><span class="nav-icon">🏠</span>الرئيسية</button>
+<button class="nav-btn active" onclick="showScreen('map')"><span class="nav-icon">🗺️</span>المخطط</button>
+<button class="nav-btn" onclick="showScreen('contact')"><span class="nav-icon">📞</span>تواصل</button>
+</div></div>
+<div class="screen" id="screen-contact">
+<div class="status-bar"><span>تواصل معنا</span><span>سما الروسان</span><span>📶</span></div>
+<div class="contact-screen-body">
+<div class="contact-card"><h3>تواصل مع فريق المبيعات</h3><p>نحن هنا للإجابة على جميع استفساراتك</p>
+<div class="contact-btns">
+<a class="contact-btn" href="tel:+966552427555"><span class="contact-btn-icon">📞</span><div class="contact-btn-info"><div class="contact-btn-label">رقم المبيعات</div><div class="contact-btn-value">0552427555</div></div></a>
+<a class="contact-btn" href="https://wa.me/966552427555" target="_blank"><span class="contact-btn-icon">💬</span><div class="contact-btn-info"><div class="contact-btn-label">واتساب</div><div class="contact-btn-value">تواصل عبر واتساب</div></div></a>
+<a class="contact-btn" href="mailto:saber@alrosan.com.sa"><span class="contact-btn-icon">✉️</span><div class="contact-btn-info"><div class="contact-btn-label">البريد الإلكتروني</div><div class="contact-btn-value">saber@alrosan.com.sa</div></div></a>
+</div></div>
+<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;">معلومات المشروع</div>
+<div class="info-cards">
+<div class="info-card"><div class="info-card-icon">📍</div><div class="info-card-label">الموقع</div><div class="info-card-value">حي غرناطة</div></div>
+<div class="info-card"><div class="info-card-icon">🏗️</div><div class="info-card-label">المخطط</div><div class="info-card-value">1822/هـ</div></div>
+<div class="info-card"><div class="info-card-icon">📐</div><div class="info-card-label">المساحة</div><div class="info-card-value">1710 م²</div></div>
+<div class="info-card"><div class="info-card-icon">🏢</div><div class="info-card-label">المطور</div><div class="info-card-value">سما الروسان</div></div>
+</div></div>
+<div class="nav-bar">
+<button class="nav-btn" onclick="showScreen('home')"><span class="nav-icon">🏠</span>الرئيسية</button>
+<button class="nav-btn" onclick="showScreen('map')"><span class="nav-icon">🗺️</span>المخطط</button>
+<button class="nav-btn active" onclick="showScreen('contact')"><span class="nav-icon">📞</span>تواصل</button>
+</div></div>
+<div class="toast" id="toast"></div>
+<script>
+const PLOTS=[
+{id:'P-25-1',number:'قطعة 1',block:'بلك 25',type:'commercial',status:'available',area:498.5,price:1246250,pricePerM:2500,dimensions:'~22×22',description:'قطعة تجارية مميزة'},
+{id:'P-25-2',number:'قطعة 2',block:'بلك 25',type:'commercial',status:'reserved',area:375.3,price:937500,pricePerM:2500,dimensions:'~18×21',description:'موقع تجاري ذو إمكانيات عالية'},
+{id:'P-26-1',number:'قطعة 547',block:'بلك 26',type:'residential',status:'available',area:855.0,price:1282500,pricePerM:1500,dimensions:'~38×22.5',description:'قطعة سكنية فاخرة'},
+{id:'P-26-2',number:'قطعة 549',block:'بلك 26',type:'residential',status:'sold',area:855.0,price:1282500,pricePerM:1500,dimensions:'~38×22.5',description:'قطعة سكنية شمالية'},
+{id:'P-26-3',number:'قطعة 551',block:'بلك 26',type:'residential',status:'available',area:712.5,price:1068750,pricePerM:1500,dimensions:'~31×23',description:'قطعة سكنية هادئة'},
+{id:'P-26-4',number:'قطعة 553',block:'بلك 26',type:'residential',status:'available',area:712.5,price:1068750,pricePerM:1500,dimensions:'~31×23',description:'قطعة بإطلالة مفتوحة'},
+{id:'P-26-5',number:'قطعة 555',block:'بلك 26',type:'residential',status:'available',area:712.5,price:1068750,pricePerM:1500,dimensions:'~31×23',description:'فرصة سكنية مميزة'},
+{id:'P-27-1',number:'قطعة 500',block:'بلك 27',type:'residential',status:'available',area:375.0,price:562500,pricePerM:1500,dimensions:'~25×15',description:'قطعة للبناء الفوري'},
+{id:'P-27-2',number:'قطعة 502',block:'بلك 27',type:'residential',status:'available',area:375.0,price:562500,pricePerM:1500,dimensions:'~25×15',description:'قطعة جنوبية'},
+{id:'P-27-3',number:'قطعة 504',block:'بلك 27',type:'residential',status:'reserved',area:375.0,price:562500,pricePerM:1500,dimensions:'~25×15',description:'قريبة من الخدمات'},
+{id:'P-27-4',number:'قطعة 506',block:'بلك 27',type:'residential',status:'available',area:375.0,price:562500,pricePerM:1500,dimensions:'~25×15',description:'مناسبة للعائلات'},
+{id:'P-27-5',number:'قطعة 508',block:'بلك 27',type:'residential',status:'available',area:375.0,price:562500,pricePerM:1500,dimensions:'~25×15',description:'قطعة نظيفة'},
+{id:'P-27-6',number:'قطعة 510',block:'بلك 27',type:'residential',status:'sold',area:375.0,price:562500,pricePerM:1500,dimensions:'~25×15',description:'محاذية للشارع'},
+{id:'P-27-7',number:'قطعة 512',block:'بلك 27',type:'residential',status:'available',area:375.0,price:562500,pricePerM:1500,dimensions:'~25×15',description:'قطعة هادئة'},
+{id:'P-27-8',number:'قطعة 514',block:'بلك 27',type:'residential',status:'available',area:375.0,price:562500,pricePerM:1500,dimensions:'~25×15',description:'آخر القطع في البلك 27'},
+{id:'P-27-9',number:'قطعة 516',block:'بلك 27',type:'residential',status:'available',area:499.0,price:748500,pricePerM:1500,dimensions:'~28×18',description:'قطعة كونر مميزة'}
+];
+const STAGES=[{pct:'10%',desc:'بعد توقيع العقد'},{pct:'15%',desc:'بعد عزل اللبشة'},{pct:'10%',desc:'بعد صب جدران القبو'},{pct:'5%',desc:'بعد صب سقف القبو'},{pct:'5%',desc:'بعد الميدة'},{pct:'5%',desc:'بعد أعمدة الدور الأرضي'},{pct:'10%',desc:'بعد سقف الدور الأرضي'},{pct:'5%',desc:'بعد أعمدة الدور الأول'},{pct:'10%',desc:'بعد سقف الدور الأول'},{pct:'10%',desc:'بعد سقف الدور الثاني'},{pct:'5%',desc:'بعد سقف الملحق - التسليم النهائي'}];
+let currentPlotId=null;
+function fmt(n){return n.toLocaleString('ar-SA');}
+function typeL(t){return t==='commercial'?'تجاري':'سكني';}
+function statusL(s){return{available:'متاح',reserved:'محجوز',sold:'مباع'}[s];}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+function showScreen(name){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+name).classList.add('active');document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));if(name==='map')renderMap();}
+function filterPlots(type,btn){
+  document.querySelectorAll('.filter-tab').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');
+  const filtered=PLOTS.filter(p=>type==='all'?true:type==='available'?p.status==='available':p.type===type);
+  document.getElementById('filter-count').textContent=filtered.length+' قطعة';
+  document.getElementById('avail-count').textContent=PLOTS.filter(p=>p.status==='available').length;
+  if(!filtered.length){document.getElementById('plots-grid').innerHTML='<div style="text-align:center;padding:48px 24px"><div style="font-size:48px">🔍</div><h3>لا توجد قطع</h3></div>';return;}
+  document.getElementById('plots-grid').innerHTML=filtered.map(p=>{
+    const ua=p.status!=='available';
+    const ac=p.type==='commercial'?'commercial':p.status==='sold'?'sold':p.status==='reserved'?'reserved':'';
+    const bc=p.type==='commercial'?'commercial':p.status==='sold'?'sold':p.status==='reserved'?'reserved':'residential';
+    return '<div class="plot-card'+(ua?' unavailable':'')+'" onclick="showDetail(\''+p.id+'\')">'
++'<div class="plot-card-accent '+ac+'"></div>'
++'<span class="plot-block-tag">'+p.block+'</span>'
++'<div class="plot-card-body">'
++'<div class="plot-card-top"><div><div class="plot-number">'+p.number+'</div><div class="plot-id">'+p.id.split('-').slice(1).join('-')+'</div></div>'
++'<span class="plot-badge '+bc+'">'+(ua?statusL(p.status):typeL(p.type))+'</span></div>'
++'<div class="plot-card-specs">'
++'<div><div class="spec-label">المساحة</div><div class="spec-value">'+p.area.toFixed(1)+' <span class="spec-unit">م²</span></div></div>'
++'<div><div class="spec-label">سعر المتر</div><div class="spec-value">'+p.pricePerM.toLocaleString()+' <span class="spec-unit">ر.س</span></div></div>'
++'<div><div class="spec-label">الأبعاد</div><div class="spec-value" style="font-size:12px">'+p.dimensions+'</div></div>'
++'</div>'
++'<div class="plot-card-footer"><div><div class="plot-price-label">السعر الإجمالي</div><div class="plot-price"><span class="currency">ر.س </span>'+fmt(p.price)+'</div></div>'
++'<button class="plot-cta'+(ua?' disabled':'')+'">'+( ua?statusL(p.status):'عرض التفاصيل')+'</button></div>'
++'</div></div>';
+  }).join('');
+}
+function showDetail(id){
+  const p=PLOTS.find(x=>x.id===id);if(!p)return;currentPlotId=id;
+  document.getElementById('detail-title').textContent=p.number+' – '+p.block;
+  document.getElementById('detail-subtitle').textContent=typeL(p.type);
+  const sc=p.status==='sold'?'var(--sold)':p.status==='reserved'?'var(--reserved)':p.type==='commercial'?'var(--commercial)':'var(--residential)';
+  document.getElementById('detail-body').innerHTML=
+    '<div class="detail-hero">'
+    +'<div class="detail-plot-icon">'+(p.type==='commercial'?'🏬':'🏡')+'</div>'
+    +'<div class="detail-plot-id">'+p.id+'</div>'
+    +'<div class="detail-plot-name">'+p.number+'</div>'
+    +'<span style="padding:5px 16px;border-radius:18px;font-size:12px;font-weight:700;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2)">'+typeL(p.type)+' • '+statusL(p.status)+'</span>'
+    +'</div>'
+    +'<div class="detail-specs-grid">'
+    +'<div class="detail-spec"><div class="detail-spec-icon">📐</div><div class="detail-spec-label">المساحة</div><div class="detail-spec-value">'+p.area.toFixed(1)+' م²</div></div>'
+    +'<div class="detail-spec"><div class="detail-spec-icon">💰</div><div class="detail-spec-label">سعر المتر</div><div class="detail-spec-value">'+p.pricePerM.toLocaleString()+' ر.س</div></div>'
+    +'<div class="detail-spec"><div class="detail-spec-icon">📏</div><div class="detail-spec-label">الأبعاد</div><div class="detail-spec-value" style="font-size:14px">'+p.dimensions+' م</div></div>'
+    +'<div class="detail-spec"><div class="detail-spec-icon">🏘️</div><div class="detail-spec-label">البلك</div><div class="detail-spec-value">'+p.block+'</div></div>'
+    +'</div>'
+    +'<div class="detail-section" style="padding-top:16px"><div class="detail-section-title">تفاصيل السعر</div>'
+    +'<div class="contract-info-card">'
+    +'<div class="contract-row"><span class="contract-key">السعر قبل الضريبة</span><span class="contract-val" style="color:var(--gold)">'+fmt(p.price)+' ر.س</span></div>'
+    +'<div class="contract-row"><span class="contract-key">ضريبة القيمة المضافة 15%</span><span class="contract-val">'+fmt(Math.round(p.price*0.15))+' ر.س</span></div>'
+    +'<div class="contract-row"><span class="contract-key" style="font-weight:700">الإجمالي شامل الضريبة</span><span class="contract-val" style="color:var(--dark)">'+fmt(Math.round(p.price*1.15))+' ر.س</span></div>'
+    +'<div class="contract-row"><span class="contract-key">الدفعة الأولى 10%</span><span class="contract-val" style="color:var(--residential)">'+fmt(Math.round(p.price*0.1))+' ر.س</span></div>'
+    +'</div></div>'
+    +'<div class="detail-section"><div class="detail-section-title">جدول الدفعات</div>'
+    +'<div class="payment-plan">'+STAGES.map((s,i)=>'<div class="payment-step"><div class="payment-dot">'+(i+1)+'</div><div class="payment-info"><div class="payment-desc">'+s.desc+'</div></div><div class="payment-pct">'+s.pct+'</div></div>').join('')+'</div></div>'
+    +'<div style="height:90px"></div>';
+  const b=document.getElementById('book-btn');
+  if(p.status!=='available'){b.textContent='⛔ غير متاح';b.style.background='rgba(0,0,0,0.12)';b.style.color='var(--text-muted)';b.style.boxShadow='none';b.onclick=()=>toast('هذه القطعة غير متاحة');}
+  else{b.textContent='📝 احجز الآن';b.style.background='var(--gold)';b.style.color='var(--dark)';b.style.boxShadow='0 4px 14px rgba(184,150,46,0.35)';b.onclick=bookPlot;}
+  showScreen('detail');
+}
+function callSales(){toast('📞 جاري الاتصال...');setTimeout(()=>window.location.href='tel:+966552427555',500);}
+function bookPlot(){
+  const p=PLOTS.find(x=>x.id===currentPlotId);if(!p||p.status!=='available')return;
+  const msg=encodeURIComponent('السلام عليكم، أرغب في حجز '+p.number+' من '+p.block+' بمساحة '+p.area+' م² في مخطط سما الروسان – غرناطة. السعر: '+fmt(p.price)+' ريال.');
+  toast('✅ جاري فتح واتساب...');setTimeout(()=>window.open('https://wa.me/966552427555?text='+msg,'_blank'),600);
+}
+function renderMap(){
+  const getC=p=>p.status==='sold'?'#8B0000':p.status==='reserved'?'#7A4A00':p.type==='commercial'?'#1A3D6B':'#1A6B3C';
+  let h='<rect x="0" y="0" width="500" height="700" fill="#EDE4D0"/><rect x="0" y="155" width="500" height="18" fill="#D4C9A8"/><rect x="0" y="385" width="500" height="18" fill="#D4C9A8"/><text x="250" y="148" text-anchor="middle" font-size="10" fill="#8B7A5A">شارع رئيسي</text><text x="250" y="378" text-anchor="middle" font-size="10" fill="#8B7A5A">شارع داخلي</text><text x="140" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#8B7A5A">بلك 25 – تجاري</text>';
+  PLOTS.filter(p=>p.block==='بلك 25').forEach((p,i)=>{const x=20+i*130,y=30,w=120,h2=108,c=getC(p);h+='<g style="cursor:pointer" onclick="showDetail(\''+p.id+'\')"><rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h2+'" rx="6" fill="'+c+'" fill-opacity="0.85"/><text x="'+(x+w/2)+'" y="'+(y+32)+'" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.7)">'+p.block+'</text><text x="'+(x+w/2)+'" y="'+(y+52)+'" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">'+p.number.replace('قطعة ','')+' </text><text x="'+(x+w/2)+'" y="'+(y+70)+'" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.9)">'+p.area+'م²</text><text x="'+(x+w/2)+'" y="'+(y+87)+'" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.7)">'+statusL(p.status)+'</text></g>';});
+  h+='<text x="140" y="183" text-anchor="middle" font-size="11" font-weight="700" fill="#8B7A5A">بلك 26 – سكني</text>';
+  PLOTS.filter(p=>p.block==='بلك 26').forEach((p,i)=>{const co=i%3,ro=Math.floor(i/3),x=14+co*78,y=192+ro*90,w=70,h2=80,c=getC(p);h+='<g style="cursor:pointer" onclick="showDetail(\''+p.id+'\')"><rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h2+'" rx="6" fill="'+c+'" fill-opacity="0.85"/><text x="'+(x+w/2)+'" y="'+(y+22)+'" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.7)">سكني</text><text x="'+(x+w/2)+'" y="'+(y+40)+'" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">'+p.number.replace('قطعة ','')+' </text><text x="'+(x+w/2)+'" y="'+(y+56)+'" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.8)">'+p.area+'م²</text><text x="'+(x+w/2)+'" y="'+(y+70)+'" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.65)">'+statusL(p.status)+'</text></g>';});
+  h+='<text x="140" y="413" text-anchor="middle" font-size="11" font-weight="700" fill="#8B7A5A">بلك 27 – سكني</text>';
+  PLOTS.filter(p=>p.block==='بلك 27').forEach((p,i)=>{const co=i%4,ro=Math.floor(i/4),x=8+co*57,y=422+ro*88,w=50,h2=78,c=getC(p);h+='<g style="cursor:pointer" onclick="showDetail(\''+p.id+'\')"><rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h2+'" rx="5" fill="'+c+'" fill-opacity="0.85"/><text x="'+(x+w/2)+'" y="'+(y+20)+'" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.7)">سكني</text><text x="'+(x+w/2)+'" y="'+(y+36)+'" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">'+p.number.replace('قطعة ','')+' </text><text x="'+(x+w/2)+'" y="'+(y+52)+'" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.8)">'+p.area+'م²</text><text x="'+(x+w/2)+'" y="'+(y+66)+'" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.65)">'+statusL(p.status)+'</text></g>';});
+  h+='<g transform="translate(455,30)"><circle cx="0" cy="0" r="22" fill="white" stroke="#D4C9A8" stroke-width="1.5"/><text x="0" y="-6" text-anchor="middle" font-size="14" font-weight="900" fill="#B8962E">ش</text><text x="0" y="16" text-anchor="middle" font-size="8" fill="#8B7A5A">ج</text></g>';
+  document.getElementById('map-svg').innerHTML=h;
+}
+filterPlots('all',document.querySelector('.filter-tab'));
+</script>
+</body>
+</html>
