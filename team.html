@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>فريق الموقع – التقارير اليومية</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#B8962E;--gold-light:#D4AF52;--gold-pale:#F7EDD4;--dark:#1A1208;--dark-2:#2C1F0A;--sand-light:#FAF5EA;--white:#FFFDF8;--text:#2C1F0A;--muted:#6B5A3A;--line:rgba(26,18,8,.09);--ok:#1A6B3C;--doing:#B8962E;--todo:#6B5A3A;--warn:#8B0000;--radius:16px;--shadow:0 4px 24px rgba(26,18,8,.08);}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Cairo',sans-serif;background:var(--sand-light);color:var(--text);line-height:1.7}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px 48px}
+header{background:linear-gradient(160deg,var(--dark),var(--dark-2) 60%,#3A2810);color:#fff;padding:28px 0 30px}
+header .wrap{padding-bottom:0}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.mark{width:42px;height:42px;border-radius:12px;background:var(--gold);color:var(--dark);font-weight:900;font-size:22px;display:flex;align-items:center;justify-content:center}
+.brand small{display:block;color:var(--gold-light);font-size:12px}
+h1{font-size:clamp(22px,4vw,30px);font-weight:900}
+h1 span{color:var(--gold-light)}
+.sub{color:rgba(255,255,255,.65);font-size:14px;margin-top:4px}
+.datebar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:18px}
+.datebar button,.datebar select{font-family:inherit;font-size:14px;border-radius:20px;border:1px solid rgba(212,175,82,.4);background:rgba(255,255,255,.06);color:#fff;padding:6px 14px;cursor:pointer}
+.datebar select option{color:var(--text)}
+.datebar button:disabled{opacity:.35;cursor:default}
+h2{font-size:19px;font-weight:800;margin:30px 0 12px;display:flex;align-items:center;gap:8px}
+h2::before{content:'';width:5px;height:20px;background:var(--gold);border-radius:3px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+.summary p{font-size:15px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:14px}
+.kpi{background:var(--gold-pale);border-radius:12px;padding:12px 14px}
+.kpi b{display:block;font-size:24px;font-weight:900}
+.kpi span{font-size:13px;font-weight:700}
+.kpi small{display:block;color:var(--muted);font-size:12px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.two h3{font-size:15px;margin-bottom:6px}
+ul.plain{list-style:none}
+ul.plain li{padding:4px 0;font-size:14px;border-bottom:1px dashed var(--line)}
+ul.plain li:last-child{border:0}
+.need li::before{content:'⚠️ '}
+.next li::before{content:'➜ ';color:var(--gold)}
+.team{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.member{display:flex;gap:12px;align-items:flex-start;cursor:pointer;transition:transform .15s}
+.member:hover{transform:translateY(-2px)}
+.av{flex:none;width:46px;height:46px;border-radius:50%;color:#fff;font-weight:900;font-size:20px;display:flex;align-items:center;justify-content:center}
+.member b{display:block;font-size:15px}
+.member .r{font-size:13px;color:var(--gold);font-weight:700}
+.member .f{font-size:12px;color:var(--muted);line-height:1.5}
+.lead-tag{font-size:11px;background:var(--dark);color:var(--gold-light);border-radius:10px;padding:0 8px;margin-inline-start:4px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.filters button{font-family:inherit;font-size:13px;font-weight:600;border:1.5px solid var(--line);background:var(--white);color:var(--muted);border-radius:20px;padding:5px 14px;cursor:pointer}
+.filters button.on{background:var(--dark);color:var(--gold-light);border-color:var(--dark)}
+.reports{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+.rep-head{display:flex;gap:10px;align-items:center;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.rep-head .av{width:38px;height:38px;font-size:16px}
+.rep-head b{display:block;font-size:15px}
+.rep-head small{color:var(--muted);font-size:12px}
+.prog{margin-inline-start:auto;font-size:12px;font-weight:700;color:var(--ok);white-space:nowrap}
+.task{display:flex;gap:8px;font-size:14px;padding:4px 0}
+.pill{flex:none;font-size:11px;font-weight:700;border-radius:10px;padding:1px 8px;height:fit-content;margin-top:3px}
+.pill.done{background:#E3F1E8;color:var(--ok)}
+.pill.doing{background:var(--gold-pale);color:#7A5A00}
+.pill.todo{background:#EEE9DF;color:var(--todo)}
+.sec{font-size:12px;font-weight:800;color:var(--muted);margin:10px 0 2px}
+.find{font-size:13px;background:#F3EEE2;border-radius:8px;padding:6px 10px;margin-top:4px}
+.block{font-size:13px;background:#F8E6E6;color:var(--warn);border-radius:8px;padding:6px 10px;margin-top:4px}
+.flash{outline:3px solid var(--gold);outline-offset:2px}
+footer{color:var(--muted);font-size:12px;text-align:center;margin-top:30px}
+@media (max-width:640px){.two{grid-template-columns:1fr}.reports{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand"><div class="mark">س</div><div><b>سما الروسان</b><small>مخطط غرناطة – فريق الموقع</small></div></div>
+    <h1>فريق الموقع <span>والتقارير اليومية</span></h1>
+    <p class="sub" id="rep-title"></p>
+    <div class="datebar">
+      <button id="prev" aria-label="اليوم السابق">→ السابق</button>
+      <select id="date-select" aria-label="اختر تاريخ التقرير"></select>
+      <button id="next" aria-label="اليوم التالي">التالي ←</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <h2>ملخص اليوم</h2>
+  <div class="card summary">
+    <p id="summary"></p>
+    <div class="kpis" id="kpis"></div>
+    <div class="two">
+      <div><h3>مطلوب من الإدارة</h3><ul class="plain need" id="needs"></ul></div>
+      <div><h3>خطة الغد</h3><ul class="plain next" id="tomorrow"></ul></div>
+    </div>
+  </div>
+
+  <h2>أعضاء الفريق</h2>
+  <div class="team" id="team"></div>
+
+  <h2>تقارير الأعضاء</h2>
+  <div class="filters" id="filters"></div>
+  <div class="reports" id="reports"></div>
+
+  <footer>صفحة داخلية للإدارة – غير مرتبطة بالموقع العام. لإضافة تقرير جديد عدّل الملف team/reports.js</footer>
+</main>
+
+<script src="team/reports.js"></script>
+<script>
+const STATUS={done:'تم',doing:'جارٍ',todo:'مخطط'};
+const GROUPS=[['all','الكل'],['content','المحتوى'],['seo','SEO و GEO'],['dev','التطوير'],['marketing','التسويق'],['ads','الإعلانات'],['ux','UI و UX']];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmtDate=d=>new Date(d+'T12:00:00').toLocaleDateString('ar-EG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+const sorted=[...REPORTS].sort((a,b)=>a.date.localeCompare(b.date));
+let idx=sorted.length-1, group='all';
+
+const sel=document.getElementById('date-select');
+sel.innerHTML=sorted.map((r,i)=>`<option value="${i}">اليوم ${r.day} – ${fmtDate(r.date)}</option>`).join('');
+sel.onchange=()=>{idx=+sel.value;render()};
+document.getElementById('prev').onclick=()=>{if(idx>0){idx--;render()}};
+document.getElementById('next').onclick=()=>{if(idx<sorted.length-1){idx++;render()}};
+
+document.getElementById('filters').innerHTML=GROUPS.map(([k,l])=>`<button data-g="${k}" class="${k==='all'?'on':''}">${l}</button>`).join('');
+document.getElementById('filters').onclick=e=>{const g=e.target.dataset.g;if(!g)return;group=g;
+  document.querySelectorAll('#filters button').forEach(b=>b.classList.toggle('on',b.dataset.g===g));renderReports()};
+
+const av=m=>`<div class="av" style="background:${m.color}">${m.initials}</div>`;
+document.getElementById('team').innerHTML=TEAM.map(m=>`
+  <div class="card member" data-id="${m.id}">${av(m)}
+    <div><b>${esc(m.name)}${m.lead?'<span class="lead-tag">قائدة الفريق</span>':''}</b><div class="r">${esc(m.role)}</div><div class="f">${esc(m.focus)}</div></div>
+  </div>`).join('');
+document.getElementById('team').onclick=e=>{const c=e.target.closest('.member');if(!c)return;
+  group='all';document.querySelectorAll('#filters button').forEach(b=>b.classList.toggle('on',b.dataset.g==='all'));renderReports();
+  const el=document.getElementById('rep-'+c.dataset.id);if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),1500)}};
+
+function render(){
+  const r=sorted[idx];sel.value=idx;
+  document.getElementById('prev').disabled=idx===0;
+  document.getElementById('next').disabled=idx===sorted.length-1;
+  document.getElementById('rep-title').textContent=`${fmtDate(r.date)} · ${r.title}`;
+  document.getElementById('summary').textContent=r.summary;
+  document.getElementById('kpis').innerHTML=(r.kpis||[]).map(k=>`<div class="kpi"><span>${esc(k.label)}</span><b>${esc(k.value)}</b><small>${esc(k.note||'')}</small></div>`).join('');
+  document.getElementById('needs').innerHTML=(r.needsFromOwner||[]).map(x=>`<li>${esc(x)}</li>`).join('')||'<li>لا شيء</li>';
+  document.getElementById('tomorrow').innerHTML=(r.tomorrow||[]).map(x=>`<li>${esc(x)}</li>`).join('');
+  renderReports();
+}
+function renderReports(){
+  const r=sorted[idx];
+  document.getElementById('reports').innerHTML=TEAM.filter(m=>group==='all'||m.group===group).map(m=>{
+    const e=r.entries[m.id];if(!e)return '';
+    const done=e.tasks.filter(t=>t.s==='done').length;
+    return `<div class="card" id="rep-${m.id}">
+      <div class="rep-head">${av(m)}<div><b>${esc(m.name)}</b><small>${esc(m.role)}</small></div><span class="prog">${done}/${e.tasks.length} تم</span></div>
+      ${e.tasks.map(t=>`<div class="task"><span class="pill ${t.s}">${STATUS[t.s]}</span><span>${esc(t.t)}</span></div>`).join('')}
+      ${e.findings&&e.findings.length?`<div class="sec">ملاحظات</div>${e.findings.map(f=>`<div class="find">💡 ${esc(f)}</div>`).join('')}`:''}
+      ${e.blockers&&e.blockers.length?`<div class="sec">معوّقات</div>${e.blockers.map(b=>`<div class="block">⛔ ${esc(b)}</div>`).join('')}`:''}
+    </div>`}).join('');
+}
+render();
+</script>
+</body>
+</html>
