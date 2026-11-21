@@ -20,7 +20,8 @@ for (const w of ["500", "700", "900"]) {
   }
 }
 
-const C = { navy: "#1f2a44", cream: "#f6f1e8", copper: "#c0803d", gold: "#e3b877", white: "#ffffff" };
+// ألوان هوية تكسا ديكور (من موقع المتجر)
+const C = { navy: "#16213d", cream: "#faf9f7", copper: "#cc5500", gold: "#e8b33d", red: "#c8102e", white: "#ffffff" };
 
 const sum = (xs: { frames: number }[]) => xs.reduce((n, x) => n + x.frames, 0);
 const toolsClips = (o: Offer) => [o.tools.calc, o.tools.planner, o.tools.claim].filter((c): c is NonNullable<typeof c> => Boolean(c));
@@ -44,7 +45,7 @@ const Backdrop: React.FC<{ src: string; dim?: number; blur?: number; duration: n
   return (
     <AbsoluteFill>
       <Img src={staticFile(src)} style={{ width: "100%", height: "100%", objectFit: "cover", transform: `scale(${scale})`, filter: blur ? `blur(${blur}px)` : undefined }} />
-      <AbsoluteFill style={{ background: `linear-gradient(180deg, rgba(31,42,68,${dim * 0.6}) 0%, rgba(31,42,68,${dim}) 55%, rgba(20,27,45,${Math.min(1, dim + 0.35)}) 100%)` }} />
+      <AbsoluteFill style={{ background: `linear-gradient(180deg, rgba(22,33,61,${dim * 0.6}) 0%, rgba(22,33,61,${dim}) 55%, rgba(14,21,40,${Math.min(1, dim + 0.35)}) 100%)` }} />
     </AbsoluteFill>
   );
 };
@@ -103,14 +104,13 @@ const TierScene: React.FC<{ offer: Offer; tier: Tier; index: number }> = ({ offe
       <Rise>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <Badge text="عروض باركيه SPC" />
-          <div style={{ color: C.navy, fontWeight: 700, fontSize: 44 }}>{index + 1} / {offer.tiers.length}</div>
         </div>
       </Rise>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 22, marginTop: 50 }}>
         {tier.images.map((src, i) => {
           const p = spring({ frame: frame - 4 - i * 4, fps: 30, config: { damping: 200 } });
           return (
-            <div key={src} style={{ gridColumn: i === 0 ? "span 2" : undefined, height: i === 0 ? 540 : 300,  borderRadius: 30, overflow: "hidden", opacity: p, transform: `scale(${0.9 + p * 0.1})`, boxShadow: "0 12px 30px rgba(31,42,68,0.18)" }}>
+            <div key={src} style={{ gridColumn: i === 0 ? "span 2" : undefined, height: i === 0 ? 540 : 300,  borderRadius: 30, overflow: "hidden", opacity: p, transform: `scale(${0.9 + p * 0.1})`, boxShadow: "0 12px 30px rgba(22,33,61,0.18)" }}>
               <Img src={staticFile(src)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             </div>
           );
@@ -118,12 +118,12 @@ const TierScene: React.FC<{ offer: Offer; tier: Tier; index: number }> = ({ offe
       </div>
       <Rise delay={14} style={{ marginTop: 50 }}>
         <div style={{ color: C.navy, fontWeight: 700, fontSize: 74, lineHeight: 1.2 }}>{tier.label}</div>
-        <div style={{ color: tier.highlight ? "#d0312d" : "#5b6478", fontWeight: tier.highlight ? 700 : 500, fontSize: 42, marginTop: 6 }}>{tier.note}</div>
+        <div style={{ color: tier.highlight ? C.red : "#5b6478", fontWeight: tier.highlight ? 700 : 500, fontSize: 42, marginTop: 6 }}>{tier.note}</div>
       </Rise>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 40 }}>
         <div>
           <div style={{ display: "flex", alignItems: "baseline", gap: 20, opacity: Math.min(1, pricePop), transform: `scale(${0.6 + pricePop * 0.4})`, transformOrigin: "right center" }}>
-            <div style={{ color: C.copper, fontWeight: 700, fontSize: 180, lineHeight: 1 }}>{tier.now}</div>
+            <div style={{ color: C.red, fontWeight: 900, fontSize: 190, lineHeight: 1 }}>{tier.now}</div>
             <div style={{ color: C.navy, fontWeight: 500, fontSize: 48 }}>{offer.unit}</div>
           </div>
         </div>
@@ -136,7 +136,7 @@ const Tools: React.FC<{ offer: Offer }> = ({ offer }) => {
   const { calc, planner, claim } = offer.tools;
   let t = 0;
   const at = (d: number) => { const from = t; t += d; return from; };
-  const card: React.CSSProperties = { background: C.white, borderRadius: 40, padding: "50px 54px", boxShadow: "0 16px 40px rgba(31,42,68,0.14)" };
+  const card: React.CSSProperties = { background: C.white, borderRadius: 40, padding: "50px 54px", boxShadow: "0 16px 40px rgba(22,33,61,0.14)" };
   const field: React.CSSProperties = { background: C.cream, borderRadius: 24, padding: "24px 34px", display: "flex", justifyContent: "space-between", color: C.navy, fontWeight: 700, fontSize: 48 };
   return (
     <AbsoluteFill style={{ background: C.cream }}>
@@ -218,7 +218,7 @@ const Outro: React.FC<{ offer: Offer }> = ({ offer }) => {
   const k = offer.outro.pace ?? 1;
   return (
     <AbsoluteFill style={{ background: C.cream, alignItems: "center", justifyContent: "center", padding: 80, textAlign: "center" }}>
-      <div style={{ width: 380, height: 380, borderRadius: 56, overflow: "hidden", transform: `scale(${p})`, boxShadow: "0 20px 50px rgba(31,42,68,0.18)" }}>
+      <div style={{ width: 380, height: 380, borderRadius: 56, overflow: "hidden", transform: `scale(${p})`, boxShadow: "0 20px 50px rgba(22,33,61,0.18)" }}>
         <Img src={staticFile("brand/logo.png")} style={{ width: "100%", height: "100%" }} />
       </div>
       <Rise delay={12 * k}><div style={{ color: C.navy, fontWeight: 700, fontSize: 60, marginTop: 56 }}>{offer.outro.lines[0]}</div></Rise>
@@ -254,6 +254,30 @@ export const OfferReel: React.FC<{ offer: Offer }> = ({ offer }) => {
       {offer.service ? <Sequence from={at(offer.service.frames)} durationInFrames={offer.service.frames}><Service offer={offer} sv={offer.service} /></Sequence> : null}
       <Sequence from={at(offer.outro.frames)} durationInFrames={offer.outro.frames}><Outro offer={offer} /></Sequence>
       <Sequence durationInFrames={outroFrom}><LogoChip /></Sequence>
+    </AbsoluteFill>
+  );
+};
+
+// غلاف ثابت للفيديو (صورة 1080×1920)
+export const Cover: React.FC<{ offer: Offer }> = ({ offer }) => {
+  const cv = offer.cover;
+  if (!cv) return null;
+  return (
+    <AbsoluteFill style={{ fontFamily: `${FONT}, "Noto Color Emoji"`, direction: "rtl", background: C.cream, alignItems: "center", textAlign: "center" }}>
+      <div style={{ width: 230, height: 230, borderRadius: 44, overflow: "hidden", marginTop: 150, boxShadow: "0 14px 36px rgba(22,33,61,0.16)" }}>
+        <Img src={staticFile("brand/logo.png")} style={{ width: "100%", height: "100%" }} />
+      </div>
+      <div style={{ background: C.red, color: C.white, fontWeight: 700, fontSize: 50, padding: "20px 54px", borderRadius: 999, marginTop: 70 }}>● {cv.pill}</div>
+      <div style={{ fontWeight: 900, fontSize: 124, lineHeight: 1.2, marginTop: 40, whiteSpace: "nowrap" }}>
+        <span style={{ color: C.navy }}>{cv.lead} </span><span style={{ color: C.copper }}>{cv.name}</span>
+      </div>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 22, marginTop: 30, color: C.navy, fontWeight: 700, fontSize: 68 }}>
+        <span>يبدأ من</span><span style={{ color: C.red, fontWeight: 900, fontSize: 190, lineHeight: 1 }}>{cv.from}</span><span>{offer.unit}</span>
+      </div>
+      <div style={{ color: C.navy, fontWeight: 700, fontSize: 50, marginTop: 30 }}>{cv.note}</div>
+      <div style={{ position: "absolute", left: 60, right: 60, bottom: 130, height: 620, borderRadius: 44, overflow: "hidden", boxShadow: "0 16px 40px rgba(22,33,61,0.18)" }}>
+        <Img src={staticFile(cv.image)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+      </div>
     </AbsoluteFill>
   );
 };

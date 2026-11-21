@@ -1,5 +1,5 @@
-import { Composition } from "remotion";
-import { OfferReel, reelDuration } from "./OfferReel";
+import { Composition, Still } from "remotion";
+import { Cover, OfferReel, reelDuration } from "./OfferReel";
 import { offers } from "./offers";
 
 export const Root = () => (
@@ -15,6 +15,9 @@ export const Root = () => (
         durationInFrames={reelDuration(o)}
         defaultProps={{ offer: o }}
       />
+    ))}
+    {offers.filter((o) => o.cover).map((o) => (
+      <Still key={o.id} id={`cover-${o.id}`} component={Cover} width={1080} height={1920} defaultProps={{ offer: o }} />
     ))}
   </>
 );

@@ -20,6 +20,7 @@ export type Offer = {
   heroImage: string;
   roomImage: string;
   url: string;
+  cover?: { pill: string; lead: string; name: string; from: number; note: string; image: string };
   hook: Clip & { badge: string; title: string; big: string; sub: string; bigAt: number; subAt: number };
   features?: { heading: string; items: (Clip & { title: string; sub: string })[] };
   unit: string;
@@ -44,6 +45,7 @@ export const offers: Offer[] = [
     heroImage: "parquet-spc/bedroom.webp",
     roomImage: "parquet-spc/room.jpg",
     url: "texadecore.store",
+    cover: { pill: "الجمعة البيضاء بدأت", lead: "عروض", name: "باركيه SPC", from: 59, note: "السعر شامل الضريبة", image: room("t1a") },
     hook: {
       vo: "1", frames: 302,
       badge: "أقوى عروض باركيه SPC",
@@ -94,8 +96,9 @@ export const offers: Offer[] = [
     heroImage: "parquet-spc/bedroom.webp",
     roomImage: "parquet-spc/room.jpg",
     url: "texadecore.store",
+    cover: { pill: "الجمعة البيضاء بدأت", lead: "عروض", name: "باركيه SPC", from: 59, note: "السعر شامل الضريبة", image: room("t1a") },
     hook: {
-      vo: "h", frames: 195,
+      vo: "h", frames: 197,
       badge: "عروض باركيه SPC",
       title: "العروض وصلت!",
       big: `ضد الماء ${ltr("100%")} 💧`,
@@ -104,16 +107,16 @@ export const offers: Offer[] = [
     },
     unit: "ريال / م²",
     tiers: [
-      { vo: "p1", frames: 118, label: "4 ألوان خشبية", note: "الأوفر سعراً", highlight: true, now: 59, images: [room("t1a"), room("t1b"), room("t1c")] },
-      { vo: "p2", frames: 79, label: "3 نقشات مميزة", note: "لمسة فخمة ومختلفة", now: 90, images: [room("t3a"), room("t3b"), room("t3c")] },
-      { vo: "p3", frames: 105, label: "11 لون ودرجة", note: "الأكثر طلباً وتنوعاً", now: 99, images: [room("t2a"), room("t2b"), room("t2c")] },
+      { vo: "p1", frames: 117, label: "4 ألوان خشبية", note: "الأوفر سعراً", highlight: true, now: 59, images: [room("t1a"), room("t1b"), room("t1c")] },
+      { vo: "p2", frames: 85, label: "3 نقشات مميزة", note: "لمسة فخمة ومختلفة", now: 90, images: [room("t3a"), room("t3b"), room("t3c")] },
+      { vo: "p3", frames: 102, label: "11 لون ودرجة", note: "الأكثر طلباً وتنوعاً", now: 99, images: [room("t2a"), room("t2b"), room("t2c")] },
     ],
     tools: {
-      planner: { vo: "t", frames: 156, badge: "الحاسبة + مخطط الغرفة 📱", title: "احسب كميتك", accent: "وصمّم غرفتك", note: "مجاناً من جوالك" },
-      claim: { vo: "c", frames: 110, title: "سهّلناها عليك..", accent: "وبأقل الأسعار في السعودية" },
+      planner: { vo: "t", frames: 152, badge: "الحاسبة + مخطط الغرفة 📱", title: "احسب كميتك", accent: "وصمّم غرفتك", note: "مجاناً من جوالك" },
+      claim: { vo: "c", frames: 105, title: "سهّلناها عليك..", accent: "وبأقل الأسعار في السعودية" },
     },
     outro: {
-      vo: "o", frames: 137, pace: 0.4,
+      vo: "o", frames: 157, pace: 0.4,
       lines: ["الأسعار شاملة الضريبة ✅", "العرض ساري حتى نفاد الكمية"],
       cta: "اطلب الآن من متجرنا",
       extra: "قياس وتركيب احترافي · شحن لكل مدن المملكة 🚚",
