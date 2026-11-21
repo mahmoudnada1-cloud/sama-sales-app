@@ -91,7 +91,6 @@ const Features: React.FC<{ offer: Offer }> = ({ offer }) => (
 const TierScene: React.FC<{ offer: Offer; tier: Tier; index: number }> = ({ offer, tier, index }) => {
   const frame = useCurrentFrame();
   const pricePop = useIn(24, 12);
-  const off = Math.round((1 - tier.now / tier.was) * 100);
   return (
     <AbsoluteFill style={{ background: C.cream, padding: "200px 70px 0" }}>
       <Rise>
@@ -120,10 +119,6 @@ const TierScene: React.FC<{ offer: Offer; tier: Tier; index: number }> = ({ offe
             <div style={{ color: C.copper, fontWeight: 900, fontSize: 260, lineHeight: 1 }}>{tier.now}</div>
             <div style={{ color: C.navy, fontWeight: 700, fontSize: 54 }}>{offer.unit}</div>
           </div>
-        </div>
-        <div style={{ width: 230, height: 230, borderRadius: 115, background: C.navy, color: C.white, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", transform: `scale(${pricePop}) rotate(-8deg)`, flexShrink: 0 }}>
-          <div style={{ fontWeight: 500, fontSize: 40 }}>خصم</div>
-          <div style={{ fontWeight: 900, fontSize: 84, lineHeight: 1, color: C.gold }}>{off}%</div>
         </div>
       </div>
     </AbsoluteFill>

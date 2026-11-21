@@ -2,9 +2,8 @@
 // المصدر: صفحات العروض على texadecore.store (آخر سحب: 2026-11-21).
 
 export type Tier = {
-  label: string; // مثال: "سماكة 5 ملم"
+  label: string; // عنوان الشريحة
   note: string; // سطر صغير تحت العنوان
-  was: number;
   now: number;
   images: string[]; // مسارات داخل public/
 };
@@ -39,9 +38,9 @@ export const offers: Offer[] = [
     ],
     unit: "ريال / م²",
     tiers: [
-      { label: "سماكة 4 ملم", note: "4 ألوان خشبية", was: 73, now: 61, images: [spc(4), spc(5), spc(6), spc(7)] },
-      { label: "سماكة 5 ملم", note: "11 لون — الأكثر تنوعاً", was: 146, now: 103, images: [spc(9), spc(11), spc(13), spc(3)] },
-      { label: "سماكة 6 و 7 ملم", note: "3 تصاميم", was: 109, now: 90, images: [spc(0), spc(1), spc(2)] },
+      { label: "4 ألوان خشبية", note: "الأوفر سعراً", now: 61, images: [spc(4), spc(5), spc(6), spc(7)] },
+      { label: "11 لون ودرجة", note: "الأكثر تنوعاً", now: 103, images: [spc(9), spc(11), spc(13), spc(3)] },
+      { label: "3 نقشات مميزة", note: "لمسة مختلفة للأرضية", now: 90, images: [spc(0), spc(1), spc(2)] },
     ],
     url: "texadecore.store",
   },
