@@ -90,8 +90,7 @@ const Features: React.FC<{ offer: Offer }> = ({ offer }) => (
 
 const TierScene: React.FC<{ offer: Offer; tier: Tier; index: number }> = ({ offer, tier, index }) => {
   const frame = useCurrentFrame();
-  const strike = interpolate(frame, [26, 40], [0, 100], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const pricePop = useIn(38, 12);
+  const pricePop = useIn(24, 12);
   const off = Math.round((1 - tier.now / tier.was) * 100);
   return (
     <AbsoluteFill style={{ background: C.cream, padding: "200px 70px 0" }}>
@@ -117,14 +116,8 @@ const TierScene: React.FC<{ offer: Offer; tier: Tier; index: number }> = ({ offe
       </Rise>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 40 }}>
         <div>
-          <Rise delay={20}>
-            <div style={{ position: "relative", display: "inline-block", color: "#8a8fa0", fontWeight: 700, fontSize: 64 }}>
-              كان {tier.was}
-              <div style={{ position: "absolute", right: 0, top: "52%", height: 6, width: `${strike}%`, background: "#c0392b", borderRadius: 3 }} />
-            </div>
-          </Rise>
           <div style={{ display: "flex", alignItems: "baseline", gap: 20, opacity: Math.min(1, pricePop), transform: `scale(${0.6 + pricePop * 0.4})`, transformOrigin: "right center" }}>
-            <div style={{ color: C.copper, fontWeight: 900, fontSize: 230, lineHeight: 1 }}>{tier.now}</div>
+            <div style={{ color: C.copper, fontWeight: 900, fontSize: 260, lineHeight: 1 }}>{tier.now}</div>
             <div style={{ color: C.navy, fontWeight: 700, fontSize: 54 }}>{offer.unit}</div>
           </div>
         </div>
