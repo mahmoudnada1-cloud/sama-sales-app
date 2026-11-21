@@ -25,8 +25,9 @@ const C = { navy: "#16213d", cream: "#faf9f7", copper: "#cc5500", gold: "#e8b33d
 
 const sum = (xs: { frames: number }[]) => xs.reduce((n, x) => n + x.frames, 0);
 const toolsClips = (o: Offer) => [o.tools.calc, o.tools.planner, o.tools.claim].filter((c): c is NonNullable<typeof c> => Boolean(c));
+const coverLen = (o: Offer) => (o.cover ? o.coverFrames ?? 0 : 0);
 export const reelDuration = (o: Offer) =>
-  o.hook.frames + sum(o.features?.items ?? []) + sum(o.tiers) + sum(toolsClips(o)) + (o.service?.frames ?? 0) + o.outro.frames;
+  coverLen(o) + o.hook.frames + sum(o.features?.items ?? []) + sum(o.tiers) + sum(toolsClips(o)) + (o.service?.frames ?? 0) + o.outro.frames;
 
 const useIn = (delay = 0, damping = 200) => {
   const frame = useCurrentFrame();
@@ -218,7 +219,7 @@ const Outro: React.FC<{ offer: Offer }> = ({ offer }) => {
   const k = offer.outro.pace ?? 1;
   return (
     <AbsoluteFill style={{ background: C.cream, alignItems: "center", justifyContent: "center", padding: 80, textAlign: "center" }}>
-      <div style={{ width: 380, height: 380, borderRadius: 56, overflow: "hidden", transform: `scale(${p})`, boxShadow: "0 20px 50px rgba(22,33,61,0.18)" }}>
+      <div style={{ width: 320, height: 320, borderRadius: 50, overflow: "hidden", transform: `scale(${p})`, boxShadow: "0 20px 50px rgba(22,33,61,0.18)" }}>
         <Img src={staticFile("brand/logo.png")} style={{ width: "100%", height: "100%" }} />
       </div>
       <Rise delay={12 * k}><div style={{ color: C.navy, fontWeight: 700, fontSize: 60, marginTop: 56 }}>{offer.outro.lines[0]}</div></Rise>
@@ -227,6 +228,13 @@ const Outro: React.FC<{ offer: Offer }> = ({ offer }) => {
       <Rise delay={150 * k}>
         <div style={{ background: C.navy, color: C.white, fontWeight: 700, fontSize: 64, padding: "26px 64px", borderRadius: 999, marginTop: 24, direction: "ltr" }}>{offer.url}</div>
       </Rise>
+      {offer.phone ? (
+        <Rise delay={160 * k}>
+          <div style={{ border: `4px solid ${C.copper}`, color: C.navy, fontWeight: 700, fontSize: 52, padding: "18px 48px", borderRadius: 999, marginTop: 26 }}>
+            واتساب المبيعات: <span style={{ direction: "ltr", unicodeBidi: "isolate", fontWeight: 900 }}>{offer.phone}</span>
+          </div>
+        </Rise>
+      ) : null}
       {offer.outro.extra ? <Rise delay={170 * k}><div style={{ color: "#5b6478", fontWeight: 700, fontSize: 40, marginTop: 44 }}>{offer.outro.extra}</div></Rise> : null}
       <Vo offer={offer} clip={offer.outro} />
     </AbsoluteFill>
@@ -235,7 +243,8 @@ const Outro: React.FC<{ offer: Offer }> = ({ offer }) => {
 
 export const OfferReel: React.FC<{ offer: Offer }> = ({ offer }) => {
   const { durationInFrames } = useVideoConfig();
-  let t = 0;
+  const cover = coverLen(offer);
+  let t = cover;
   const at = (d: number) => { const from = t; t += d; return from; };
   const featuresFrames = sum(offer.features?.items ?? []);
   const toolsFrames = sum(toolsClips(offer));
@@ -253,7 +262,8 @@ export const OfferReel: React.FC<{ offer: Offer }> = ({ offer }) => {
       <Sequence from={at(toolsFrames)} durationInFrames={toolsFrames}><Tools offer={offer} /></Sequence>
       {offer.service ? <Sequence from={at(offer.service.frames)} durationInFrames={offer.service.frames}><Service offer={offer} sv={offer.service} /></Sequence> : null}
       <Sequence from={at(offer.outro.frames)} durationInFrames={offer.outro.frames}><Outro offer={offer} /></Sequence>
-      <Sequence durationInFrames={outroFrom}><LogoChip /></Sequence>
+      <Sequence from={cover} durationInFrames={outroFrom - cover}><LogoChip /></Sequence>
+      {cover ? <Sequence durationInFrames={cover}><Cover offer={offer} /></Sequence> : null}
     </AbsoluteFill>
   );
 };

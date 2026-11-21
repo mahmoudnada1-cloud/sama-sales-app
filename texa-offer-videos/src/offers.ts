@@ -20,6 +20,8 @@ export type Offer = {
   heroImage: string;
   roomImage: string;
   url: string;
+  phone?: string; // رقم المبيعات (واتساب)
+  coverFrames?: number; // عدد فريمات عرض الغلاف في بداية الفيديو
   cover?: { pill?: string; lead: string; name: string; from: number; note: string; image: string };
   hook: Clip & { badge: string; title: string; big: string; sub: string; bigAt: number; subAt: number };
   features?: { heading: string; items: (Clip & { title: string; sub: string })[] };
@@ -45,6 +47,8 @@ export const offers: Offer[] = [
     heroImage: "parquet-spc/bedroom.webp",
     roomImage: "parquet-spc/room.jpg",
     url: "texadecore.store",
+    phone: "0591409002",
+    coverFrames: 15,
     cover: { lead: "عروض", name: "باركيه SPC", from: 59, note: "السعر شامل الضريبة", image: room("t1a") },
     hook: {
       vo: "1", frames: 302,
@@ -96,6 +100,8 @@ export const offers: Offer[] = [
     heroImage: "parquet-spc/bedroom.webp",
     roomImage: "parquet-spc/room.jpg",
     url: "texadecore.store",
+    phone: "0591409002",
+    coverFrames: 15,
     cover: { lead: "عروض", name: "باركيه SPC", from: 59, note: "السعر شامل الضريبة", image: room("t1a") },
     hook: {
       vo: "h", frames: 197,
