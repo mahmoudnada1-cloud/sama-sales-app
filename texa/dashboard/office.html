@@ -1,0 +1,240 @@
+<title>مكاتب فريق تكسا</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;700&display=swap">
+<style>
+/* Layout: a building floor plan read right-to-left. Manager's office spans the top, five specialist offices in a grid below, activity log at the side. */
+:root{
+  --bg:#e9eeec; --surface:#f8faf9; --ink:#17222a; --muted:#5d6b72; --line:#cfd8d5;
+  --brass:#b9822b; --work:#1f9d63; --wait:#c98a12; --idle:#8a979c; --done:#2f6fd0;
+  --floor:#c9a57a; --floor-2:#b58c5e; --desk:#6b4a32; --screen-off:#33414a; --screen-on:#dff6ea; --skin:#e0b08a;
+  --display:"Reem Kufi","IBM Plex Sans Arabic",Tahoma,sans-serif;
+  --body:"IBM Plex Sans Arabic",Tahoma,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0e161b; --surface:#16222a; --ink:#e8efee; --muted:#93a3a9; --line:#26363f;
+  --brass:#e2ac55; --work:#3ed08a; --wait:#f0b440; --idle:#6f7f86; --done:#6ea5f5;
+  --floor:#7a5a3c; --floor-2:#664a30; --desk:#3d2a1c; --screen-off:#0a1115; --screen-on:#bff3d8; --skin:#d9a57e;
+  color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0e161b; --surface:#16222a; --ink:#e8efee; --muted:#93a3a9; --line:#26363f;
+  --brass:#e2ac55; --work:#3ed08a; --wait:#f0b440; --idle:#6f7f86; --done:#6ea5f5;
+  --floor:#7a5a3c; --floor-2:#664a30; --desk:#3d2a1c; --screen-off:#0a1115; --screen-on:#bff3d8; --skin:#d9a57e;
+  color-scheme:dark }
+
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+h1{font-family:var(--display);font-size:clamp(24px,4vw,34px);font-weight:700;margin:0;line-height:1.2;text-wrap:balance}
+.sub{color:var(--muted);margin:2px 0 0;font-size:14px}
+.sub a{color:inherit}
+.tally{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;font-size:13px;font-variant-numeric:tabular-nums}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--idle);flex:none}
+.dot.working{background:var(--work)} .dot.waiting{background:var(--wait)} .dot.done{background:var(--done)}
+.live{color:var(--muted);font-size:13px}
+
+.main{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
+.floorplan{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;min-width:0}
+.office{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.office.lead{grid-column:1/-1}
+.office.lead .room{aspect-ratio:auto;height:clamp(150px,22vw,210px)}
+.room{display:block;width:100%;aspect-ratio:240/150;background:var(--wall)}
+.plate{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px;border-top:3px solid var(--tint)}
+.plate-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.name{font-family:var(--display);font-weight:700;font-size:17px;margin:0}
+.role{color:var(--muted);font-size:12.5px;margin:0}
+.badge{font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px;border:1px solid currentColor;color:var(--idle);white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.office[data-status="working"] .badge{color:var(--work)}
+.office[data-status="waiting"] .badge{color:var(--wait)}
+.office[data-status="done"] .badge{color:var(--done)}
+.task{margin:4px 0 0;font-size:14px;font-weight:500;overflow-wrap:anywhere;min-height:2.9em}
+.when{color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+
+/* scene */
+.wall{fill:var(--wall)} .paper{color:var(--tint);opacity:.28}
+.skirt{fill:var(--desk);opacity:.55}
+.floorbase{fill:var(--floor)} .floorpat{color:var(--floor-2)}
+.desk{fill:var(--desk)} .chair{fill:var(--tint);opacity:.85}
+.monitor{fill:#1c262c} .screen{fill:var(--screen-off);transition:fill .4s}
+.code{fill:var(--work);opacity:0}
+.kbd{fill:#9aa7ad}
+.skin{fill:var(--skin)} .hair{fill:var(--hair)} .shirt{fill:var(--tint)}
+.arm{stroke:var(--tint);stroke-width:6;stroke-linecap:round;fill:none}
+.lampcord{stroke:var(--muted);stroke-width:1}
+.lamp{fill:var(--brass)} .glow{fill:var(--brass);opacity:0;transition:opacity .5s}
+.prop{stroke:var(--tint);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.propfill{fill:var(--tint);opacity:.55}
+.frame{fill:var(--surface);stroke:var(--desk);stroke-width:2}
+.zz{fill:var(--muted);font:700 11px var(--body);opacity:0}
+.check{stroke:var(--done);stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:0}
+.mug{fill:var(--surface);stroke:var(--muted);stroke-width:1}
+.steam{stroke:var(--muted);stroke-width:1.2;fill:none;stroke-linecap:round;opacity:0}
+
+.office[data-status="working"] .screen{fill:var(--screen-on)}
+.office[data-status="working"] .glow{opacity:.22}
+.office[data-status="working"] .code{opacity:.9;animation:code 1.6s steps(6) infinite}
+.office[data-status="working"] .code:nth-of-type(2){animation-delay:.3s}
+.office[data-status="working"] .code:nth-of-type(3){animation-delay:.7s}
+.office[data-status="working"] .armL{animation:tap .32s ease-in-out infinite alternate}
+.office[data-status="working"] .armR{animation:tap .32s ease-in-out .16s infinite alternate}
+.office[data-status="working"] .head{animation:nod 2.4s ease-in-out infinite}
+.office[data-status="waiting"] .screen{fill:var(--wait);opacity:.5;animation:blink 1.4s ease-in-out infinite}
+.office[data-status="waiting"] .head{animation:look 3s ease-in-out infinite}
+.office[data-status="idle"] .zz{animation:zz 3s ease-in-out infinite}
+.office[data-status="idle"] .zz.z2{animation-delay:1.2s}
+.office[data-status="idle"] .steam{animation:steam 2.6s ease-in-out infinite}
+.office[data-status="idle"] .person{transform:translateY(2px) rotate(3deg);transform-origin:158px 96px;transform-box:view-box}
+.office[data-status="done"] .screen{fill:var(--surface)} .office[data-status="done"] .check{opacity:1}
+.person{transition:transform .5s}
+.head{transform-origin:158px 66px;transform-box:view-box}
+@keyframes code{0%{transform:scaleX(.2)}100%{transform:scaleX(1)}}
+.code{transform-origin:82px 0;transform-box:view-box}
+@keyframes tap{from{transform:translateY(0)}to{transform:translateY(-2.5px)}}
+@keyframes nod{0%,100%{transform:rotate(0)}50%{transform:rotate(-3deg)}}
+@keyframes look{0%,100%{transform:rotate(0)}30%{transform:rotate(6deg)}70%{transform:rotate(-6deg)}}
+@keyframes blink{50%{opacity:.2}}
+@keyframes zz{0%{opacity:0;transform:translate(0,0)}30%{opacity:.9}100%{opacity:0;transform:translate(8px,-16px)}}
+@keyframes steam{0%{opacity:0;transform:translateY(2px)}40%{opacity:.8}100%{opacity:0;transform:translateY(-6px)}}
+@media (prefers-reduced-motion: reduce){ .office *{animation:none!important} .office[data-status="idle"] .zz{opacity:.7} }
+
+aside{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+aside h2{font-family:var(--display);font-size:18px;margin:0 0 8px}
+.log{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.log li{border-inline-start:3px solid var(--line);padding-inline-start:10px;font-size:13.5px;overflow-wrap:anywhere}
+.log .who{font-weight:600} .log time{display:block;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+.empty{color:var(--muted);font-size:13.5px;margin:0}
+.note{color:var(--muted);font-size:13px;margin:0}
+@media (max-width:900px){ .main{grid-template-columns:minmax(0,1fr)} }
+@media (max-width:640px){ .floorplan{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:420px){ .floorplan{grid-template-columns:minmax(0,1fr)} }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <pattern id="herring" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M0 8 8 0M8 16 16 8M0 8 8 16M8 0 16 8" stroke="currentColor" stroke-width="1.4" fill="none"/></pattern>
+  <pattern id="stripe" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="4" height="10" fill="currentColor"/></pattern>
+  <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="2" fill="currentColor"/></pattern>
+  <pattern id="brick" width="24" height="12" patternUnits="userSpaceOnUse"><path d="M0 0H24M0 6H24M0 12H24M6 0V6M18 6V12" stroke="currentColor" stroke-width="1.2" fill="none"/></pattern>
+  <pattern id="slat" width="8" height="8" patternUnits="userSpaceOnUse"><rect x="0" width="2" height="8" fill="currentColor"/></pattern>
+  <pattern id="marble" width="40" height="30" patternUnits="userSpaceOnUse"><path d="M0 22C10 14 18 26 28 12S38 6 40 4M6 0C10 8 4 14 12 20" stroke="currentColor" stroke-width="1" fill="none"/></pattern>
+  <pattern id="damask" width="18" height="18" patternUnits="userSpaceOnUse"><path d="M9 2 13 9 9 16 5 9Z" stroke="currentColor" stroke-width="1.2" fill="none"/></pattern>
+</defs></svg>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>مكاتب فريق تكسا</h1>
+      <p class="sub">فريق موقع <span dir="ltr">texadecore.store</span> — مين قاعد يشتغل على إيه دلوقتي</p>
+    </div>
+    <div>
+      <div class="tally" id="tally"></div>
+      <p class="live" id="live">جارٍ الاتصال بحالة الفريق…</p>
+    </div>
+  </header>
+  <div class="main">
+    <section class="floorplan" id="floor" aria-label="مكاتب الفريق"></section>
+    <aside>
+      <h2>سجل النشاط</h2>
+      <ul class="log" id="log"></ul>
+      <p class="empty" id="logEmpty">لسه مفيش نشاط مسجّل. أول ما الفريق يبدأ مهمة هتظهر هنا.</p>
+    </aside>
+  </div>
+  <p class="note">الحالة بتتحدّث لوحدها كل ما Claude يشغّل وكيل أو يخلّص مهمة. جدران كل مكتب من خامات تكسا: ورق جدران، بديل خشب، بديل رخام، بديل طوب — والأرضية باركيه هرمي.</p>
+</div>
+
+<script>
+const AGENTS=[
+ {id:"website-manager",name:"مدير الموقع",role:"يقود الفريق ويوزّع المهام ويراجعها",tint:"#b9822b",wall:"#efe6d2",wallD:"#2b261b",hair:"#2a2019",pat:"damask",prop:"board",lead:true},
+ {id:"digital-content-expert",name:"خبير المحتوى",role:"أوصاف المنتجات والأدلة والمقالات",tint:"#b0527a",wall:"#f3e3ea",wallD:"#2a1c23",hair:"#5a2f1c",pat:"stripe",prop:"books"},
+ {id:"seo-expert",name:"خبير SEO",role:"الكلمات المفتاحية والسيو التقني",tint:"#2f7d6b",wall:"#dfeee9",wallD:"#17282a",hair:"#1c1c22",pat:"slat",prop:"bars"},
+ {id:"geo-expert",name:"خبير GEO",role:"الظهور في إجابات الذكاء الاصطناعي",tint:"#5a62c4",wall:"#e4e6f6",wallD:"#1c1f33",hair:"#3a2a22",pat:"marble",prop:"globe"},
+ {id:"ui-ux-expert",name:"خبير UI/UX",role:"تجربة التسوق والتصميم والوصولية",tint:"#c2622f",wall:"#f5e6dc",wallD:"#2c1f18",hair:"#6b4a2a",pat:"dots",prop:"notes"},
+ {id:"web-developer",name:"مطوّر الويب",role:"تنفيذ WordPress وWooCommerce والأداء",tint:"#3b7fb8",wall:"#e0ebf4",wallD:"#16242f",hair:"#121418",pat:"brick",prop:"code"}
+];
+const LABEL={working:"يشتغل الآن",waiting:"منتظر دوره",done:"خلّص",idle:"متاح"};
+const PROPS={
+ board:'<rect class="frame" x="18" y="16" width="54" height="36" rx="2"/><path class="prop" d="M24 44 34 34 42 40 54 24 66 30"/>',
+ books:'<path class="prop" d="M16 50H74"/><rect class="propfill" x="20" y="28" width="7" height="22"/><rect class="propfill" x="29" y="22" width="6" height="28"/><rect class="propfill" x="37" y="30" width="9" height="20"/><rect class="propfill" x="50" y="25" width="6" height="25" transform="rotate(12 53 50)"/>',
+ bars:'<rect class="frame" x="18" y="16" width="54" height="36" rx="2"/><rect class="propfill" x="25" y="38" width="8" height="10"/><rect class="propfill" x="37" y="31" width="8" height="17"/><rect class="propfill" x="49" y="23" width="8" height="25"/><path class="prop" d="M60 22 66 22M63 19V25"/>',
+ globe:'<circle class="prop" cx="45" cy="34" r="17"/><path class="prop" d="M28 34H62M45 17C36 26 36 42 45 51M45 17C54 26 54 42 45 51"/>',
+ notes:'<rect class="propfill" x="20" y="18" width="15" height="15"/><rect class="propfill" x="39" y="22" width="15" height="15" style="opacity:.3"/><rect class="propfill" x="58" y="18" width="15" height="15" style="opacity:.8"/><rect class="propfill" x="29" y="38" width="15" height="15" style="opacity:.35"/><rect class="propfill" x="49" y="41" width="15" height="15"/>',
+ code:'<rect class="frame" x="18" y="16" width="54" height="36" rx="2"/><path class="prop" d="M34 26 26 34 34 42M56 26 64 34 56 42M48 24 42 44"/>'
+};
+function scene(a){return `<svg class="room" viewBox="0 0 240 150" preserveAspectRatio="xMidYMax slice" role="img" aria-label="مكتب ${a.name}">
+ <rect class="wall" width="240" height="112"/><rect class="paper" width="240" height="112" fill="url(#${a.pat})"/>
+ <rect class="floorbase" y="112" width="240" height="38"/><rect class="floorpat" y="112" width="240" height="38" fill="url(#herring)"/>
+ <rect class="skirt" y="109" width="240" height="4"/>
+ ${PROPS[a.prop]}
+ <line class="lampcord" x1="200" y1="0" x2="200" y2="20"/><circle class="glow" cx="200" cy="30" r="34"/><path class="lamp" d="M190 30a10 10 0 0 1 20 0z"/>
+ <rect class="chair" x="140" y="62" width="36" height="46" rx="8"/>
+ <g class="person">
+  <rect class="shirt" x="142" y="78" width="32" height="30" rx="10"/>
+  <g class="head"><circle class="skin" cx="158" cy="62" r="12"/><path class="hair" d="M146 61a12 12 0 0 1 24 0c-3-5-8-7-12-7s-9 2-12 7z"/></g>
+  <path class="arm armL" d="M146 86 150 101"/><path class="arm armR" d="M170 86 166 101"/>
+ </g>
+ <text class="zz" x="176" y="50">z</text><text class="zz z2" x="184" y="42">Z</text>
+ <rect class="monitor" x="76" y="60" width="50" height="34" rx="3"/><rect class="screen" x="79" y="63" width="44" height="28" rx="1.5"/>
+ <g><rect class="code" x="82" y="68" width="30" height="3" rx="1"/><rect class="code" x="82" y="75" width="22" height="3" rx="1"/><rect class="code" x="82" y="82" width="34" height="3" rx="1"/></g>
+ <path class="check" d="M90 77 98 85 112 69"/>
+ <rect class="monitor" x="98" y="94" width="6" height="6"/>
+ <rect class="kbd" x="144" y="99" width="28" height="4" rx="1.5"/>
+ <rect class="mug" x="196" y="92" width="9" height="9" rx="1.5"/><path class="steam" d="M199 90q-2-3 0-6M203 90q-2-3 0-6"/>
+ <rect class="desk" x="58" y="102" width="164" height="7" rx="2"/><rect class="desk" x="66" y="109" width="6" height="26"/><rect class="desk" x="208" y="109" width="6" height="26"/>
+</svg>`;}
+
+const floor=document.getElementById("floor"), els={}, state={};
+const dark=()=>{const t=document.documentElement.dataset.theme;return t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches};
+function build(){
+  for(const a of AGENTS){
+    const el=document.createElement("article");
+    el.className="office"+(a.lead?" lead":""); el.dataset.status="idle";
+    el.style.setProperty("--tint",a.tint); el.style.setProperty("--hair",a.hair);
+    el.innerHTML=scene(a)+`<div class="plate"><div class="plate-top"><h3 class="name"></h3><span class="badge"><span class="dot"></span><span class="st"></span></span></div><p class="role"></p><p class="task"></p><span class="when"></span></div>`;
+    el.querySelector(".name").textContent=a.name; el.querySelector(".role").textContent=a.role;
+    floor.appendChild(el); els[a.id]=el;
+  }
+  paintWalls(); paint();
+}
+function paintWalls(){const d=dark();for(const a of AGENTS)els[a.id].style.setProperty("--wall",d?a.wallD:a.wall)}
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",paintWalls);
+new MutationObserver(paintWalls).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+
+function ago(iso){ if(!iso)return ""; const s=Math.max(0,(Date.now()-new Date(iso).getTime())/1000);
+  if(isNaN(s))return ""; if(s<60)return "الآن"; if(s<3600)return "منذ "+Math.floor(s/60)+" د"; if(s<86400)return "منذ "+Math.floor(s/3600)+" س"; return "منذ "+Math.floor(s/86400)+" يوم"; }
+function paint(){
+  const count={working:0,waiting:0,done:0,idle:0};
+  for(const a of AGENTS){
+    const s=state[a.id]||{}, st=LABEL[s.status]?s.status:"idle", el=els[a.id]; count[st]++;
+    el.dataset.status=st;
+    el.querySelector(".dot").className="dot "+st;
+    el.querySelector(".st").textContent=LABEL[st];
+    el.querySelector(".task").textContent=s.task||"لم يستلم مهمة بعد";
+    el.querySelector(".when").textContent=s.updated?("آخر تحديث: "+ago(s.updated)):"";
+  }
+  const t=document.getElementById("tally"); t.textContent="";
+  for(const k of ["working","waiting","done","idle"]){const c=document.createElement("span");c.className="chip";
+    const d=document.createElement("span");d.className="dot "+k;c.append(d,document.createTextNode(LABEL[k]+" "+count[k]));t.appendChild(c);}
+}
+let logs=[];
+function paintLog(){
+  const ul=document.getElementById("log"); ul.textContent="";
+  document.getElementById("logEmpty").hidden=logs.length>0;
+  for(const l of logs){const li=document.createElement("li");
+    const a=AGENTS.find(x=>x.id===l.agent); if(a)li.style.borderColor=a.tint;
+    const w=document.createElement("span");w.className="who";w.textContent=(a?a.name:"الفريق")+": ";
+    const tm=document.createElement("time");tm.textContent=ago(l.at);
+    li.append(w,document.createTextNode(l.text||""),tm);ul.appendChild(li);}
+}
+build(); paintLog();
+setInterval(()=>{paint();paintLog()},30000);
+
+(async()=>{
+  const live=document.getElementById("live");
+  const db=window.claude&&window.claude.use?await window.claude.use("db"):null;
+  if(!db){live.textContent="الحالة الحية غير متاحة في هذا العرض — سجّل الدخول لمشاهدتها.";return}
+  const timer=setTimeout(()=>{live.textContent="تعذّر تحميل الحالة. جرّب فتح الصفحة لاحقاً."},10000);
+  const ok=()=>{clearTimeout(timer);live.textContent="متصل — تحديث مباشر"};
+  const fail=()=>{clearTimeout(timer);live.textContent="تعذّر تحميل الحالة الحية."};
+  db.collection("agents").onSnapshot(snap=>{ok();for(const k in state)delete state[k];snap.docs.forEach(d=>{state[d.id]=d.data()||{}});paint()},fail);
+  db.collection("log").orderBy("at","desc").limit(12).onSnapshot(snap=>{logs=snap.docs.map(d=>d.data()||{});paintLog()},()=>{});
+})();
+</script>
