@@ -2,3 +2,5 @@ texa/data/raw/
 texa/data/products-slim.json
 __pycache__/
 texa/data/out/products-backup.csv
+texa/plugin/*.zip
+texa/plugin/texa-desc-import/data/*.csv
