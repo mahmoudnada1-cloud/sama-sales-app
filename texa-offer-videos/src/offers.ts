@@ -38,7 +38,7 @@ export const offers: Offer[] = [
     ],
     unit: "ريال / م²",
     tiers: [
-      { label: "4 ألوان خشبية", note: "الأوفر سعراً", now: 61, images: [spc(4), spc(5), spc(6), spc(7)] },
+      { label: "4 ألوان خشبية", note: "الأوفر سعراً", now: 59, images: [spc(4), spc(5), spc(6), spc(7)] },
       { label: "11 لون ودرجة", note: "الأكثر تنوعاً", now: 103, images: [spc(9), spc(11), spc(13), spc(3)] },
       { label: "3 نقشات مميزة", note: "لمسة مختلفة للأرضية", now: 90, images: [spc(0), spc(1), spc(2)] },
     ],
