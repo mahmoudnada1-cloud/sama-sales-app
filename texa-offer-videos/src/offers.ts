@@ -6,7 +6,7 @@ export type Tier = {
   label: string; // عنوان الشريحة
   note: string; // سطر صغير تحت العنوان
   now: number;
-  images: string[]; // مسارات داخل public/
+  images: string[]; // 3 صور غرف: الأولى كبيرة والباقي صف تحتها
   frames: number; // مدة المشهد
 };
 
@@ -25,7 +25,7 @@ export type Offer = {
   frames: { hook: number; features: number; tools: number; toolsSplit: [number, number]; service: number; outro: number };
 };
 
-const spc = (n: number) => `parquet-spc/p${String(n).padStart(2, "0")}.webp`;
+const room = (k: string) => `parquet-spc/room-${k}.jpg`;
 
 export const offers: Offer[] = [
   {
@@ -42,9 +42,9 @@ export const offers: Offer[] = [
     ],
     unit: "ريال / م²",
     tiers: [
-      { label: "4 ألوان خشبية", note: "الأوفر سعراً", now: 59, images: [spc(4), spc(5), spc(6), spc(7)], frames: 106 },
-      { label: "11 لون ودرجة", note: "الأكثر تنوعاً", now: 99, images: [spc(9), spc(11), spc(13), spc(3)], frames: 102 },
-      { label: "3 نقشات مميزة", note: "لمسة مختلفة للأرضية", now: 90, images: [spc(0), spc(1), spc(2)], frames: 112 },
+      { label: "4 ألوان خشبية", note: "الأوفر سعراً", now: 59, images: [room("t1a"), room("t1b"), room("t1c")], frames: 106 },
+      { label: "11 لون ودرجة", note: "الأكثر تنوعاً", now: 99, images: [room("t2a"), room("t2b"), room("t2c")], frames: 102 },
+      { label: "3 نقشات مميزة", note: "لمسة مختلفة للأرضية", now: 90, images: [room("t3a"), room("t3b"), room("t3c")], frames: 112 },
     ],
     url: "texadecore.store",
     voDir: "parquet-spc/vo",

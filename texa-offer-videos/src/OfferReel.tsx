@@ -103,7 +103,7 @@ const TierScene: React.FC<{ offer: Offer; tier: Tier; index: number }> = ({ offe
         {tier.images.map((src, i) => {
           const p = spring({ frame: frame - 4 - i * 4, fps: 30, config: { damping: 200 } });
           return (
-            <div key={src} style={{ gridColumn: tier.images.length === 3 && i === 2 ? "span 2" : undefined, height: 420, borderRadius: 30, overflow: "hidden", opacity: p, transform: `scale(${0.9 + p * 0.1})`, boxShadow: "0 12px 30px rgba(31,42,68,0.18)" }}>
+            <div key={src} style={{ gridColumn: i === 0 ? "span 2" : undefined, height: i === 0 ? 540 : 300,  borderRadius: 30, overflow: "hidden", opacity: p, transform: `scale(${0.9 + p * 0.1})`, boxShadow: "0 12px 30px rgba(31,42,68,0.18)" }}>
               <Img src={staticFile(src)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             </div>
           );
