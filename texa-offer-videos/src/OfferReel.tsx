@@ -61,10 +61,10 @@ const Vo: React.FC<{ offer: Offer; clip: Clip }> = ({ offer, clip }) => (
 
 const Hook: React.FC<{ offer: Offer }> = ({ offer }) => (
   <AbsoluteFill>
-    <Backdrop src={offer.heroImage} dim={0.5} duration={offer.hook.frames} />
+    <Backdrop src={offer.heroImage} dim={offer.heroDim ?? 0.5} duration={offer.hook.frames} />
     <AbsoluteFill style={{ justifyContent: "flex-end", padding: "0 80px 300px" }}>
       <Rise delay={6}><Badge text={offer.hook.badge} /></Rise>
-      <Rise delay={14}><div style={{ color: C.white, fontWeight: 900, fontSize: 120, lineHeight: 1.2, marginTop: 30, whiteSpace: "nowrap" }}>{offer.hook.title}</div></Rise>
+      <Rise delay={14}><div style={{ color: C.white, fontWeight: 900, fontSize: offer.hook.title.length > 13 ? 100 : 120, lineHeight: 1.2, marginTop: 30, whiteSpace: "nowrap" }}>{offer.hook.title}</div></Rise>
       <Rise delay={offer.hook.bigAt}><div style={{ color: C.gold, fontWeight: 900, fontSize: 104, lineHeight: 1.3, whiteSpace: "nowrap" }}>{offer.hook.big}</div></Rise>
       <Rise delay={offer.hook.subAt}><div style={{ color: C.white, fontWeight: 500, fontSize: 54, lineHeight: 1.45, marginTop: 24 }}>{offer.hook.sub}</div></Rise>
     </AbsoluteFill>
@@ -86,7 +86,7 @@ const Features: React.FC<{ offer: Offer; features: NonNullable<Offer["features"]
               <div style={{ width: 92, height: 92, borderRadius: 46, background: C.copper, color: C.white, fontWeight: 900, fontSize: 54, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{i + 1}</div>
               <div>
                 <div style={{ color: C.navy, fontWeight: 900, fontSize: 62, lineHeight: 1.25 }}>{f.title}</div>
-                <div style={{ color: "#5b6478", fontWeight: 500, fontSize: 40, lineHeight: 1.4, marginTop: 8 }}>{f.sub}</div>
+                {f.sub ? <div style={{ color: "#5b6478", fontWeight: 500, fontSize: 40, lineHeight: 1.4, marginTop: 8 }}>{f.sub}</div> : null}
               </div>
             </div>
           </Rise>
@@ -104,7 +104,7 @@ const TierScene: React.FC<{ offer: Offer; tier: Tier; index: number }> = ({ offe
     <AbsoluteFill style={{ background: C.cream, padding: "200px 70px 0" }}>
       <Rise>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <Badge text="عروض باركيه SPC" />
+          <Badge text={offer.tierBadge} />
         </div>
       </Rise>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 22, marginTop: 50 }}>
@@ -124,6 +124,7 @@ const TierScene: React.FC<{ offer: Offer; tier: Tier; index: number }> = ({ offe
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 40 }}>
         <div>
           <div style={{ display: "flex", alignItems: "baseline", gap: 20, opacity: Math.min(1, pricePop), transform: `scale(${0.6 + pricePop * 0.4})`, transformOrigin: "right center" }}>
+            {tier.prefix ? <div style={{ color: C.navy, fontWeight: 700, fontSize: 56 }}>{tier.prefix}</div> : null}
             <div style={{ color: C.red, fontWeight: 900, fontSize: 190, lineHeight: 1 }}>{tier.now}</div>
             <div style={{ color: C.navy, fontWeight: 500, fontSize: 48 }}>{offer.unit}</div>
           </div>
@@ -259,7 +260,7 @@ export const OfferReel: React.FC<{ offer: Offer }> = ({ offer }) => {
       {offer.tiers.map((tier, i) => (
         <Sequence key={tier.label} from={at(tier.frames)} durationInFrames={tier.frames}><TierScene offer={offer} tier={tier} index={i} /><Vo offer={offer} clip={tier} /></Sequence>
       ))}
-      <Sequence from={at(toolsFrames)} durationInFrames={toolsFrames}><Tools offer={offer} /></Sequence>
+      {toolsFrames ? <Sequence from={at(toolsFrames)} durationInFrames={toolsFrames}><Tools offer={offer} /></Sequence> : null}
       {offer.service ? <Sequence from={at(offer.service.frames)} durationInFrames={offer.service.frames}><Service offer={offer} sv={offer.service} /></Sequence> : null}
       <Sequence from={at(offer.outro.frames)} durationInFrames={offer.outro.frames}><Outro offer={offer} /></Sequence>
       <Sequence from={cover} durationInFrames={outroFrom - cover}><LogoChip /></Sequence>
