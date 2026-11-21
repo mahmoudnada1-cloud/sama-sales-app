@@ -1204,10 +1204,60 @@ ROOMS = {
     'partition': ['الفواصل بين الصالة والمدخل أو بين المجلس والمقلط', 'تقسيم المساحات المفتوحة وخلفيات الجلسات'],
     'decor': ['تفاصيل الجدران والأسقف في المجالس والصالات', 'زوايا البانوهات والأسقف ونقاط التمييز'],
 }
-WALLS = {'wallpaper': [3, 3.5, 4, 4.5, 5, 6], 'panel': [3, 3.6, 4, 4.8, 5, 6, 2.4], 'slat': [2, 2.4, 3, 3.5, 4, 1.8],
-         'small': [2.5, 3, 3.5, 4, 5]}
+WALLS = {'wallpaper': [2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6], 'panel': [3, 3.6, 4, 4.8, 5, 6, 2.4, 3.5, 4.5], 'slat': [2, 2.4, 3, 3.5, 4, 1.8, 2.8, 4.5],
+         'small': [2, 2.5, 3, 3.5, 4, 4.5, 5]}
+PLACES = {
+    'wallpaper': ['غرف النوم', 'المجالس', 'غرف المعيشة', 'المكاتب المنزلية', 'الممرات', 'المداخل', 'غرف الضيوف', 'صالات الجلوس'],
+    'shiplap': ['خلفيات التلفاز', 'واجهات المجالس', 'المداخل', 'غرف المعيشة', 'واجهات الاستقبال', 'جدار السرير', 'الممرات', 'المكاتب'],
+    'marble': ['جدار التلفاز', 'المداخل', 'واجهات الاستقبال', 'المجالس', 'الممرات', 'خلفيات المغاسل', 'أركان القهوة', 'الصالات'],
+    'wood': ['خلفية التلفاز', 'جدار السرير', 'تكسية الأعمدة', 'المجالس', 'الممرات', 'المكاتب', 'المداخل', 'أركان القهوة'],
+    'spc': ['غرف النوم', 'المجالس', 'المكاتب', 'الصالات', 'الممرات', 'غرف المعيشة', 'المحلات'],
+    'laminate': ['غرف النوم', 'المجالس', 'المكاتب المنزلية', 'الصالات', 'غرف المعيشة', 'غرف الضيوف', 'غرف الأطفال'],
+    'brick': ['المجالس', 'المداخل', 'أركان القهوة', 'خلفيات التلفاز', 'المقاهي', 'الممرات', 'واجهات الاستقبال'],
+    'stone': ['المجالس', 'المداخل', 'أركان الجلسات', 'خلفيات التلفاز', 'الممرات', 'واجهات الاستقبال', 'الصالات'],
+    'clay': ['المجالس', 'المداخل', 'الأعمدة', 'جدران التمييز', 'الممرات', 'واجهات الاستقبال', 'الصالات'],
+    'skirting': ['غرف النوم', 'المجالس', 'الممرات', 'الصالات', 'المكاتب', 'المداخل', 'غرف المعيشة'],
+}
+
+
+def rooms_phrase(key, pid):
+    pl = PLACES.get(key)
+    if not pl:
+        return pick(ROOMS[key], pid, 'rooms')
+    order = sorted(pl, key=lambda x: H(pid, 'pl-' + x))[:3]
+    return '%s و%s و%s' % tuple(order)
 ROOMS_FLOOR = [(3, 4), (3.5, 4), (4, 4), (4, 5), (4, 6), (5, 6), (3, 3.5), (3, 5)]
 RUNS = [6, 8, 10, 12, 15]
+
+
+class RefCtx(dict):
+    """سياق القوالب: {ref} لا يكرر كود المنتج؛ يعطي إشارة طبيعية (هذا الورق / اللوح القماشي البني...).
+    الاسم المختصر بالكود متاح فقط عبر named() ويُستخدم في عنوان H2 واحد وسؤال واحد."""
+
+    def __missing__(self, k):
+        if k == 'ref':
+            forms = self['_forms']
+            n = self['_n'][0]
+            self['_n'][0] += 1
+            return forms[(self['_seed'] + n) % len(forms)]
+        raise KeyError(k)
+
+    def named(self):
+        d = dict(self)
+        d['ref'] = self['ref_named']
+        return d
+
+
+THIS = {'wallpaper': 'هذا الورق', 'shiplap': 'هذا التصميم', 'marble': 'هذا التصميم', 'hpl': 'هذا النوع', 'wood': 'هذا التصميم',
+        'exterior': 'هذا النوع', 'brick': 'هذا التصميم', 'stone': 'هذا التصميم', 'clay': 'هذه الصفائح', 'spc': 'هذا الباركيه',
+        'laminate': 'هذا الباركيه', 'carpet': 'هذا الموكيت', 'skirting': 'هذه النعلة', 'molding': 'هذه القطعة',
+        'cornice': 'هذا الكرنيش', 'accessory': 'هذه القطعة', 'partition': 'هذا العمود', 'decor': 'هذه القطعة'}
+THIS2 = {'wallpaper': 'هذا التصميم'}
+DESC_BASE = {'wallpaper': 'الورق', 'shiplap': 'بديل الشيبورد', 'marble': 'بديل الرخام', 'wood': 'بديل الخشب',
+             'brick': 'بديل الطوب', 'stone': 'بديل الحجر', 'spc': 'الباركيه', 'laminate': 'الباركيه', 'carpet': 'الموكيت'}
+PAT_DEF = {'plain': 'السادة', 'stripe': 'المخطط', 'floral': 'المورّد', 'ornament': 'المنقوش', 'marble': 'الرخامي', 'fabric': 'القماشي',
+           'wood': 'الخشبي', 'fluted': 'المضلع', 'glossy': 'اللامع', '3d': 'البارز', 'stone': 'الحجري', 'wave': 'المودرن',
+           'herringbone': 'الهرمي'}
 
 
 def color_def(F):
@@ -1276,8 +1326,19 @@ def build_context(F):
         w0 = {'نعله': 'نعلة', 'باركية': 'باركيه', 'اكسسوارات': 'إكسسوارات'}.get(w0, w0)
         refnoun = w0 if not re.search(r'\d', w0) else refnoun
     ref = ('%s %s' % (refnoun, code)) if code else F['label']
-    c = dict(pid=pid, name=F['name'], label=F['label'], code=code, ref=ref, thing=thing, tipset=tipset, bank=bank,
-             ukey=ukey, u=s, uacc=acc, one=('الواحدة' if fem else 'الواحد'), yg=('تغطي' if fem else 'يغطي'), U='ال' + s, upl=pl, Upl='ال' + pl, fem=fem, cd=cd or ref, cph=cph, has_color=bool(cd),
+    forms = [THIS[sub]]
+    if sub in DESC_BASE and (cd or F['pattern'] in PAT_DEF):
+        d = DESC_BASE[sub]
+        if F['pattern'] in PAT_DEF and not (sub in ('spc', 'laminate', 'carpet') and F['pattern'] not in ('herringbone', 'wood')):
+            d += ' ' + PAT_DEF[F['pattern']]
+        if cd:
+            d += (' ب' + cd) if cd.startswith('لون') else (' ' + cd)
+        forms.append(d)
+    if sub in THIS2:
+        forms.append(THIS2[sub])
+    forms.append(THIS[sub])
+    c = RefCtx(pid=pid, name=F['name'], label=F['label'], code=code, ref_named=ref, _forms=forms, _n=[0], _seed=H(pid, 'rf'), thing=thing, tipset=tipset, bank=bank,
+             ukey=ukey, u=s, uacc=acc, one=('الواحدة' if fem else 'الواحد'), yg=('تغطي' if fem else 'يغطي'), U='ال' + s, upl=pl, Upl='ال' + pl, fem=fem, cd=cd, cph=cph, has_color=bool(cd),
              color=F['color'], pattern=F['pattern'], sub=sub, kind=F['kind'], thick=fnum(F['thick'], 1) if F.get('thick') else '',
              waterproof=F.get('waterproof'), click=F.get('click'), size=size_text(F), origin=F.get('origin') or '',
              material=F.get('material') or '', calc=False)
@@ -1290,7 +1351,8 @@ def build_context(F):
     c['tone'] = tone
     c['patterned'] = F['pattern'] in ('floral', 'ornament', 'stripe', 'marble', 'wave', 'kids', 'stone', '3d')
     key = 'wallpaper_kids' if (sub == 'wallpaper' and F['pattern'] == 'kids') else sub
-    c['rooms'] = pick(ROOMS[key], pid, 'rooms')
+    c['rooms'] = rooms_phrase(key, pid)
+    c['desc'] = forms[1] if len(forms) > 2 and forms[1] != THIS[sub] and sub in DESC_BASE and (cd or F['pattern'] in PAT_DEF) else THIS[sub]
     d = F.get('dims')
     kind = F['kind']
     cov = F.get('piece_area')
@@ -1300,7 +1362,12 @@ def build_context(F):
         Ww = pick(WALLS['wallpaper'], pid, 'wall')
         strips = int(math.ceil(Ww / W - 1e-9))
         rolls = int(math.ceil(strips / spr))
-        ra, rb = pick(ROOMS_FLOOR[:6], pid, 'room')
+        ra, rb = pick(ROOMS_FLOOR, pid, 'room')
+        Ww2 = pick([w for w in WALLS['wallpaper'] if w != Ww], pid, 'wall2')
+        st2 = int(math.ceil(Ww2 / W - 1e-9))
+        h2 = pick([3.0, 3.2, 3.5], pid, 'h2')
+        c.update(Ww2=fnum(Ww2, 1), strips2_txt=cnt(st2, 'strip'), rolls2_txt=cnt(int(math.ceil(st2 / spr)), 'roll'),
+                 h2=fnum(h2, 1), sprh_txt=cnt(int(math.floor(L / h2 + 1e-9)), 'strip'))
         P = 2 * (ra + rb)
         strips_r = int(math.ceil(P / W - 1e-9))
         rolls_r = int(math.ceil(strips_r / spr))
@@ -1425,9 +1492,10 @@ def numbers_section(F, c):
     c['calclink'] = A(URL_CALC, 'حاسبة الكميات')
     li = []
     kind = F['kind']
-    v = lambda opts, salt: pick(opts, pid, 'num-' + salt).format(**c)
+    v = lambda opts, salt: pick(opts, pid, 'num-' + salt).format_map(c)
+    vh = lambda opts, salt: pick(opts, pid, 'num-' + salt).format_map(c.named())
     if kind == 'wallpaper' and c['calc']:
-        head = v(NUM_HEADS['wallpaper'], 'h')
+        head = vh(NUM_HEADS['wallpaper'], 'h')
         li.append(v(['تغطية اللفة: {L} م × {Wm} م = {cov} م² تقريباً.',
                      'اللفة الواحدة من {ref}: {L} م طولاً × {Wm} م عرضاً، أي نحو {cov} م².',
                      'مساحة لفة {ref}: {L} × {Wm} = {cov} م² تقريباً.',
@@ -1442,23 +1510,25 @@ def numbers_section(F, c):
                          'لجدار {Ww} م من {ref}: عدد الشرائح {strips_txt}، وعدد اللفات {rolls_txt}.'], 'ex'))
             c['ex_kind'] = 'wall'
         else:
-            li.append(v(['مثال: غرفة {ra} × {rb} م محيطها {P} م تحتاج {strips_r_txt} ← {rolls_r_txt} من {ref}، قبل خصم الأبواب والنوافذ.',
-                         'غرفة {ra} × {rb} م كاملة: المحيط {P} م ÷ {Wm} م = {strips_r_txt} ← {rolls_r_txt} من {ref} قبل خصم الفتحات.',
-                         'لتغطية غرفة {ra} × {rb} م بـ{ref}: {strips_r_txt} على محيط {P} م، أي {rolls_r_txt} قبل خصم الأبواب والنوافذ.'], 'ex'))
+            li.append(v(['مثال: غرفة {ra} × {rb} م محيطها {P} م تحتاج {strips_r_txt} ← {rolls_r_txt} من {ref}، والأفضل ألا تخصم الأبواب والنوافذ؛ ما يتوفر يبقى احتياطاً.',
+                         'غرفة {ra} × {rb} م كاملة: المحيط {P} م ÷ {Wm} م = {strips_r_txt} ← {rolls_r_txt} من {ref}، والأفضل ألا تخصم الأبواب والنوافذ؛ ما يتوفر يبقى احتياطاً.',
+                         'لتغطية غرفة {ra} × {rb} م بـ{ref}: {strips_r_txt} على محيط {P} م، أي {rolls_r_txt}، والأفضل ألا تخصم الأبواب والنوافذ؛ ما يتوفر يبقى احتياطاً.'], 'ex'))
             c['ex_kind'] = 'room'
-        if c['patterned']:
-            li.append(v(['نقشة {ref} تحتاج مطابقة بين الشرائح، فأضف لفة احتياطية إن كان العدد على الحد.',
-                         'مطابقة النقشة تستهلك جزءاً من كل شريحة؛ احسب لـ{ref} هامشاً إضافياً.',
-                         'في التصاميم المنقوشة مثل {ref} قد يقل عدد الشرائح المستفاد منها في اللفة بسبب مطابقة النقشة.'], 'pm'))
+        pm = v(['نقشته تحتاج مطابقة بين الشرائح فأضف لفة احتياطية إن كان العدد على الحد',
+                'مطابقة النقشة تستهلك جزءاً من كل شريحة فاحسب هامشاً إضافياً',
+                'قد يلزم هامش إضافي لأن مطابقة النقشة تقلّل المستفاد من كل لفة'] if c['patterned'] else
+               ['لا يحتاج مطابقة نقشة معقدة فالهدر عند القص محدود',
+                'بواقي القص قليلة لأنه بلا نقشة متكررة واضحة',
+                'الحساب بالشرائح هنا أدق من الحساب بالمساحة لأن بواقي القص لا تُستخدم كلها'], 'pm')
+        if c['ex_kind'] == 'wall':
+            li[-1] = li[-1].rstrip('.') + '، و' + pm + '.'
         else:
-            li.append(v(['تصميم {ref} لا يحتاج مطابقة نقشة معقدة، فالهدر عند القص محدود.',
-                         'لأن {ref} بلا نقشة متكررة واضحة فبواقي القص قليلة.',
-                         'الحساب بالشرائح لـ{ref} أدق من الحساب بالمساحة، لأن بواقي القص لا تُستخدم كلها.'], 'pm'))
-        li.append(v(CALC_LINES, 'calc') + ' ' +
+            li[1] = li[1].rstrip('.') + '، و' + pm + '.'
+        li.append(v(CALC_LINES, 'calc').rstrip('.') + '، ' +
                   v(['وراجع أيضاً %s.', 'وللمقاسات الشائعة انظر %s.', 'و%s يختصر عليك الحساب.'], 'rt') % A(URL_ROLLS, 'جدول عدد اللفات لكل غرفة'))
         return head, li
     if kind in ('panel', 'small', 'slat') and c['calc']:
-        head = v(NUM_HEADS['panel'], 'h')
+        head = vh(NUM_HEADS['panel'], 'h')
         if kind == 'slat':
             li.append(v(['تغطية {U}: {Wcm} سم × {L} م = {cov} م².',
                          'مساحة القطعة من {ref}: {Wm} × {L} = {cov} م².',
@@ -1512,7 +1582,7 @@ def numbers_section(F, c):
         li.append(v(CALC_LINES, 'calc'))
         return head, li
     if kind == 'floor' and c['calc']:
-        head = v(NUM_HEADS['floor'], 'h')
+        head = vh(NUM_HEADS['floor'], 'h')
         if c.get('has_pa') and c.get('Lcm'):
             li.append(v(['مساحة {U}: {Lcm} × {Wcm} سم = {pa} م²، أي نحو {per_m2} {u} لكل متر مربع.',
                          '{U} الواحدة من {ref} تغطي {pa} م²، والمتر المربع يحتاج {per_m2} تقريباً.',
@@ -1533,7 +1603,7 @@ def numbers_section(F, c):
         li.append(v(CALC_LINES, 'calc'))
         return head, li
     if kind == 'linear' and c['calc']:
-        head = v(NUM_HEADS['linear'], 'h')
+        head = vh(NUM_HEADS['linear'], 'h')
         li.append(v(['طول القطعة {L} م وعرضها {Wcm} سم.',
                      'القطعة الواحدة من {ref}: {Lcm} سم طولاً × {Wcm} سم.',
                      'مقاس {ref}: {L} م للقطعة، بعرض {Wcm} سم.'], 'sz'))
@@ -1555,7 +1625,7 @@ def numbers_section(F, c):
         li.append(v(CALC_LINES, 'calc'))
         return head, li
     # بلا أرقام محسوبة
-    head = v(NUM_HEADS['none'], 'h')
+    head = vh(NUM_HEADS['none'], 'h')
     if c.get('cov_only'):
         li.append(v(['تغطية {U} من {ref} حسب بيانات المنتج: {cov} م².',
                      'بيانات {ref} تذكر أن {U} {yg} {cov} م².'], 'cov'))
@@ -1627,17 +1697,20 @@ FAQ = {
           '{rolls_txt}؛ عرض الجدار {Ww} م ÷ عرض الرول {Wm} م = {q} أي {strips_txt}، ومن لفة {ref} تخرج {spr_txt} حتى ارتفاع 2.8 م.']),
         ('qty', lambda c: c['calc'] and c.get('ex_kind') == 'wall',
          ['كم لفة من {ref} تكفي غرفة {ra} × {rb} م؟', 'غرفة {ra} × {rb} م كاملة: كم لفة من {ref}؟'],
-         ['{rolls_r_txt} تقريباً: محيط الغرفة {P} م يحتاج {strips_r_txt}، وكل لفة من {ref} تعطي {spr_txt} حتى ارتفاع 2.8 م. اخصم الأبواب والنوافذ الكبيرة فقد ينقص العدد.',
-          'نحو {rolls_r_txt}؛ المحيط {P} م ÷ عرض الرول {Wm} م = {strips_r_txt}، ولفة {ref} فيها {spr_txt} بارتفاع 2.8 م. العدد قبل خصم الفتحات.']),
+         ['{rolls_r_txt} تقريباً: محيط الغرفة {P} م يحتاج {strips_r_txt} وكل لفة تعطي {spr_txt} بارتفاع الجدار المعتاد، والأفضل ألا تخصم الأبواب والنوافذ؛ ما يتوفر يبقى احتياطاً.',
+          'نحو {rolls_r_txt}؛ المحيط {P} م يُقسم على عرض الرول فيعطي {strips_r_txt} وفي اللفة {spr_txt}، والأفضل ألا تخصم الأبواب والنوافذ؛ ما يتوفر يبقى احتياطاً.']),
         ('strips', CALC,
          ['كم شريحة تخرج من لفة {ref}؟'],
-         ['{spr_txt} بارتفاع 2.8 م من لفة {ref} التي طولها {L} م، وكل شريحة تغطي {Wcm} سم من عرض الجدار.']),
+         ['{spr_txt} بارتفاع 2.8 م من لفة طولها {L} م، وكل شريحة تغطي {Wcm} سم؛ فجدار بعرض {Ww2} م مثلاً يأخذ {strips2_txt} أي {rolls2_txt}.',
+          'تخرج من اللفة {spr_txt} بطول 2.8 م وعرض {Wcm} سم لكل واحدة، وجدار عرضه {Ww2} م يحتاج منها {strips2_txt}.']),
         ('cov', CALC,
          ['كم متراً مربعاً تغطي لفة {ref}؟', 'ما مساحة تغطية لفة {ref}؟'],
-         ['نحو {cov} م² ({L} م × {Wm} م). عملياً يُحسب عدد لفات {ref} بالشرائح لا بالمساحة، لأن بواقي القص لا تُستخدم كلها.']),
+         ['نحو {cov} م² ({L} م × {Wm} م)، لكن العدد يُحسب بالشرائح لا بالمساحة: جدار بعرض {Ww2} م مثلاً يحتاج {strips2_txt} أي {rolls2_txt}.',
+          'قرابة {cov} م² للفة، وعملياً يُحسب {ref} بالشرائح؛ فجدار عرضه {Ww2} م يأخذ {strips2_txt} من أصل {spr_txt} في اللفة.']),
         ('high', CALC,
          ['سقفي أعلى من 2.8 م، كيف أحسب لفات {ref}؟'],
-         ['اقسم طول اللفة {L} م على ارتفاع جدارك لتعرف عدد الشرائح؛ عند ارتفاع 3.2 م مثلاً تعطي لفة {ref} {spr32} بدل {spr_txt}.']),
+         ['اقسم طول اللفة {L} م على ارتفاع جدارك لتعرف عدد الشرائح؛ عند ارتفاع {h2} م مثلاً تعطي اللفة {sprh_txt} بدل {spr_txt}، فيتغير عدد اللفات لجدار {Ww2} م.',
+          'عدد الشرائح = {L} ÷ ارتفاع الجدار؛ فمع سقف {h2} م تخرج من لفة {ref} {sprh_txt} لا {spr_txt}، وأعد حساب جدارك على هذا الأساس.']),
         ('prep', ANY,
          ['هل يحتاج الجدار تجهيزاً قبل تركيب {ref}؟', 'ما حالة الجدار المطلوبة قبل لصق {ref}؟'],
          ['تُصلَّح الشقوق والنتوءات أولاً ويُنظَّف السطح ويُترك ليجف. {ref} لا يعالج عيوب الجدار، والدرجات الفاتحة تُظهرها أكثر من الداكنة.',
@@ -1944,22 +2017,26 @@ FAQ_HEADS = ['أسئلة شائعة عن {ref}', 'قبل أن تطلب {ref}', '
 def faq_section(F, c):
     pid = F['id']
     bank = FAQ[c['bank']]
-    fmt = lambda t: (t(c) if callable(t) else t).format(**c)
+    named = c.named()
+    fmt = lambda t, ctx=c: (t(ctx) if callable(t) else t).format_map(ctx)
     out, used = [], set()
     qty = [e for e in bank if e[0] == 'qty' and e[1](c)]
     if qty:
         e = qty[0]
-        out.append((fmt(pick(e[2], pid, 'fq-qty')), fmt(pick(e[3], pid, 'fa-qty'))))
+        out.append((fmt(pick(e[2], pid, 'fq-qty'), named), fmt(pick(e[3], pid, 'fa-qty'))))
         used.add('qty')
     pool = [e for e in bank + FAQ_COMMON if e[0] not in used and e[0] != 'qty' and e[1](c)]
+    DATA = ('strips', 'cov', 'high', 'height', 'pm2', 'len', 'carton', 'thick', 'vis')
     pool.sort(key=lambda e: H(pid, 'faq-' + e[0]))
+    data = [e for e in pool if e[0] in DATA][:2]
+    pool = data[:1] + [e for e in pool if e not in data[:1]]
     want = 4 if (H(pid, 'faqn') % 3) else 3
     for e in pool:
         if len(out) >= want:
             break
-        out.append((fmt(pick(e[2], pid, 'fq-' + e[0])), fmt(pick(e[3], pid, 'fa-' + e[0]))))
+        out.append((fmt(pick(e[2], pid, 'fq-' + e[0]), c if out else named), fmt(pick(e[3], pid, 'fa-' + e[0]))))
         used.add(e[0])
-    return pick(FAQ_HEADS, pid, 'faqh').format(**c), out
+    return pick(FAQ_HEADS, pid, 'faqh').format_map(c), out
 
 # ------------------------------------------------------------------ نصيحة المصمم
 
@@ -1974,7 +2051,7 @@ TIP_EXTRA = [
 def tip_section(F, c):
     pid = F['id']
     col = COLOR_TIPS[F['color'] if (c['has_color'] and F['color'] in COLOR_TIPS) else None]
-    subj = c['cd'] if c['has_color'] else 'تصميم ' + c['ref']
+    subj = c['cd'] if c['has_color'] else 'تصميم ' + THIS[F['sub']]
     kind, pat = F['kind'], F['pattern']
     if kind == 'floor':
         pool = PATTERN_TIPS[pat] if pat in ('herringbone', 'wood') else SURFACE_DEFAULT['floor']
@@ -1990,8 +2067,8 @@ def tip_section(F, c):
     s2 = '%s؛ %s.' % (pick(TYPE_TIPS[c['tipset']], pid, 'tip-t'), pick(col['a'], pid, 'tip-a'))
     out = s1 + ' ' + s2
     if H(pid, 'tip-x') % 2 == 0:
-        out += ' ' + pick(TIP_EXTRA, pid, 'tip-e').format(**c)
-    head = pick(TIP_HEADS, pid, 'tip-head').format(cd=(c['cd'] if c['has_color'] else c['ref']))
+        out += ' ' + pick(TIP_EXTRA, pid, 'tip-e').format_map(c)
+    head = pick(TIP_HEADS, pid, 'tip-head').format(cd=(c['cd'] if c['has_color'] else THIS[F['sub']]))
     return head, out
 
 # ------------------------------------------------------------------ الكلمة المستهدفة والعنوان والوصف
@@ -2176,79 +2253,68 @@ def title_extras(F, c):
     return ex
 
 
+def clean_name(name):
+    """اسم المنتج كما هو، بلا شرطات فاصلة ولا لاحقة «تكسا N»."""
+    s = re.sub(r'\s+[–—\-_]\s+', ' ', name)
+    s = re.sub(r'\s*[_–-]?\s*تكسا\s*\d*\s*$', '', s)
+    return re.sub(r'\s+', ' ', s).strip(' –-_')
+
+
+def name_prefix(name, limit):
+    """أطول بادئة من كلمات الاسم لا تتجاوز limit حرفاً (اختصار من النهاية فقط)."""
+    toks = clean_name(name).split()
+    while len(toks) > 1 and len(' '.join(toks)) > limit:
+        toks.pop()
+    full = len(toks) == len(clean_name(name).split())
+    if not full:
+        toks = trim_dangling(toks) or toks
+    return ' '.join(toks), full
+
+
+def title_additions(F, c):
+    fills = TITLE_FILL[F['kind']]
+    k = H(F['id'], 'tf') % len(fills)
+    return title_extras(F, c), fills[k:] + fills[:k]
+
+
 def build_title(F, c, kw, used):
     pid = F['id']
     code = F['code']
-    rest = rest_tokens(F['label'], kw)
     LO, HI = 50 - len(BRAND_SUFFIX), 60 - len(BRAND_SUFFIX)
-    extras = title_extras(F, c)
-    fills = TITLE_FILL[F['kind']]
-    fills = fills[H(pid, 'tf') % len(fills):] + fills[:H(pid, 'tf') % len(fills)]
-
-    def compose(rest_n, use_code, ex_list):
-        body = kw
-        if rest_n:
-            body += ' ' + ' '.join(rest[:rest_n])
-        if use_code and code:
-            body += ' ' + code
-        dang = r'(?:مقاس|مع|و|بعروق|بخطوط|بفواصل|فاصل|فواصل|عرض|شامل|ضد|بلون|من|في|على|ذات|بنقشة|مائل)'
-        if use_code and code:
-            for _ in range(3):
-                body = re.sub(r'\s+' + dang + r'(\s+%s)$' % re.escape(code), r'\1', body)
-        else:
-            for _ in range(3):
-                body = re.sub(r'\s+' + dang + r'$', '', body)
-        for e in ex_list:
-            body += ' – ' + e
-        return re.sub(r'\s+', ' ', body).strip()
-
+    base, full = name_prefix(F['name'], HI)
+    extras, fills = title_additions(F, c)
+    opts = extras + fills
+    if code and code not in base:
+        opts = [code] + opts
     cands = []
-    for use_code in (True, False):
-        for rn in range(len(rest), -1, -1):
-            base = compose(rn, use_code, [])
-            if len(base) > HI:
-                continue
-            if len(base) >= LO:
-                cands.append(base)
-            opts = extras + fills
-            for i, e1 in enumerate(opts):
-                b1 = compose(rn, use_code, [e1])
-                if LO <= len(b1) <= HI:
-                    cands.append(b1)
-                elif len(b1) < LO:
-                    for e2 in opts[i + 1:]:
-                        b2 = compose(rn, use_code, [e1, e2])
-                        if LO <= len(b2) <= HI:
-                            cands.append(b2)
-                        elif len(b2) < LO:
-                            for e3 in fills:
-                                if e3 in (e1, e2):
-                                    continue
-                                b3 = compose(rn, use_code, [e1, e2, e3])
-                                if LO <= len(b3) <= HI:
-                                    cands.append(b3)
-            if cands and use_code:
-                break
-        if cands:
-            break
-    seen = set()
+    if LO <= len(base) <= HI:
+        cands.append(base)
+    for i, e1 in enumerate(opts):
+        b1 = base + ' – ' + e1
+        if LO <= len(b1) <= HI:
+            cands.append(b1)
+        elif len(b1) < LO:
+            for j, e2 in enumerate(opts[i + 1:], i + 1):
+                b2 = b1 + ' – ' + e2
+                if LO <= len(b2) <= HI:
+                    cands.append(b2)
+                elif len(b2) < LO:
+                    for e3 in opts[j + 1:]:
+                        b3 = b2 + ' – ' + e3
+                        if LO <= len(b3) <= HI:
+                            cands.append(b3)
+    if not cands:
+        cands.append(base)
     for b in cands:
         t = b + BRAND_SUFFIX
-        if t not in used and t not in seen:
+        if t not in used:
             used.add(t)
             return t
-        seen.add(t)
-    # احتياط: خارج النطاق أو مكرر — نضمن التفرد برقم المنتج
-    base = compose(len(rest), True, [])
-    while len(base) > HI and ' ' in base:
-        base = base.rsplit(' ', 1)[0]
-    t = base + BRAND_SUFFIX
-    if t in used:
-        tag = ' رقم %d' % pid
-        b2 = base
-        while len(b2) + len(tag) > HI and ' ' in b2:
-            b2 = b2.rsplit(' ', 1)[0]
-        t = b2 + tag + BRAND_SUFFIX
+    tag = ' – رقم %d' % pid
+    b = cands[0]
+    if len(b) + len(tag) > HI:
+        b, _ = name_prefix(F['name'], HI - len(tag))
+    t = b + tag + BRAND_SUFFIX
     used.add(t)
     return t
 
@@ -2286,21 +2352,16 @@ def size_clause(F, c):
 
 def build_meta(F, c, kw, used):
     pid = F['id']
-    code = F['code']
-    lead = kw + ((' ' + code) if code else '')
-    rest = rest_tokens(F['label'], kw)
-    r3 = trim_dangling(rest[:3])
     sc = size_clause(F, c)
     qty = c.get('qty_short', '')
-    ctas = CTAS[H(pid, 'cta') % 6:6] + CTAS[:H(pid, 'cta') % 6] + CTAS[6:]
-    mids = []
-    full_lead = kw + ((' ' + ' '.join(r3)) if r3 else '') + ((' ' + code) if code else '')
-    extras = ['يناسب %s.' % c['rooms'], 'تركيب في 5 مدن وشحن لكل المملكة.', 'راجع المواصفات والأسئلة الشائعة في الصفحة.']
+    k = H(pid, 'cta') % 6
+    ctas = CTAS[k:6] + CTAS[:k] + CTAS[6:]
+    extras = ['يناسب %s.' % c['rooms'], 'رفع المقاس والتركيب متاحان في 5 مدن.', 'راجع المواصفات والأسئلة الشائعة في الصفحة.']
     if c['thick'] and 'سماكة' not in sc and not re.search(r'\d\s*(ملم|مم)', F['label']):
         extras.insert(0, 'سماكة %s ملم.' % c['thick'])
-    if c['cph'] and norm_ar(c['cph'].split()[0]) not in norm_ar(lead):
-        extras.insert(0, 'لون %s.' % c['cph'])
-    for ld in (full_lead, lead):
+    mids = []
+    for limit in (70, 55, 40):
+        ld, _ = name_prefix(F['name'], limit)
         for cta in ctas:
             core = ld + (': ' + sc if sc else '')
             variants = []
@@ -2325,10 +2386,8 @@ def build_meta(F, c, kw, used):
         if t not in used:
             used.add(t)
             return t
-    # احتياط
-    t = (full_lead + (': ' + sc if sc else '') + '. ' + 'يناسب %s. ' % c['rooms'] + CTAS[0])
-    if len(t) > 155:
-        t = (lead + (': ' + sc if sc else '') + '. ' + CTAS[7])[:155]
+    ld, _ = name_prefix(F['name'], 60)
+    t = (ld + '. يناسب %s. ' % c['rooms'] + CTAS[7])[:155]
     if t in used:
         t = t[:140].rstrip() + ' (%d)' % pid
     used.add(t)
@@ -2336,22 +2395,19 @@ def build_meta(F, c, kw, used):
 
 
 def build_excerpt(F, c, kw):
-    code = F['code']
-    rest = rest_tokens(F['label'], kw)
     sc = size_clause(F, c)
-    heads = [kw + ((' ' + ' '.join(trim_dangling(rest[:n]))) if trim_dangling(rest[:n]) else '') + ((' ' + code) if code and use else '')
-             for use in (True, False) for n in (3, 2, 1, 0)]
     s2s = []
     if c.get('qty_short'):
-        s2s += ['%s، ويناسب %s.' % (c['qty_short'], c['rooms']), 'في مثالنا: %s.' % c['qty_short']]
+        s2s += ['%s، ويناسب %s.' % (c['qty_short'], c['rooms']), 'مثال: %s.' % c['qty_short']]
     s2s += ['يناسب %s، والتركيب متاح في 5 مدن.' % c['rooms'], 'يناسب %s.' % c['rooms']]
-    for hd in heads:
+    for limit in (80, 60, 45, 30):
+        hd, _ = name_prefix(F['name'], limit)
         for s2 in s2s:
-            s1 = hd + ('، ' + sc if sc else ' من تكسا ديكور') + '.'
-            t = s1 + ' ' + s2
+            t = hd + ('، ' + sc if sc else ' من تكسا ديكور') + '. ' + s2
             if len(t) <= 160:
                 return t
-    return (kw + '. يناسب %s.' % c['rooms'])[:160]
+    return (name_prefix(F['name'], 60)[0] + '. يناسب %s.' % c['rooms'])[:160]
+
 
 # ------------------------------------------------------------------ فقرة الإجابة، الجدول، الروابط
 
@@ -2417,85 +2473,119 @@ def tidy(s):
     """وصل حرفَي الجر (لـ/بـ) بالكلمة العربية التي تليهما."""
     s = re.sub(r'(?<![\u0621-\u064A])لـال(?=[\u0621-\u064A])', 'لل', s)
     s = re.sub(r'(?<![\u0621-\u064A])([لب])ـ(?=[\u0621-\u064A])', r'\1', s)
+    s = re.sub(r'(?<![\u0621-\u064A])للل', 'لل', s)
     return s
+
+
+def qty_sentence(F, c, pid):
+    """جملة مثال الكمية بصياغة متصلة (العدد فاعل مرفوع)."""
+    if not c.get('qty_n'):
+        return ''
+    k = F['kind']
+    n = c.get('n_txt') or c.get('rolls_txt')
+    v = lambda opts: pick(opts, pid, 'ans-q')
+    if k == 'wallpaper':
+        n = c['rolls_txt']
+        return v(['وجدار بعرض {Ww} م يلزمه {n} بحساب الشرائح.', 'ولجدار عرضه {Ww} م يلزم {n} على ارتفاع 2.8 م.',
+                  'ويلزم لجدار بعرض {Ww} م {n} محسوبة بالشرائح.']).format(Ww=c['Ww'], n=n)
+    if k in ('panel', 'small'):
+        return v(['وجدار {Ww} × 2.8 م يلزمه {n} مع 10% هدر.', 'ولجدار بعرض {Ww} م وارتفاع 2.8 م يلزم {n} شاملة الهدر.',
+                  'ويلزم لجدار {Ww} × 2.8 م {n} بعد إضافة 10% للقص.']).format(Ww=c['Ww'], n=n)
+    if k == 'slat':
+        return v(['وجدار بعرض {Ww} م يلزمه {n} مع 10% هدر.', 'ولجدار عرضه {Ww} م يلزم {n} شاملة الهدر.',
+                  'ويلزم لجدار بعرض {Ww} م {n} بعد إضافة 10% للقص.']).format(Ww=c['Ww'], n=n)
+    if k == 'floor':
+        ap = '' if c.get('has_carton') else 'نحو '
+        return v(['وغرفة {ra} × {rb} م يلزمها {ap}{n} مع 10% هدر.', 'ولغرفة {ra} × {rb} م يلزم {ap}{n} شاملة الهدر.',
+                  'ويلزم لغرفة {ra} × {rb} م {ap}{n} بعد إضافة 10% للقص.']).format(ra=c['ra'], rb=c['rb'], n=n, ap=ap)
+    if k == 'linear' and c.get('room'):
+        return v(['وغرفة {ra} × {rb} م يلزمها {n} مع 10% هدر.', 'ولغرفة {ra} × {rb} م يلزم {n} شاملة الهدر.']).format(
+            ra=c['ra'], rb=c['rb'], n=n)
+    if k == 'linear':
+        return v(['وكل {run} م طولية يلزمها {n} مع 10% هدر.', 'ولكل {run} م طولية يلزم {n} شاملة الهدر.']).format(run=c['run'], n=n)
+    return ''
 
 
 def answer_paragraph(F, c, kw):
     pid = F['id']
     name = F['name']
     v = lambda opts, salt: pick(opts, pid, 'ans-' + salt)
-    intro = '%s %s %s' % (name, v(IS_WORDS, 'is'), kw)
-    if c['origin']:
-        intro += {'محلي': '، صناعة محلية', 'السعودية': '، صناعة سعودية'}.get(c['origin'], '، منشؤه ' + c['origin'])
-    if c['material']:
-        intro += '، بخامة ' + c['material']
-    intro += '.'
     k = F['kind']
+    what = kw
+    if c['origin']:
+        what += {'محلي': ' بصناعة محلية', 'السعودية': ' بصناعة سعودية'}.get(c['origin'], ' من ' + c['origin'])
+    if c['material'] and c['material'].lower() not in kw.lower():
+        what += ' بخامة ' + c['material']
     size = ''
     if c.get('calc'):
         if k == 'wallpaper':
-            size = v(['يأتي في لفة طولها {L} م وعرضها {Wcm} سم تغطي نحو {cov} م².',
-                      'مقاس اللفة {L} م × {Wcm} سم، وتغطيتها قرابة {cov} م².',
-                      'اللفة {L} م طولاً و{Wcm} سم عرضاً، أي نحو {cov} م².'], 'sz')
+            size = v(['يأتي في لفة طولها {L} م وعرضها {Wcm} سم تغطي نحو {cov} م²',
+                      'لفّته بطول {L} م وعرض {Wcm} سم وتغطي قرابة {cov} م²',
+                      'تُباع لفّته بمقاس {L} م × {Wcm} سم، أي نحو {cov} م²'], 'sz')
         elif k in ('panel', 'small'):
-            size = v(['مقاس {U} {Wcm} × {Lcm} سم و{yg} {cov} م².', '{U} بمقاس {Wcm} × {Lcm} سم، والتغطية {cov} م².',
-                      'يأتي بمقاس {Wcm} × {Lcm} سم، فتغطي القطعة {cov} م².'], 'sz')
+            size = v(['مقاسه {Wcm} × {Lcm} سم و{yg} القطعة منه {cov} م²', 'يأتي بمقاس {Wcm} × {Lcm} سم، أي {cov} م² للقطعة',
+                      'مقاس القطعة منه {Wcm} × {Lcm} سم بتغطية {cov} م²'], 'sz')
         elif k == 'slat':
-            size = v(['مقاس {U} {Wcm} سم × {L} م ويغطي {cov} م².', '{U} بعرض {Wcm} سم وطول {L} م، وتغطيته {cov} م².',
-                      'يأتي بعرض {Wcm} سم وطول {L} م، فتغطي القطعة {cov} م².'], 'sz')
+            size = v(['عرضه {Wcm} سم وطوله {L} م ويغطي {cov} م²', 'يأتي بعرض {Wcm} سم وطول {L} م، أي {cov} م² للقطعة',
+                      'مقاس القطعة منه {Wcm} سم × {L} م بتغطية {cov} م²'], 'sz')
         elif k == 'floor':
             bits = []
             if c.get('Lcm'):
                 bits.append('مقاس %s %s × %s سم' % (c['U'], c['Lcm'], c['Wcm']))
             if c['thick']:
-                bits.append('السماكة %s ملم' % c['thick'])
+                bits.append('سماكته %s ملم' % c['thick'])
             if c.get('has_carton'):
-                bits.append('الكرتونة تغطي %s م²' % c['carton'])
+                bits.append('كرتونته تغطي %s م²' % c['carton'])
             elif c.get('pa'):
                 bits.append('مساحة %s %s م²' % (c['U'], c['pa']))
-            size = '، و'.join(bits) + '.'
+            size = '، و'.join(bits)
         elif k == 'linear':
-            size = v(['طول القطعة {L} م وعرضها {Wcm} سم.', 'تأتي القطعة بطول {L} م وعرض {Wcm} سم.',
-                      'مقاس القطعة {Lcm} سم طولاً × {Wcm} سم.'], 'sz')
-        size = size.format(**c)
+            size = v(['طول القطعة منه {L} م وعرضها {Wcm} سم', 'تأتي القطعة بطول {L} م وعرض {Wcm} سم',
+                      'مقاس القطعة {Lcm} سم طولاً × {Wcm} سم'], 'sz')
+        size = size.format_map(c)
     else:
         bits = []
         if c.get('cov_only'):
-            bits.append('%s %s %s م² حسب بيانات المنتج' % (c['U'], c['yg'], c['cov']))
+            bits.append('%s منه %s %s م² حسب بيانات المنتج' % (c['U'], c['yg'], c['cov']))
         if c.get('post_h'):
-            bits.append('الارتفاع %s م' % c['post_h'])
+            bits.append('ارتفاعه %s م' % c['post_h'])
         if c['thick']:
-            bits.append('السماكة %s ملم' % c['thick'])
-        size = ('، و'.join(bits) + '.') if bits else ''
-    uses = v(USE_WORDS, 'use').format(**c) + '.'
-    opt = []
-    if c.get('qty_short'):
-        opt.append(v(['في مثال الحساب: %s.', 'وبالأرقام: %s.', 'مثال الكمية: %s.'], 'q') % c['qty_short'])
+            bits.append('سماكته %s ملم' % c['thick'])
+        size = '، و'.join(bits)
+    s1 = '%s هو %s' % (name, what) + ('، ' + size if size else '') + '.'
+    sents = [s1]
+    q = qty_sentence(F, c, pid)
+    uses = v(['يناسب {rooms}', 'يُستخدم في {rooms}', 'مكانه المعتاد {rooms}', 'يليق بـ{rooms}'], 'use').format_map(c)
+    claims = []
     if c['waterproof']:
-        opt.append('ويذكر وصف المنتج أنه مقاوم للماء.')
+        claims.append('يذكر وصفه أنه مقاوم للماء')
     if c['click']:
-        opt.append('التركيب بنظام التعشيق (كليك).')
-    if c['cph']:
-        pa = ANS_PAT.get(F['pattern'])
-        opt.append('لونه %s%s.' % (c['cph'], ('، وتصميمه ' + pa) if pa else ''))
+        claims.append('يُركَّب بالتعشيق (كليك)')
+    if q:
+        sents.append(q)
+    opt = []
+    nd = ''
     if not c.get('calc') and k not in ('piece', 'post'):
-        opt.append('المقاس يُؤكَّد مع فريق المبيعات قبل حساب الكمية.')
-    opt.append(v(['التركيب متاح في خمس مدن والشحن لكل مناطق المملكة.', 'يُشحن لكل مدن المملكة والتركيب متاح في خمس مدن.',
-                  'الشحن لجميع مدن المملكة، والتركيب في خمس مدن رئيسية.'], 'svc'))
-    opt.append(v(['بقية التفاصيل في جدول المواصفات أدناه.', 'راجع جدول المواصفات والأسئلة الشائعة قبل الطلب.',
-                  'تفاصيل المقاس والخامة في الجدول أسفل الصفحة.'], 'tbl'))
-    opt.append('ويمكن حساب الكمية المطلوبة بحاسبة الكميات في المتجر.')
+        nd = v(['مقاسه غير مذكور في بيانات المنتج فاطلبه من فريق المبيعات قبل حساب الكمية',
+                'مقاسه المؤكَّد يزوّدك به فريق المبيعات قبل تحديد العدد لأنه لم يرد في بيانات المتجر',
+                'عدده يُحسب بعد تأكيد مقاسه من فريق تكسا لأنه غير مؤكَّد في البيانات'], 'nd')
+    opt.append(v(['وتجد مواصفاته كاملة في الجدول أدناه.', 'وبقية مواصفاته في الجدول أسفل الصفحة.',
+                  'وتفاصيله موضّحة في جدول المواصفات.'], 'tbl'))
+    opt.append('ويمكنك حساب الكمية بحاسبة الكميات في المتجر.')
+    svc = v(['يُشحن إلى كل مدن المملكة مع تركيب متاح في خمس مدن', 'شحنه متاح لجميع مدن المملكة وتركيبه في خمس مدن رئيسية',
+             'يصل بالشحن إلى أي مدينة في المملكة ويُركَّب في خمس مدن'], 'svc')
+    tail = uses + ('، و' + ' و'.join(claims) if claims else '') + ('، و' + nd if nd else '')
     wc = lambda ss: len(' '.join(ss).split())
-    front_keys = ('في مثال', 'وبالأرقام', 'مثال الكمية', 'لونه', 'ويذكر', 'التركيب بنظام')
-    front = [s for s in (intro, size) if s]
-    tail = []
+    if wc(sents + [tail]) < 41:
+        tail += '، و' + svc
+    sents.append(tail + '.')
+    wc = lambda ss: len(' '.join(ss).split())
     for o in opt:
-        cur = front + [uses] + tail
-        if wc(cur) >= 42:
+        if wc(sents) >= 41:
             break
-        if wc(cur + [o]) <= 60:
-            (front if o.startswith(front_keys) else tail).append(o)
-    return ' '.join(front + [uses] + tail)
+        if wc(sents + [o]) <= 60:
+            sents.append(o)
+    return ' '.join(sents)
 
 
 def spec_rows(F, c):
@@ -2577,8 +2667,8 @@ def render(F, links, paths, root_name, used_titles, used_metas):
     pid = F['id']
     c = build_context(F)
     kw = focus_keyword(F, c)
-    e = dict(c)
-    for key in ('ref', 'cd', 'label', 'name', 'code'):
+    e = RefCtx(c)
+    for key in ('ref_named', 'cd', 'label', 'name', 'code'):
         e[key] = esc(str(c[key]))
     Fe = dict(F, name=esc(F['name']))
     parts = []
@@ -2590,7 +2680,7 @@ def render(F, links, paths, root_name, used_titles, used_metas):
     parts.append('<h2>%s</h2>' % nh)
     parts.append('<ul>\n' + '\n'.join('<li>%s</li>' % x for x in nli) + '\n</ul>')
     rows = spec_rows(F, c)
-    parts.append('<h2>%s</h2>' % pick(SPEC_HEADS, pid, 'spech').format(**e))
+    parts.append('<h2>%s</h2>' % pick(SPEC_HEADS, pid, 'spech').format_map(e))
     parts.append('<table class="txa-specs">\n<tbody>\n' + '\n'.join(
         '<tr><th scope="row">%s</th><td>%s</td></tr>' % (esc(a), esc(b)) for a, b in rows) + '\n</tbody>\n</table>')
     th, tp = tip_section(F, e)
@@ -2601,11 +2691,11 @@ def render(F, links, paths, root_name, used_titles, used_metas):
     for q, a in faqs:
         parts.append('<h3>%s</h3>' % q)
         parts.append('<p>%s</p>' % a)
-    parts.append('<h2>%s</h2>' % pick(SHIP_HEADS, pid, 'shiph').format(**e))
-    inst = pick(INSTALL, pid, 'inst').format(thing=c['thing'], ref=e['ref'], inst=A(URL_INSTALL, 'خدمات التركيب'))
-    ship = pick(SHIP, pid, 'ship').format(ref=e['ref'])
+    parts.append('<h2>%s</h2>' % pick(SHIP_HEADS, pid, 'shiph').format_map(e))
+    inst = pick(INSTALL, pid, 'inst').format(thing=c['thing'], ref=THIS[F['sub']], inst=A(URL_INSTALL, 'خدمات التركيب'))
+    ship = pick(SHIP, pid, 'ship').format(ref=e['desc'])
     parts.append('<p>%s<br>\n%s</p>' % (inst, ship))
-    parts.append('<p>%s</p>' % link_paragraph(F, c, links, paths, root_name))
+    parts.append('<p>%s</p>' % link_paragraph(F, e, links, paths, root_name))
     parts.append(MARK)
     desc = tidy('\n'.join(parts))
     tp = tidy(tp)
@@ -2700,6 +2790,44 @@ def run_tests(Fs, outs, links):
     c = byO[16235]['ctx']
     assert byF[16235].get('coverage') is None and c['L'] == '2.4'
     res.append('النعلة zzf12: قالب طولي (2.4 م للقطعة) بلا متر مربع')
+    # حشو الكود: الاسم المختصر/الكود ≤ 4 مرات في الوصف (فقرة الإجابة، H2 واحد، الجدول، سؤال واحد)
+    for o in outs:
+        F = byF[o['id']]
+        c = o['ctx']
+        text = o['description']
+        named = html.escape(c['ref_named'], quote=False)
+        o['named_count'] = text.count(named)
+        code = html.escape(F['code'], quote=False)
+        if code:
+            o['code_count'] = len(re.findall(r'(?<![\w.\-])' + re.escape(code) + r'(?![\w\-])', text))
+        else:
+            o['code_count'] = text.count(html.escape(F['label'], quote=False))
+        assert o['named_count'] <= (3 if not F['code'] else 2), ('named ref repeated', o['id'], o['named_count'])
+        if not code or not code.isdigit() or len(code) >= 5:
+            assert o['code_count'] <= 4, ('code stuffing', o['id'], o['code_count'])
+    res.append('حشو الكود: الاسم المختصر بالكود يظهر في عنوان H2 واحد وسؤال واحد فقط، ومجموع ظهور الكود في الوصف ≤ 4 لكل المنتجات (الأكواد الرقمية القصيرة تُفحص بالاسم المختصر لأنها قد تطابق رقماً في الحسابات)')
+    # ترتيب كلمات العنوان = ترتيب اسم المنتج، والإضافات (كود/مقاس/عبارة) في النهاية فقط
+    for o in outs:
+        F = byF[o['id']]
+        body = o['title'][:-len(BRAND_SUFFIX)]
+        toks = clean_name(F['name']).split()
+        k = len(toks)
+        while k > 0:
+            pre = ' '.join(toks[:k])
+            if body == pre or body.startswith(pre + ' – '):
+                break
+            k -= 1
+        assert k >= 1, ('title not a prefix of the name', o['id'], o['title'])
+        ex, fl = title_additions(F, o['ctx'])
+        allowed = set(ex) | set(fl) | {F['code'], 'رقم %d' % o['id']}
+        tail = body[len(' '.join(toks[:k])):]
+        for part in [p for p in tail.split(' – ') if p.strip()]:
+            assert part.strip() in allowed, ('title addition', o['id'], part)
+    res.append('العناوين: كل عنوان = بادئة من اسم المنتج الأصلي بترتيبه (اختصار من النهاية فقط) + إضافات كود/مقاس/عبارة في النهاية')
+    for o in outs:
+        if byF[o['id']]['kind'] == 'wallpaper':
+            assert 'اخصم' not in o['description'] and 'قبل خصم' not in o['description'], o['id']
+    res.append('ورق الجدران: لا توجد صيغة تنصح بخصم الأبواب والنوافذ (موحّدة مع مقال المتجر)')
     ok_links = allowed_links(links)
     titles = Counter(o['title'] for o in outs)
     assert max(titles.values()) == 1, 'duplicate titles'
@@ -2841,7 +2969,7 @@ def write_report(prods, Fs, outs, files, review, tests, links, byP):
     for o in outs:
         F = byF[o['id']]
         c = o['ctx']
-        ts = {html.escape(F['name'], quote=False), F['name'], F['label'], c['ref'], c['cd']}
+        ts = {html.escape(F['name'], quote=False), F['name'], F['label'], c['ref_named'], c['cd']} | set(c['_forms'])
         if c['cph']:
             ts.add(c['cph'])
         toks.append(sorted((t for t in ts if t and len(t) > 2), key=len, reverse=True))
@@ -2861,6 +2989,31 @@ def write_report(prods, Fs, outs, files, review, tests, links, byP):
     w('- للمقارنة مع تقرير الفحص: الوسيط على كل الـ%d منتجاً (قبل) = %.1f%% (التقرير ذكر 61%%).' % (n_all, all_before['median'] * 100))
     w('- **مقياس أشدّ للصدق**: بعد حجب اسم المنتج وكوده ولونه وكل الأرقام من الجمل (أي مقارنة القوالب نفسها لا النص الحرفي) يصبح وسيط التكرار **%.1f%%** والمتوسط %.1f%%. هذا يعني أن انخفاض التكرار الحرفي مصدره الأساسي إدخال بيانات المنتج (الكود، اللون، الأرقام) في الجمل وتنويع الصياغات، لا أن كل جملة مكتوبة يدوياً لمنتج واحد.' % (
         a_mask['median'] * 100, a_mask['mean'] * 100))
+    w('')
+    cc = sorted(o.get('code_count', 0) for o in outs)
+    w('- **ظهور الكود/الاسم المختصر داخل الوصف**: الوسيط %d، الأقصى %d (الحد 4: فقرة الإجابة، عنوان H2 واحد، الجدول، سؤال واحد). بقية الجمل تشير للمنتج بصياغة طبيعية («هذا الورق»، «اللوح القماشي البني»...)، فالتنوع في المقياس الحرفي أعلاه يأتي من المقاس والتغطية وأبعاد مثال الكمية واللون والنقشة والغرف وتنويع الصياغات، لا من تكرار الكود.' % (
+        cc[len(cc) // 2], cc[-1]))
+    byk = defaultdict(list)
+    per_after = dup_stats  # للتوضيح فقط
+    for slug in sorted(byroot):
+        ids = {o['id'] for o in byroot[slug]}
+        idx = [i for i, o in enumerate(outs) if o['id'] in ids]
+        byk[slug] = idx
+    df = Counter()
+    per = []
+    for t in after_txt:
+        ss = sentences(t)
+        per.append(ss)
+        for x in set(ss):
+            df[x] += 1
+    w('')
+    w('وسيط التكرار الحرفي بعد التوليد لكل قسم (الأقسام الكبيرة ذات المقاس الموحّد أعلى بطبيعتها):')
+    w('')
+    w('| القسم | المنتجات | الوسيط بعد |')
+    w('|---|---|---|')
+    for slug in sorted(byk):
+        rs = sorted(sum(1 for x in per[i] if df[x] >= 20) / max(1, len(per[i])) for i in byk[slug])
+        w('| %s | %d | %.1f%% |' % (slug, len(rs), statistics.median(rs) * 100))
     w('')
     w('أكثر الجمل تكراراً بعد التوليد (حرفياً):')
     w('')
@@ -3003,11 +3156,11 @@ def write_report(prods, Fs, outs, files, review, tests, links, byP):
     lim = [
         'لم يُختبر الاستيراد على WooCommerce فعلياً. أسماء الأعمدة هي أسماء المستورد القياسي والمطابقة على ID، لكن يجب تجربة ملف واحد على نسخة staging أولاً، والتأكد من تفعيل «تحديث المنتجات الموجودة».',
         'حقول Rank Math الحالية غير متاحة في الواجهة العامة، لذلك لا توجد لها نسخة احتياطية في `products-backup.csv` (فيه الوصف والوصف المختصر فقط). خذ تصديراً من ووردبريس قبل الاستيراد.',
-        'التكرار الحرفي انخفض لأن الجمل تحمل كود المنتج ولونه وأرقامه ولأن الصياغات تُختار من مكتبات؛ المقياس المحجوب في القسم 2 يبيّن أن القوالب نفسها ما زالت مشتركة. المحتوى أفضل من القالب الحالي لكنه ليس كتابة يدوية كمنتجات التجربة العشرين.',
+        'التكرار الحرفي انخفض لأن الجمل تحمل مقاس المنتج ولونه ونقشته وأرقام مثاله ولأن الصياغات تُختار من مكتبات (الكود لم يعد يُكرَّر في الجمل)؛ المقياس المحجوب في القسم 2 يبيّن أن القوالب نفسها ما زالت مشتركة. المحتوى أفضل من القالب الحالي لكنه ليس كتابة يدوية كمنتجات التجربة العشرين.',
         'نصيحة المصمم معرفة ديكور عامة مبنية على اللون والنقشة المستخرجين من الاسم/الخصائص/القسم، لا على رؤية الصورة. اللون المستخرج قد يخطئ في أسماء تجارية غير لونية، والمنتجات بلا لون مكتشف تأخذ نصيحة عامة.',
         'الكلمة المستهدفة مشتقة آلياً (النوع + الصفة + اللون) ولم يُتحقق من حجم البحث عليها بأي أداة، وهي مكررة بين المنتجات المتشابهة. يلزم قرار: إبقاؤها طبيعية مكررة، أو إضافة الكود لها لتصير فريدة.',
         'المقاس يُعتمد فقط إذا ورد في نص المنتج بوحدة واضحة ولم يخالفه حقل الأبعاد (تسامح 2.5%)، أو إذا ورد في حقل الأبعاد وطابق مقاساً قياسياً مؤكَّداً نصاً في 3 منتجات على الأقل من القسم نفسه. ما عدا ذلك يخرج الوصف بلا أرقام ويُسجَّل في المراجعة؛ هذه نسبة كبيرة (انظر القسم 5) وتحتاج استكمال بيانات لا إعادة كتابة.',
-        'حساب ورق الجدران بالشرائح يفترض ارتفاع جدار 2.8 م ولا يخصم الأبواب والنوافذ ولا يحسب تكرار النقشة (غير موجود في البيانات). أمثلة الألواح والأرضيات تضيف 10% هدراً ثابتاً؛ الرصّة الهرمية تحتاج أكثر.',
+        'حساب ورق الجدران بالشرائح يفترض ارتفاع جدار 2.8 م ولا يخصم الأبواب والنوافذ (عمداً، اتباعاً لمقال المتجر: ما يتوفر يبقى احتياطاً) ولا يحسب تكرار النقشة (غير موجود في البيانات). أمثلة الألواح والأرضيات تضيف 10% هدراً ثابتاً؛ الرصّة الهرمية تحتاج أكثر.',
         'عدد ألواح بديل الخشب المضلع يفترض أن العرض المذكور هو العرض الظاهر بعد التعشيق (سؤال مفتوح من التجربة)، والنص ينبّه العميل لذلك.',
         'الادعاء الوحيد المنقول من الأوصاف الحالية هو «مقاوم للماء» ويُكتب منسوباً لوصف المنتج، ويظهر فقط إن ورد في بيانات المنتج نفسه. قد يكون أصله جملة قالبية في الوصف القديم؛ يحتاج مستنداً من المورد كما أوصى تقرير التجربة. لم تُنقل ادعاءات FDA/فورمالدهايد/حريق/نمل أبيض/UV.',
         'السماكة والخامة والمنشأ تُحذف عند تعارض مصدرين (الاسم مقابل الوصف مثلاً) وتُسجَّل؛ ارتفاع حقل الأبعاد (الخانة الثالثة) لم يُستخدم مصدراً للسماكة لأنه غير موثوق.',
@@ -3015,7 +3168,7 @@ def write_report(prods, Fs, outs, files, review, tests, links, byP):
         'لم تُربط روابط أقسام العروض (عروض ورق الجدران، عروض النعلات، عروض التشطيبات) عمداً لأنها تتغير؛ الروابط للقسم الفرعي والرئيسي فقط.',
         'النص البديل للصور غير مشمول في هذه المخرجات (المستورد القياسي لا يحدّثه بهذه الأعمدة).',
         'Schema (FAQPage/Product) وCSS للأصناف `txa-answer` و`txa-specs` خارج نطاق هذا الملف.',
-        'العنوان يُبنى آلياً: الكلمة المستهدفة أولاً ثم بقية كلمات الاسم ثم الكود/المقاس، فيتغير ترتيب كلمات الاسم أحياناً (مثل «باركيه صيني بني لامينيت سيرفكس رمادي» لاسم فيه «بني رمادي»)، وتُحذف كلمات من آخره عند تجاوز 60 حرفاً. سليم لمحركات البحث لكنه ليس بسلاسة عناوين التجربة اليدوية.',
+        'العنوان = اسم المنتج الأصلي بترتيبه (يُختصر من النهاية فقط عند تجاوز الطول) + كود/مقاس/عبارة قصيرة في النهاية. لذلك الكلمة المستهدفة (المشتقة بصيغة بحث طبيعية) لا تظهر دائماً كعبارة متصلة في العنوان ووصف Meta؛ العدد الفعلي في القسم 4. أُبقيت الكلمة المستهدفة طبيعية بلا كود بقرار المدير.',
         'النقشة تُؤخذ من الاسم أولاً ثم من قسم المتجر؛ إن كان تصنيف المنتج خاطئاً في المتجر (مثل «مخطط» داخل قسم السادة، كما في التجربة) انتقل الخطأ إلى النص.',
         'وسيط التكرار «قبل» بحسابنا 69.2% لا 61% كما في تقرير الفحص؛ الفرق يعود على الأرجح لطريقة تحويل HTML إلى نص (لم نجد سكربت الفحص الأصلي لمطابقته). المقارنة قبل/بعد هنا بالطريقة نفسها على الجانبين.',
         'لم يراجع إنسان الصياغة العربية لكل الـ%d وصفاً؛ روجعت عينات فقط. يُنصح بمراجعة 20–30 منتجاً من كل ملف قبل استيراده.' % n_out,
