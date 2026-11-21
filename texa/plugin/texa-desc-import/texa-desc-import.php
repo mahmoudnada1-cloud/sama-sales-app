@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Texa Description Import (temporary)
  * Description: One-off tool. Applies prepared product descriptions and Rank Math fields from bundled CSV files in small background batches, keeping a per-product backup. Deactivate to stop. Delete when finished.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Texa Decor web team
  * Requires Plugins: woocommerce
  */
@@ -13,15 +13,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 const TXA_DI_STATE  = 'txa_di_state';
 const TXA_DI_HOOK   = 'txa_di_run_batch';
-const TXA_DI_BATCH  = 40;
+const TXA_DI_BATCH  = 100;
 const TXA_DI_GAP    = 45;
-const TXA_DI_BUDGET = 20; // Seconds of work per batch; the rest of the batch waits for the next run.
+const TXA_DI_BUDGET = 20;  // Seconds of work per batch; the rest of the batch waits for the next run.
+const TXA_DI_STALL  = 300; // Seconds without a finished batch before a page view runs one itself.
+const TXA_DI_LOCK   = 120; // A running batch holds a lock for at most this long.
 const TXA_DI_MAXLOG = 200;
-const TXA_DI_BACKUP = '_txa_v4_backup';
+const TXA_DI_BACKUP = '_txa_v4_backup'; // Written once per product, before its very first change. Never replaced.
+const TXA_DI_ALT    = '_wp_attachment_image_alt';
+
+/** Current time. Filterable only so the offline test harness can move the clock. */
+function txa_di_now() {
+	return (int) apply_filters( 'txa_di_now', time() );
+}
 
 /** CSV files bundled with this plugin, in a stable order. Nothing outside this folder is ever read. */
 function txa_di_files() {
-	$files = glob( __DIR__ . '/data/products-import-*.csv' );
+	$files = glob( __DIR__ . '/data/products-v5-*.csv' );
 	if ( ! is_array( $files ) ) {
 		return array();
 	}
@@ -39,7 +47,11 @@ function txa_di_state() {
 			'updated'    => 0,
 			'skipped'    => 0,
 			'unchanged'  => 0,
+			'alts_set'   => 0,
 			'last_secs'  => 0,
+			'beat'       => 0,
+			'inline'     => 0,
+			'next'       => '',
 			'errors'     => array(),
 			'status'     => 'idle',
 			'started'    => gmdate( 'c' ),
@@ -54,14 +66,7 @@ function txa_di_pending_files( $state ) {
 	return array_values( array_diff( txa_di_files(), $state['files_done'] ) );
 }
 
-function txa_di_is_scheduled() {
-	if ( function_exists( 'as_has_scheduled_action' ) ) {
-		return as_has_scheduled_action( TXA_DI_HOOK, null, 'txa-di' );
-	}
-	return (bool) wp_next_scheduled( TXA_DI_HOOK );
-}
-
-/** True only when a batch is waiting in the queue (a batch that is running right now does not count). */
+/** True when a batch is waiting in the queue. A batch that is (or only looks) "in progress" does not count. */
 function txa_di_has_pending() {
 	if ( function_exists( 'as_get_scheduled_actions' ) && class_exists( 'ActionScheduler_Store' ) ) {
 		$ids = as_get_scheduled_actions(
@@ -79,18 +84,21 @@ function txa_di_has_pending() {
 }
 
 /**
- * Queues the next batch. $from_batch = true is used by the running batch itself: Action Scheduler
- * reports the running batch as "scheduled", so in that case only a waiting batch blocks a new one.
+ * Queues the next batch unless one is already waiting. Used by the batch itself and by the keep-alive
+ * check, with the same rule: files remain + nothing waiting = queue one.
+ * Returns a short note for the status report.
  */
-function txa_di_schedule( $delay, $from_batch = false ) {
-	if ( $from_batch ? txa_di_has_pending() : txa_di_is_scheduled() ) {
-		return;
+function txa_di_schedule( $delay, $by ) {
+	if ( txa_di_has_pending() ) {
+		return 'already waiting (seen by ' . $by . ' ' . gmdate( 'H:i:s', txa_di_now() ) . ')';
 	}
+	$due = txa_di_now() + $delay;
 	if ( function_exists( 'as_schedule_single_action' ) ) {
-		as_schedule_single_action( time() + $delay, TXA_DI_HOOK, array(), 'txa-di' );
+		$id = (int) as_schedule_single_action( $due, TXA_DI_HOOK, array(), 'txa-di' );
 	} else {
-		wp_schedule_single_event( time() + $delay, TXA_DI_HOOK );
+		$id = false === wp_schedule_single_event( $due, TXA_DI_HOOK ) ? 0 : 1;
 	}
+	return ( $id ? 'queued #' . $id : 'QUEUE FAILED' ) . ' by ' . $by . ' due ' . gmdate( 'H:i:s', $due );
 }
 
 function txa_di_unschedule() {
@@ -98,24 +106,55 @@ function txa_di_unschedule() {
 		as_unschedule_all_actions( TXA_DI_HOOK, null, 'txa-di' );
 	}
 	wp_clear_scheduled_hook( TXA_DI_HOOK );
+	delete_transient( 'txa_di_lock' );
+	delete_transient( 'txa_di_tick' );
+	delete_option( 'txa_di_watch' );
 }
 
-/** Keeps the job alive: if files remain and nothing is queued, queue the next batch. */
+/**
+ * Keeps the job alive. Two independent paths, checked at most once a minute:
+ * 1. files remain and no batch is waiting or running -> queue one in Action Scheduler;
+ * 2. files remain but no batch has finished for TXA_DI_STALL seconds (the queue is not being run)
+ *    -> run one batch directly at the end of this request, after the page has been sent.
+ */
 function txa_di_ensure() {
 	if ( ! function_exists( 'wc_get_product' ) ) {
 		return;
 	}
-	// At most one check per minute, so ordinary page views do not pay for a queue lookup.
 	if ( get_transient( 'txa_di_tick' ) ) {
 		return;
 	}
 	set_transient( 'txa_di_tick', 1, MINUTE_IN_SECONDS );
 	$state = txa_di_state();
-	if ( txa_di_pending_files( $state ) ) {
-		txa_di_schedule( 20 );
+	if ( ! txa_di_pending_files( $state ) ) {
+		return;
 	}
+	if ( get_transient( 'txa_di_lock' ) ) {
+		return; // A batch is running right now; it queues the next one itself.
+	}
+	$now   = txa_di_now();
+	$watch = get_option( 'txa_di_watch' ); // Kept apart from the job state, so this check never overwrites a batch's progress.
+	if ( ! is_array( $watch ) ) {
+		$watch = array( 'since' => $now, 'note' => '' ); // First sighting: start the stall clock, give the queue its chance.
+	}
+	$watch['note'] = txa_di_schedule( 20, 'keep-alive' );
+	$last          = max( (int) $watch['since'], isset( $state['beat'] ) ? (int) $state['beat'] : 0 );
+	if ( ( $now - $last ) > TXA_DI_STALL && ( ! is_user_logged_in() || current_user_can( 'manage_woocommerce' ) ) ) {
+		$watch['note'] .= '; stalled ' . ( $now - $last ) . 's, running one batch directly';
+		add_action( 'shutdown', 'txa_di_run_inline', 999 );
+	}
+	update_option( 'txa_di_watch', $watch, false );
 }
 add_action( 'action_scheduler_init', 'txa_di_ensure' );
+
+/** Fallback path: one batch at the very end of an ordinary request, when the queue has gone quiet. */
+function txa_di_run_inline() {
+	ignore_user_abort( true );
+	if ( function_exists( 'fastcgi_finish_request' ) ) {
+		fastcgi_finish_request(); // The visitor already has the page; the batch costs them nothing.
+	}
+	txa_di_run_batch( 'inline' );
+}
 
 register_deactivation_hook( __FILE__, 'txa_di_unschedule' );
 
@@ -163,8 +202,8 @@ function txa_di_apply_row( $row ) {
 	}
 	$desc  = isset( $row['Description'] ) ? (string) $row['Description'] : '';
 	$short = isset( $row['Short description'] ) ? (string) $row['Short description'] : '';
-	if ( '' === trim( $desc ) || false === strpos( $desc, 'txa-desc-v4' ) ) {
-		return 'skipped: description missing or not v4';
+	if ( '' === trim( $desc ) || ! preg_match( '/txa-desc-v\d/', $desc ) ) {
+		return 'skipped: description missing or without txa-desc marker';
 	}
 	$metas = array(
 		'rank_math_title'         => isset( $row['Meta: rank_math_title'] ) ? (string) $row['Meta: rank_math_title'] : '',
@@ -193,6 +232,7 @@ function txa_di_apply_row( $row ) {
 		}
 	}
 	if ( ! $meta_changed && ! $product->get_changes() ) {
+		txa_di_fill_alt( $product, $row );
 		return 'unchanged'; // Already applied (re-run): no save, no new modified date.
 	}
 
@@ -228,13 +268,47 @@ function txa_di_apply_row( $row ) {
 			add_filter( 'title_save_pre', 'wp_filter_kses', $title_kses );
 		}
 	}
+	txa_di_fill_alt( $product, $row );
 	return 'updated';
 }
 
-function txa_di_run_batch() {
-	if ( ! function_exists( 'wc_get_product' ) ) {
+/**
+ * Gives the product's featured image the prepared alt text, only when that image has none.
+ * An existing alt text is never replaced. Images filled here are marked with _txa_alt_set for rollback.
+ */
+function txa_di_fill_alt( $product, $row ) {
+	$alt = isset( $row['image_alt'] ) ? sanitize_text_field( (string) $row['image_alt'] ) : '';
+	$img = is_callable( array( $product, 'get_image_id' ) ) ? absint( $product->get_image_id() ) : 0;
+	if ( '' === $alt || ! $img || 'attachment' !== get_post_type( $img ) ) {
 		return;
 	}
+	if ( '' !== trim( (string) get_post_meta( $img, TXA_DI_ALT, true ) ) ) {
+		return;
+	}
+	if ( update_post_meta( $img, TXA_DI_ALT, wp_slash( $alt ) ) ) {
+		add_post_meta( $img, '_txa_alt_set', gmdate( 'c' ), true );
+		$GLOBALS['txa_di_alts'] = ( isset( $GLOBALS['txa_di_alts'] ) ? (int) $GLOBALS['txa_di_alts'] : 0 ) + 1;
+	}
+}
+
+/**
+ * Entry point for both the queue and the fallback. Only one batch runs at a time: a second caller
+ * leaves at once, and the lock frees itself after TXA_DI_LOCK seconds if a run is killed.
+ */
+function txa_di_run_batch( $via = 'queue' ) {
+	if ( ! function_exists( 'wc_get_product' ) || get_transient( 'txa_di_lock' ) ) {
+		return;
+	}
+	set_transient( 'txa_di_lock', 1, TXA_DI_LOCK );
+	$GLOBALS['txa_di_alts'] = 0;
+	try {
+		txa_di_do_batch( 'inline' === $via ? 'inline' : 'queue' );
+	} finally {
+		delete_transient( 'txa_di_lock' );
+	}
+}
+
+function txa_di_do_batch( $via ) {
 	$state   = txa_di_state();
 	$pending = txa_di_pending_files( $state );
 	if ( ! $pending ) {
@@ -293,16 +367,22 @@ function txa_di_run_batch() {
 		}
 	}
 	$state['last_run'] = gmdate( 'c' );
+	$state['beat']     = txa_di_now();
+	$state['alts_set'] = ( isset( $state['alts_set'] ) ? (int) $state['alts_set'] : 0 ) + ( isset( $GLOBALS['txa_di_alts'] ) ? (int) $GLOBALS['txa_di_alts'] : 0 );
+	if ( 'inline' === $via ) {
+		$state['inline'] = ( isset( $state['inline'] ) ? (int) $state['inline'] : 0 ) + 1;
+	}
 	if ( ! txa_di_pending_files( $state ) ) {
 		$state['status'] = 'done';
+		$state['next']   = '';
+	} else {
+		// Files remain: always leave a batch waiting. The outcome is written into the report.
+		$state['next'] = txa_di_schedule( TXA_DI_GAP, 'batch' );
 	}
 	update_option( TXA_DI_STATE, $state, false );
 	txa_di_report( $state );
-	if ( 'done' !== $state['status'] ) {
-		txa_di_schedule( TXA_DI_GAP, true );
-	}
 }
-add_action( TXA_DI_HOOK, 'txa_di_run_batch' );
+add_action( TXA_DI_HOOK, 'txa_di_run_batch', 10, 0 );
 
 /** Progress is written to one private post so it can be read without any new endpoint. */
 function txa_di_report( $state ) {
@@ -312,7 +392,13 @@ function txa_di_report( $state ) {
 			'updated'    => $state['updated'],
 			'skipped'    => $state['skipped'],
 			'unchanged'  => isset( $state['unchanged'] ) ? $state['unchanged'] : 0,
+			'alts_set'   => isset( $state['alts_set'] ) ? $state['alts_set'] : 0,
 			'last_secs'  => isset( $state['last_secs'] ) ? $state['last_secs'] : 0,
+			'next'       => isset( $state['next'] ) ? $state['next'] : '',
+			'inline'     => isset( $state['inline'] ) ? $state['inline'] : 0,
+			'wp_cron'    => ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ) ? 'off (host cron)' : 'on',
+			'keep_alive' => is_array( get_option( 'txa_di_watch' ) ) ? get_option( 'txa_di_watch' )['note'] : '',
+			'pending'    => txa_di_pending_files( $state ),
 			'files_done' => $state['files_done'],
 			'current'    => $state['file'],
 			'offset'     => $state['offset'],
