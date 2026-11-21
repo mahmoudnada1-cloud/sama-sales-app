@@ -1,2 +1,3 @@
 texa/data/raw/
 texa/data/products-slim.json
+__pycache__/
