@@ -1,0 +1,34 @@
+سجل الالتقاط — 2026-11-21 (UTC)
+الأداة: Playwright / Chromium headless — جوال 390x844 (DPR 2) وسطح مكتب 1440x900، locale ar-SA، هوية المتصفح الافتراضية.
+
+== texadecore.store: تم الالتقاط (HTTP 200) بين 19:56 و19:58 UTC ==
+ملاحظة: محاولة أولى بهوية iPhone مزيفة أعادت صفحة تحقق 'Checking your browser' (HTTP 403)؛ استُبعدت تلك اللقطات وأعيد الالتقاط بالهوية الافتراضية.
+ملاحظة: أيقونات الإيموجي (s.w.org) تظهر مكسورة في اللقطات؛ السبب المرجح حجب ذلك النطاق في بيئة الالتقاط، لا خلل مؤكد في الموقع.
+
+== texadecor.com: لم يُلتقط شيء ==
+curl https://texadecor.com/      -> CONNECT tunnel failed, response 403 (بروكسي الجلسة)
+curl https://www.texadecor.com/  -> CONNECT tunnel failed, response 403
+Playwright 19:58:08 UTC          -> net::ERR_TUNNEL_CONNECTION_FAILED
+WebFetch                          -> getaddrinfo ENOTFOUND (النطاق خارج النطاقات المسموحة للجلسة أو غير موجود)
+WebSearch (استعلامان)             -> لا نتائج تذكر النطاق
+النتيجة: لا يمكن من هذه البيئة تأكيد أن الموقع موجود أصلاً ولا وصف محتواه.
+
+== SHA-256 للملفات ==
+7d7ffff25faa6cc04f5702934cddc02c0c41c8e67d772f3cde401fa4002b4d43  ours-about-desktop.png
+0f6733a0b8be6da0b34967bd0c2530e33f8d85a1107401bc1bc14fa0d5cbb43d  ours-about-mobile.png
+916b85aa480c2758e0d01a22afc9b4f82bdbdf540aa5f75e97da344b6d8b24e3  ours-category-desktop.png
+2ffb2d55f2b01e8922d6d8441ce0fc08d687b3c4c5557049170e458131d6ed87  ours-category-mobile.png
+6ccc95e669e22b8bffd4d418e7e1791be3128106d42bf7861e49a1a0b457528b  ours-category-scroll-desktop.png
+d158929503c701cbf6f59a66c44d9b31ca8a839c20a6a268700c339c5ff986a6  ours-category-scroll-mobile.png
+1ae15f3b4f4baf8c623c3411ba5ad5f30eb24e59f3b65d8cdff54c8639c4d94e  ours-contact-desktop.png
+a7c7a12334e6e31ac3e7984359fdffe96b4fed34c0988a6676a80b9526d3c37a  ours-contact-mobile.png
+b8c68de99d8285338da95dbf50fd0552a68b7d649f0f782cb313a7be3651fbf9  ours-footer-desktop.png
+86536f7a1807bf902340ce548df62fbf817fac82bce4bed646d71756bc4d37c3  ours-footer-mobile.png
+2183fd9aa4cb017af89cd44ff71245aa5108315b3b9e130e7782127fa3dfcfd8  ours-home-desktop.png
+85616d62b01c0ab9a775b5446cf9e329fb9596047744af4f7bf11422d85cbe19  ours-home-mobile.png
+ecb03d53f81047368f01f565929ab3a70cbe6a9ffb193fcd187f71be0b37eb98  ours-home-scroll-desktop.png
+b4c61ee9b9d4729968f20fe4ec1b211fedce598019d6b2c5e5dd914c21a75dfe  ours-home-scroll-mobile.png
+76a05ccdec0edc971cf6c3c410b3eed9acea17ae890eb579e23d67fa2570c117  ours-product-desktop.png
+714927de39fda3bd9d11827b5c525c03290cad50254385e6027a62575cfcdc9c  ours-product-mobile.png
+7375221906c0a9dd439c0388f55637024fea09829505c5a411f41a607d0df83e  ours-product-scroll-desktop.png
+7847caeeea0812334ce3b8b9bec14b1d36f0f91def34882b57638af1a7fcc008  ours-product-scroll-mobile.png
