@@ -16,20 +16,21 @@ export type Offer = {
   id: string;
   voDir: string;
   music?: string;
+  voDelay?: number; // فريمات قبل بداية الصوت في كل مشهد (الافتراضي 6)
   heroImage: string;
   roomImage: string;
   url: string;
-  hook: Clip & { badge: string; title: string; big: string; sub: string };
-  features: { heading: string; items: (Clip & { title: string; sub: string })[] };
+  hook: Clip & { badge: string; title: string; big: string; sub: string; bigAt: number; subAt: number };
+  features?: { heading: string; items: (Clip & { title: string; sub: string })[] };
   unit: string;
   tiers: Tier[];
   tools: {
-    calc: Clip & { badge: string; title: string; length: string; width: string; result: string; note: string; fieldsAt: number; resultAt: number };
-    planner: Clip & { badge: string; title: string; accent: string; note: string };
-    claim: Clip & { title: string; accent: string };
+    calc?: Clip & { badge: string; title: string; length: string; width: string; result: string; note: string; fieldsAt: number; resultAt: number };
+    planner?: Clip & { badge: string; title: string; accent: string; note: string };
+    claim?: Clip & { title: string; accent: string };
   };
-  service: Clip & { title: string; accent: string; cities: string[]; shipping: string; shippingAt: number };
-  outro: Clip & { lines: string[]; cta: string };
+  service?: Clip & { title: string; accent: string; cities: string[]; shipping: string; shippingAt: number };
+  outro: Clip & { lines: string[]; cta: string; extra?: string; pace?: number }; // pace يضغط توقيت ظهور السطور
 };
 
 const room = (k: string) => `parquet-spc/room-${k}.jpg`;
@@ -49,6 +50,7 @@ export const offers: Offer[] = [
       title: "جدّد أرضية بيتك",
       big: `ضد الماء ${ltr("100%")} 💧`,
       sub: "تركيب كليك فوري.. بدون غراء ولا تكسير ولا حوسة!",
+      bigAt: 110, subAt: 170,
     },
     features: {
       heading: "ليش باركيه SPC؟",
@@ -82,5 +84,39 @@ export const offers: Offer[] = [
       shipping: "وشحن سريع لجميع مدن المملكة 🚚", shippingAt: 180,
     },
     outro: { vo: "6", frames: 276, lines: ["الأسعار شاملة الضريبة ✅", "العرض ساري حتى نفاد الكمية"], cta: "اطلب الآن من متجرنا" },
+  },
+  {
+    // نسخة مختصرة 30 ثانية
+    id: "parquet-spc-30",
+    voDir: "parquet-spc/vo30",
+    music: "parquet-spc/music.mp3",
+    voDelay: 2,
+    heroImage: "parquet-spc/bedroom.webp",
+    roomImage: "parquet-spc/room.jpg",
+    url: "texadecore.store",
+    hook: {
+      vo: "h", frames: 195,
+      badge: "عروض باركيه SPC",
+      title: "العروض وصلت!",
+      big: `ضد الماء ${ltr("100%")} 💧`,
+      sub: "تركيب كليك بدون غراء ولا تكسير",
+      bigAt: 50, subAt: 95,
+    },
+    unit: "ريال / م²",
+    tiers: [
+      { vo: "p1", frames: 118, label: "4 ألوان خشبية", note: "الأوفر سعراً", highlight: true, now: 59, images: [room("t1a"), room("t1b"), room("t1c")] },
+      { vo: "p2", frames: 79, label: "3 نقشات مميزة", note: "لمسة فخمة ومختلفة", now: 90, images: [room("t3a"), room("t3b"), room("t3c")] },
+      { vo: "p3", frames: 105, label: "11 لون ودرجة", note: "الأكثر طلباً وتنوعاً", now: 99, images: [room("t2a"), room("t2b"), room("t2c")] },
+    ],
+    tools: {
+      planner: { vo: "t", frames: 156, badge: "الحاسبة + مخطط الغرفة 📱", title: "احسب كميتك", accent: "وصمّم غرفتك", note: "مجاناً من جوالك" },
+      claim: { vo: "c", frames: 110, title: "سهّلناها عليك..", accent: "وبأقل الأسعار في السعودية" },
+    },
+    outro: {
+      vo: "o", frames: 137, pace: 0.4,
+      lines: ["الأسعار شاملة الضريبة ✅", "العرض ساري حتى نفاد الكمية"],
+      cta: "اطلب الآن من متجرنا",
+      extra: "قياس وتركيب احترافي · شحن لكل مدن المملكة 🚚",
+    },
   },
 ];

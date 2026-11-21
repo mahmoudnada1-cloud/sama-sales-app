@@ -23,9 +23,9 @@ for (const w of ["500", "700", "900"]) {
 const C = { navy: "#1f2a44", cream: "#f6f1e8", copper: "#c0803d", gold: "#e3b877", white: "#ffffff" };
 
 const sum = (xs: { frames: number }[]) => xs.reduce((n, x) => n + x.frames, 0);
-const toolsClips = (o: Offer) => [o.tools.calc, o.tools.planner, o.tools.claim];
+const toolsClips = (o: Offer) => [o.tools.calc, o.tools.planner, o.tools.claim].filter((c): c is NonNullable<typeof c> => Boolean(c));
 export const reelDuration = (o: Offer) =>
-  o.hook.frames + sum(o.features.items) + sum(o.tiers) + sum(toolsClips(o)) + o.service.frames + o.outro.frames;
+  o.hook.frames + sum(o.features?.items ?? []) + sum(o.tiers) + sum(toolsClips(o)) + (o.service?.frames ?? 0) + o.outro.frames;
 
 const useIn = (delay = 0, damping = 200) => {
   const frame = useCurrentFrame();
@@ -53,9 +53,8 @@ const Badge: React.FC<{ text: string }> = ({ text }) => (
   <div style={{ display: "inline-block", background: C.copper, color: C.white, fontWeight: 700, fontSize: 46, padding: "16px 40px", borderRadius: 999 }}>{text}</div>
 );
 
-const VO_DELAY = 6; // فريمات قبل بداية الصوت في كل مشهد
 const Vo: React.FC<{ offer: Offer; clip: Clip }> = ({ offer, clip }) => (
-  <Sequence from={VO_DELAY}><Audio src={staticFile(`${offer.voDir}/${clip.vo}.mp3`)} /></Sequence>
+  <Sequence from={offer.voDelay ?? 6}><Audio src={staticFile(`${offer.voDir}/${clip.vo}.mp3`)} /></Sequence>
 );
 
 const Hook: React.FC<{ offer: Offer }> = ({ offer }) => (
@@ -64,21 +63,21 @@ const Hook: React.FC<{ offer: Offer }> = ({ offer }) => (
     <AbsoluteFill style={{ justifyContent: "flex-end", padding: "0 80px 300px" }}>
       <Rise delay={6}><Badge text={offer.hook.badge} /></Rise>
       <Rise delay={14}><div style={{ color: C.white, fontWeight: 900, fontSize: 120, lineHeight: 1.2, marginTop: 30, whiteSpace: "nowrap" }}>{offer.hook.title}</div></Rise>
-      <Rise delay={110}><div style={{ color: C.gold, fontWeight: 900, fontSize: 104, lineHeight: 1.3, whiteSpace: "nowrap" }}>{offer.hook.big}</div></Rise>
-      <Rise delay={170}><div style={{ color: C.white, fontWeight: 500, fontSize: 54, lineHeight: 1.45, marginTop: 24 }}>{offer.hook.sub}</div></Rise>
+      <Rise delay={offer.hook.bigAt}><div style={{ color: C.gold, fontWeight: 900, fontSize: 104, lineHeight: 1.3, whiteSpace: "nowrap" }}>{offer.hook.big}</div></Rise>
+      <Rise delay={offer.hook.subAt}><div style={{ color: C.white, fontWeight: 500, fontSize: 54, lineHeight: 1.45, marginTop: 24 }}>{offer.hook.sub}</div></Rise>
     </AbsoluteFill>
   </AbsoluteFill>
 );
 
-const Features: React.FC<{ offer: Offer }> = ({ offer }) => {
-  const items = offer.features.items;
+const Features: React.FC<{ offer: Offer; features: NonNullable<Offer["features"]> }> = ({ offer, features }) => {
+  const items = features.items;
   let t = 0;
   const starts = items.map((it) => { const from = t; t += it.frames; return from; });
   return (
     <AbsoluteFill>
       <Backdrop src={offer.roomImage} dim={0.72} blur={6} duration={sum(items)} />
       <AbsoluteFill style={{ justifyContent: "center", padding: "0 70px", gap: 36 }}>
-        <Rise><div style={{ color: C.gold, fontWeight: 700, fontSize: 64, marginBottom: 16 }}>{offer.features.heading}</div></Rise>
+        <Rise><div style={{ color: C.gold, fontWeight: 700, fontSize: 64, marginBottom: 16 }}>{features.heading}</div></Rise>
         {items.map((f, i) => (
           <Rise key={f.title} delay={starts[i] + (i === 0 ? 40 : 4)}>
             <div style={{ background: "rgba(255,255,255,0.96)", borderRadius: 36, padding: "40px 46px", display: "flex", alignItems: "center", gap: 32 }}>
@@ -135,11 +134,14 @@ const TierScene: React.FC<{ offer: Offer; tier: Tier; index: number }> = ({ offe
 
 const Tools: React.FC<{ offer: Offer }> = ({ offer }) => {
   const { calc, planner, claim } = offer.tools;
+  let t = 0;
+  const at = (d: number) => { const from = t; t += d; return from; };
   const card: React.CSSProperties = { background: C.white, borderRadius: 40, padding: "50px 54px", boxShadow: "0 16px 40px rgba(31,42,68,0.14)" };
   const field: React.CSSProperties = { background: C.cream, borderRadius: 24, padding: "24px 34px", display: "flex", justifyContent: "space-between", color: C.navy, fontWeight: 700, fontSize: 48 };
   return (
     <AbsoluteFill style={{ background: C.cream }}>
-      <Sequence durationInFrames={calc.frames}>
+      {calc ? (
+      <Sequence from={at(calc.frames)} durationInFrames={calc.frames}>
         <AbsoluteFill style={{ justifyContent: "center", padding: "0 70px" }}>
           <Rise><Badge text={calc.badge} /></Rise>
           <Rise delay={6}><div style={{ color: C.navy, fontWeight: 900, fontSize: 96, lineHeight: 1.2, marginTop: 30 }}>{calc.title}</div></Rise>
@@ -158,24 +160,29 @@ const Tools: React.FC<{ offer: Offer }> = ({ offer }) => {
         </AbsoluteFill>
         <Vo offer={offer} clip={calc} />
       </Sequence>
-      <Sequence from={calc.frames} durationInFrames={planner.frames}>
+      ) : null}
+      {planner ? (
+      <Sequence from={at(planner.frames)} durationInFrames={planner.frames}>
         <AbsoluteFill style={{ justifyContent: "center", padding: "0 70px" }}>
           <Rise><Badge text={planner.badge} /></Rise>
           <Rise delay={6}><div style={{ color: C.navy, fontWeight: 900, fontSize: 96, lineHeight: 1.2, marginTop: 30 }}>{planner.title}<br /><span style={{ color: C.copper }}>{planner.accent}</span></div></Rise>
-          <Rise delay={50} style={{ marginTop: 44 }}>
+          <Rise delay={22} style={{ marginTop: 44 }}>
             <div style={{ ...card, padding: 0, overflow: "hidden" }}><Img src={staticFile("brand/planner.jpg")} style={{ width: "100%", display: "block" }} /></div>
           </Rise>
-          <Rise delay={64}><div style={{ color: "#5b6478", fontWeight: 700, fontSize: 44, lineHeight: 1.4, marginTop: 34 }}>{planner.note}</div></Rise>
+          <Rise delay={34}><div style={{ color: "#5b6478", fontWeight: 700, fontSize: 44, lineHeight: 1.4, marginTop: 34 }}>{planner.note}</div></Rise>
         </AbsoluteFill>
         <Vo offer={offer} clip={planner} />
       </Sequence>
-      <Sequence from={calc.frames + planner.frames} durationInFrames={claim.frames}>
+      ) : null}
+      {claim ? (
+      <Sequence from={at(claim.frames)} durationInFrames={claim.frames}>
         <AbsoluteFill style={{ background: C.navy, justifyContent: "center", padding: "0 70px" }}>
           <Rise><div style={{ color: C.white, fontWeight: 900, fontSize: 112, lineHeight: 1.25 }}>{claim.title}</div></Rise>
-          <Rise delay={36}><div style={{ color: C.gold, fontWeight: 900, fontSize: 88, lineHeight: 1.3, marginTop: 36 }}>{claim.accent}</div></Rise>
+          <Rise delay={24}><div style={{ color: C.gold, fontWeight: 900, fontSize: 88, lineHeight: 1.3, marginTop: 36 }}>{claim.accent}</div></Rise>
         </AbsoluteFill>
         <Vo offer={offer} clip={claim} />
       </Sequence>
+      ) : null}
     </AbsoluteFill>
   );
 };
@@ -186,8 +193,7 @@ const LogoChip: React.FC = () => (
   </div>
 );
 
-const Service: React.FC<{ offer: Offer }> = ({ offer }) => {
-  const sv = offer.service;
+const Service: React.FC<{ offer: Offer; sv: NonNullable<Offer["service"]> }> = ({ offer, sv }) => {
   return (
     <AbsoluteFill>
       <Backdrop src={offer.roomImage} dim={0.78} blur={4} duration={sv.frames} />
@@ -209,17 +215,19 @@ const Service: React.FC<{ offer: Offer }> = ({ offer }) => {
 
 const Outro: React.FC<{ offer: Offer }> = ({ offer }) => {
   const p = useIn(0, 14);
+  const k = offer.outro.pace ?? 1;
   return (
     <AbsoluteFill style={{ background: C.cream, alignItems: "center", justifyContent: "center", padding: 80, textAlign: "center" }}>
       <div style={{ width: 380, height: 380, borderRadius: 56, overflow: "hidden", transform: `scale(${p})`, boxShadow: "0 20px 50px rgba(31,42,68,0.18)" }}>
         <Img src={staticFile("brand/logo.png")} style={{ width: "100%", height: "100%" }} />
       </div>
-      <Rise delay={12}><div style={{ color: C.navy, fontWeight: 700, fontSize: 60, marginTop: 56 }}>{offer.outro.lines[0]}</div></Rise>
-      <Rise delay={60}><div style={{ color: C.navy, fontWeight: 900, fontSize: 76, marginTop: 22, lineHeight: 1.3 }}>{offer.outro.lines[1]}</div></Rise>
-      <Rise delay={130}><div style={{ color: C.copper, fontWeight: 700, fontSize: 56, marginTop: 50 }}>{offer.outro.cta}</div></Rise>
-      <Rise delay={150}>
+      <Rise delay={12 * k}><div style={{ color: C.navy, fontWeight: 700, fontSize: 60, marginTop: 56 }}>{offer.outro.lines[0]}</div></Rise>
+      <Rise delay={60 * k}><div style={{ color: C.navy, fontWeight: 900, fontSize: 76, marginTop: 22, lineHeight: 1.3 }}>{offer.outro.lines[1]}</div></Rise>
+      <Rise delay={130 * k}><div style={{ color: C.copper, fontWeight: 700, fontSize: 56, marginTop: 50 }}>{offer.outro.cta}</div></Rise>
+      <Rise delay={150 * k}>
         <div style={{ background: C.navy, color: C.white, fontWeight: 700, fontSize: 64, padding: "26px 64px", borderRadius: 999, marginTop: 24, direction: "ltr" }}>{offer.url}</div>
       </Rise>
+      {offer.outro.extra ? <Rise delay={170 * k}><div style={{ color: "#5b6478", fontWeight: 700, fontSize: 40, marginTop: 44 }}>{offer.outro.extra}</div></Rise> : null}
       <Vo offer={offer} clip={offer.outro} />
     </AbsoluteFill>
   );
@@ -229,7 +237,7 @@ export const OfferReel: React.FC<{ offer: Offer }> = ({ offer }) => {
   const { durationInFrames } = useVideoConfig();
   let t = 0;
   const at = (d: number) => { const from = t; t += d; return from; };
-  const featuresFrames = sum(offer.features.items);
+  const featuresFrames = sum(offer.features?.items ?? []);
   const toolsFrames = sum(toolsClips(offer));
   const outroFrom = durationInFrames - offer.outro.frames;
   return (
@@ -238,12 +246,12 @@ export const OfferReel: React.FC<{ offer: Offer }> = ({ offer }) => {
         <Audio src={staticFile(offer.music)} volume={(f) => 0.16 * interpolate(f, [0, 20, durationInFrames - 45, durationInFrames], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })} />
       ) : null}
       <Sequence from={at(offer.hook.frames)} durationInFrames={offer.hook.frames}><Hook offer={offer} /><Vo offer={offer} clip={offer.hook} /></Sequence>
-      <Sequence from={at(featuresFrames)} durationInFrames={featuresFrames}><Features offer={offer} /></Sequence>
+      {offer.features ? <Sequence from={at(featuresFrames)} durationInFrames={featuresFrames}><Features offer={offer} features={offer.features} /></Sequence> : null}
       {offer.tiers.map((tier, i) => (
         <Sequence key={tier.label} from={at(tier.frames)} durationInFrames={tier.frames}><TierScene offer={offer} tier={tier} index={i} /><Vo offer={offer} clip={tier} /></Sequence>
       ))}
       <Sequence from={at(toolsFrames)} durationInFrames={toolsFrames}><Tools offer={offer} /></Sequence>
-      <Sequence from={at(offer.service.frames)} durationInFrames={offer.service.frames}><Service offer={offer} /></Sequence>
+      {offer.service ? <Sequence from={at(offer.service.frames)} durationInFrames={offer.service.frames}><Service offer={offer} sv={offer.service} /></Sequence> : null}
       <Sequence from={at(offer.outro.frames)} durationInFrames={offer.outro.frames}><Outro offer={offer} /></Sequence>
       <Sequence durationInFrames={outroFrom}><LogoChip /></Sequence>
     </AbsoluteFill>
