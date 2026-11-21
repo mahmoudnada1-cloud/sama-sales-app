@@ -1,54 +1,86 @@
 // بيانات العروض — كل قسم عنصر واحد. تعديل سعر هنا + إعادة الرندر = فيديو محدّث.
 // المصدر: صفحات العروض على texadecore.store (آخر سحب: 2026-11-21).
-// مدد المشاهد (frames @30fps) مضبوطة على مقاطع التعليق الصوتي في public/<id>/vo/.
+// كل عنصر له مقطع صوت في public/<voDir>/ ومدة بالفريمات (30fps) = طول المقطع + هامش.
 
-export type Tier = {
-  label: string; // عنوان الشريحة
-  note: string; // سطر صغير تحت العنوان
+export type Clip = { vo: string; frames: number };
+
+export type Tier = Clip & {
+  label: string;
+  note: string;
   highlight?: boolean; // يلوّن السطر الصغير بالأحمر
   now: number;
   images: string[]; // 3 صور غرف: الأولى كبيرة والباقي صف تحتها
-  frames: number; // مدة المشهد
 };
 
 export type Offer = {
   id: string;
-  badge: string;
-  hook: string[]; // سطور العنوان الرئيسي
-  hookSub: string;
-  heroImage: string; // صورة طولية للمشهد الأول
-  roomImage: string; // خلفية المشاهد التالية
-  features: { title: string; sub: string; at: number }[]; // at = فريم ظهور البطاقة
+  voDir: string;
+  music?: string;
+  heroImage: string;
+  roomImage: string;
+  url: string;
+  hook: Clip & { badge: string; title: string; big: string; sub: string };
+  features: { heading: string; items: (Clip & { title: string; sub: string })[] };
   unit: string;
   tiers: Tier[];
-  url: string;
-  voDir: string; // مجلد مقاطع الصوت: 1 هوك، 2 مميزات، 3 أسعار، 4 أدوات، 5 خدمة، 6 ختام
-  frames: { hook: number; features: number; tools: number; toolsSplit: [number, number]; service: number; outro: number };
+  tools: {
+    calc: Clip & { badge: string; title: string; length: string; width: string; result: string; note: string; fieldsAt: number; resultAt: number };
+    planner: Clip & { badge: string; title: string; accent: string; note: string };
+    claim: Clip & { title: string; accent: string };
+  };
+  service: Clip & { title: string; accent: string; cities: string[]; shipping: string; shippingAt: number };
+  outro: Clip & { lines: string[]; cta: string };
 };
 
 const room = (k: string) => `parquet-spc/room-${k}.jpg`;
+const ltr = (s: string) => `⁦${s}⁩`; // يثبّت اتجاه الأرقام والنسب داخل النص العربي
 
 export const offers: Offer[] = [
   {
     id: "parquet-spc",
-    badge: "عروض باركيه SPC",
-    hook: ["أرضية ضد الماء", "⁦100%⁩"],
-    hookSub: "تركيب كليك… بدون غراء ولا تكسير",
+    voDir: "parquet-spc/vo",
+    music: "parquet-spc/music.mp3",
     heroImage: "parquet-spc/bedroom.webp",
     roomImage: "parquet-spc/room.jpg",
-    features: [
-      { title: "ضد الماء ⁦100%⁩", sub: "للمطابخ والحمامات والمداخل", at: 6 },
-      { title: "تركيب كليك", sub: "بدون غراء ولا كسر وترميم", at: 60 },
-      { title: "مظهر خشبي فاخر", sub: "18 لون ونقشة ضمن العروض", at: 132 },
-    ],
+    url: "texadecore.store",
+    hook: {
+      vo: "1", frames: 302,
+      badge: "أقوى عروض باركيه SPC",
+      title: "جدّد أرضية بيتك",
+      big: `ضد الماء ${ltr("100%")} 💧`,
+      sub: "تركيب كليك فوري.. بدون غراء ولا تكسير ولا حوسة!",
+    },
+    features: {
+      heading: "ليش باركيه SPC؟",
+      items: [
+        { vo: "2a", frames: 254, title: `مقاوم للماء ${ltr("100%")}`, sub: "ركّبه وأنت مرتاح في الصالة، المداخل، وحتى المطابخ" },
+        { vo: "2b", frames: 201, title: "تركيب كليك نظيف", sub: "يركب فوق بلاطك القديم مباشرة بدون تكسير وترميم" },
+        { vo: "2c", frames: 194, title: "فخامة الخشب الطبيعي", sub: "18 لون ونقشة عصرية مشمولة في العرض" },
+      ],
+    },
     unit: "ريال / م²",
     tiers: [
-      { label: "4 ألوان خشبية", note: "الأوفر سعراً", highlight: true, now: 59, images: [room("t1a"), room("t1b"), room("t1c")], frames: 106 },
-      { label: "11 لون ودرجة", note: "الأكثر تنوعاً", now: 99, images: [room("t2a"), room("t2b"), room("t2c")], frames: 102 },
-      { label: "3 نقشات مميزة", note: "لمسة مختلفة للأرضية", now: 90, images: [room("t3a"), room("t3b"), room("t3c")], frames: 112 },
+      { vo: "3a", frames: 191, label: "4 ألوان خشبية", note: "الأوفر سعراً", highlight: true, now: 59, images: [room("t1a"), room("t1b"), room("t1c")] },
+      { vo: "3b", frames: 209, label: "3 نقشات مميزة", note: "لمسة فخمة ومختلفة", now: 90, images: [room("t3a"), room("t3b"), room("t3c")] },
+      { vo: "3c", frames: 223, label: "11 لون ودرجة", note: "الأكثر طلباً وتنوعاً", now: 99, images: [room("t2a"), room("t2b"), room("t2c")] },
     ],
-    url: "texadecore.store",
-    voDir: "parquet-spc/vo",
-    frames: { hook: 160, features: 208, tools: 365, toolsSplit: [135, 250], service: 146, outro: 150 },
+    tools: {
+      calc: {
+        vo: "4a", frames: 475,
+        badge: "حاسبة الكميات 📐", title: "محتار كم متر تحتاج؟",
+        length: "5 م", width: "4 م", result: "21.4 م²",
+        note: `الكمية الدقيقة شاملة نسبة الهالك (${ltr("7%")})`,
+        fieldsAt: 60, resultAt: 300,
+      },
+      planner: { vo: "4b", frames: 209, badge: "مخطط الغرفة 📱", title: "تبي تشوف الشكل", accent: "قبل تشتري؟", note: "جرّبه مجاناً من جوالك وصمّم غرفتك بنفسك" },
+      claim: { vo: "4c", frames: 127, title: "سهّلناها عليك..", accent: "وبأقل الأسعار في السعودية" },
+    },
+    service: {
+      vo: "5", frames: 273,
+      title: "قياس وتركيب", accent: "احترافي 👷‍♂️",
+      cities: ["الرياض", "جدة", "الدمام", "مكة", "المدينة"],
+      shipping: "وشحن سريع لجميع مدن المملكة 🚚", shippingAt: 180,
+    },
+    outro: { vo: "6", frames: 276, lines: ["الأسعار شاملة الضريبة ✅", "العرض ساري حتى نفاد الكمية"], cta: "اطلب الآن من متجرنا" },
   },
 ];
