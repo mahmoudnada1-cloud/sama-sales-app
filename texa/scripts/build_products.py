@@ -2055,7 +2055,7 @@ TIP_EXTRA = [
 def tip_section(F, c):
     pid = F['id']
     col = COLOR_TIPS[F['color'] if (c['has_color'] and F['color'] in COLOR_TIPS) else None]
-    subj = c['cd'] if c['has_color'] else 'تصميم ' + THIS[F['sub']]
+    subj = c['cd'] if c['has_color'] else (THIS[F['sub']] if 'التصميم' in THIS[F['sub']] else 'تصميم ' + THIS[F['sub']])
     kind, pat = F['kind'], F['pattern']
     if kind == 'floor':
         pool = PATTERN_TIPS[pat] if pat in ('herringbone', 'wood') else SURFACE_DEFAULT['floor']
