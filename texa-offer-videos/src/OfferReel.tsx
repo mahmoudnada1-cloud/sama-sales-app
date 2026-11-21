@@ -267,8 +267,8 @@ export const Cover: React.FC<{ offer: Offer }> = ({ offer }) => {
       <div style={{ width: 230, height: 230, borderRadius: 44, overflow: "hidden", marginTop: 150, boxShadow: "0 14px 36px rgba(22,33,61,0.16)" }}>
         <Img src={staticFile("brand/logo.png")} style={{ width: "100%", height: "100%" }} />
       </div>
-      <div style={{ background: C.red, color: C.white, fontWeight: 700, fontSize: 50, padding: "20px 54px", borderRadius: 999, marginTop: 70 }}>● {cv.pill}</div>
-      <div style={{ fontWeight: 900, fontSize: 124, lineHeight: 1.2, marginTop: 40, whiteSpace: "nowrap" }}>
+      {cv.pill ? <div style={{ background: C.red, color: C.white, fontWeight: 700, fontSize: 50, padding: "20px 54px", borderRadius: 999, marginTop: 70 }}>● {cv.pill}</div> : null}
+      <div style={{ fontWeight: 900, fontSize: 124, lineHeight: 1.2, marginTop: cv.pill ? 40 : 110, whiteSpace: "nowrap" }}>
         <span style={{ color: C.navy }}>{cv.lead} </span><span style={{ color: C.copper }}>{cv.name}</span>
       </div>
       <div style={{ display: "flex", alignItems: "baseline", gap: 22, marginTop: 30, color: C.navy, fontWeight: 700, fontSize: 68 }}>
