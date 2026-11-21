@@ -1,0 +1,194 @@
+/* ==========================================================================
+   تكسا ديكور — footer-mobile.css
+   1) إصلاح فوتر الجوال   2) شارة "المتجر الرسمي" في الهيدر   3) شريط الثقة تحت زر السلة
+
+   مكان التركيب (أحد الخيارين):
+     أ) wp-admin ← Snippets ← Add New ← نوع CSS (إضافة Code Snippets) ← "Site front-end".
+     ب) المظهر ← المحرر ← الأنماط (Styles) ← ⋮ ← CSS إضافي (القالب assembler قالب بلوكات،
+        فلا يوجد "تخصيص ← CSS إضافي" التقليدي).
+   الأقسام مستقلة: يمكن لصق قسم واحد فقط.
+   التراجع: احذف القسم أو عطّل السنيبت ثم امسح الكاش.
+
+   المحددات مأخوذة من HTML الموقع الحي (فُحص 2026-11-21 بعرض 390px و 1440px):
+     الفوتر:   footer.wp-block-template-part > .decorati-foot > footer > .footer-inner > .fcol (×3)
+     الهيدر:   header.wp-block-template-part > .decorati-home > header.site > .header-inner
+               أبناؤه: button#texa-mnav-btn ، a.logo ، .search-box ، .header-actions
+     المنتج:   form.wc-block-add-to-cart-with-options.cart ثم div.txd-pdp
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1) فوتر الجوال
+   السبب الفعلي (ليس خللاً عارضاً): في CSS الموقع قاعدتان متعارضتان تحت 900px:
+     - قاعدة تجبر عموداً واحداً:   .footer-inner.footer-inner:not(#txo){display:grid; 1fr}
+     - قاعدة أحدث تعلوها خصوصية:   .footer-inner.footer-inner:not(#_a):not(#_b){display:flex;
+       overflow-x:auto; scrollbar-width:none} و .fcol{flex:0 0 80%}
+       وتعليقها: "Footer: horizontal swipe slider instead of stacked columns".
+   أي أن الفوتر حُوِّل عمداً إلى شريط سحب أفقي بلا شريط تمرير ظاهر، فيرى الزائر العمود الأول
+   فقط، وعمودا "روابط مهمة" و"خدمة العملاء" خارج الشاشة (القياس عند 390px: محتوى 926px في 390px).
+
+   الحل المفضّل: حذف قاعدة السلايدر من مصدرها — تخرج في الصفحة داخل
+   <style id="texa-mobile-tweaks"> (سنيبت/كود مخصص؛ ابحث في Snippets عن "texa-mobile-tweaks"
+   أو عن عبارة "horizontal swipe slider")، وكذلك نسختها داخل <style> الفوتر نفسه
+   ("footer boxes as a swipe slider on mobile"). عندها تعود قاعدة العمود الواحد الموجودة
+   أصلاً في <style id="txo-fixes"> للعمل، ولا حاجة لهذا القسم.
+   الحل البديل (هذا القسم): يعلو قاعدة السلايدر بثلاث :not(#_) — خصوصية (3,3,2) مقابل (2,3,2).
+   يحتاج قرار المالك: السلايدر كان اختياراً تصميمياً مقصوداً؛ هذا القسم يلغيه.
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  html body .decorati-foot .footer-inner.footer-inner:not(#_a):not(#_b):not(#_c) {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    overflow: visible !important;
+    scroll-snap-type: none !important;
+    width: auto !important;
+    max-width: 100% !important;
+    gap: 14px !important;
+  }
+  html body .decorati-foot .footer-inner.footer-inner:not(#_a):not(#_b):not(#_c)::after {
+    content: none !important;
+  }
+  html body .decorati-foot .footer-inner > .fcol:not(#_a):not(#_b):not(#_c) {
+    flex: none !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    scroll-snap-align: none;
+  }
+  html body .decorati-foot .footer-inner .desc {
+    max-width: none;
+  }
+}
+
+/* عمودان على التابلت (601–900px) بدل عمود واحد طويل */
+@media (min-width: 601px) and (max-width: 900px) {
+  html body .decorati-foot .footer-inner.footer-inner:not(#_a):not(#_b):not(#_c) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* أيقونات السوشيال: 44px حد أدنى للمس (الحالي 42px) */
+html body .decorati-foot .social-icons a {
+  width: 44px;
+  height: 44px;
+}
+
+/* سطر السجل والضريبي: الحالي opacity:.6 فيضعف التباين. اللون المقترح في تقرير UX. */
+html body .decorati-foot .foot-bottom {
+  opacity: 1;
+  color: #D9D4CC;
+}
+
+
+/* --------------------------------------------------------------------------
+   2) شارة "المتجر الرسمي" — تُدرج بعد a.logo داخل .header-inner
+   HTML: html/official-badge.html  (أو السنيبت snippets/trust-and-official-badge.php)
+   سطح المكتب: .header-inner عنصر flex، فتظهر الشارة بجوار الشعار
+   (بين 901 و 1024px شريط البحث ينزل لصف مستقل أصلاً، فتبقى الشارة في الصف الأول).
+   الجوال (≤900px): .header-inner شبكة بمناطق "burger logo actions" / "search search search"؛
+   grid-column:1/-1 يضع الشارة في صف ثالث تلقائي تحت شريط البحث دون تعديل المناطق.
+   -------------------------------------------------------------------------- */
+.texa-official {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 0 12px;
+  font: 600 13px/1.2 Tajawal, "Noto Sans Arabic", sans-serif;
+  color: #16213D;
+  background: #FBF3DF;
+  border: 1px solid #E9B84A;
+  border-radius: 999px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+a.texa-official:hover,
+a.texa-official:focus-visible {
+  background: #F6E7BF;
+  color: #16213D;
+}
+a.texa-official:focus-visible {
+  outline: 2px solid #16213D;
+  outline-offset: 2px;
+}
+.texa-official svg {
+  flex-shrink: 0;
+  color: #8A6A1F;
+}
+/* الفاصل على العنوان العربي لا على النطاق (النطاق dir="ltr" فيظهر الفاصل في الجهة الخطأ) */
+.texa-official__label::after {
+  content: "·";
+  margin-inline-start: 6px;
+}
+
+/* شاشات متوسطة: نخفي النطاق حتى لا يضيق شريط البحث */
+@media (min-width: 901px) and (max-width: 1200px) {
+  .texa-official__domain {
+    display: none;
+  }
+  .texa-official__label::after {
+    content: none;
+  }
+}
+
+@media (max-width: 900px) {
+  html body header.site .header-inner > .texa-official {
+    grid-column: 1 / -1;
+    width: 100%;
+    justify-content: center;
+    min-height: 36px;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   3) شريط الثقة — يُدرج بعد form.wc-block-add-to-cart-with-options.cart (قبل div.txd-pdp)
+   HTML: html/trust-strip.html  (أو السنيبت snippets/trust-and-official-badge.php)
+   ملاحظة: على الجوال زر "إضافة إلى السلة" الأصلي مخفي (.texa-cart-row.texa-hide-mobile)
+   والشراء عبر الشريط الثابت #texa-sticky-atc؛ شريط الثقة يبقى في مكانه داخل الصفحة.
+   -------------------------------------------------------------------------- */
+.texa-trust {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  font: 600 13px/1.4 Tajawal, "Noto Sans Arabic", sans-serif;
+  color: #16213D;
+}
+.texa-trust__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin: 0;
+  padding: 6px 10px;
+  background: #FBF3DF;
+  border: 1px solid #EAD9AE;
+  border-radius: 10px;
+}
+.texa-trust__item svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: #8A6A1F;
+}
+.texa-trust__item a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.texa-trust__item a:focus-visible {
+  outline: 2px solid #16213D;
+  outline-offset: 2px;
+}
+@media (max-width: 760px) {
+  .texa-trust {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+}
