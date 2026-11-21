@@ -111,7 +111,7 @@ const TierScene: React.FC<{ offer: Offer; tier: Tier; index: number }> = ({ offe
       </div>
       <Rise delay={14} style={{ marginTop: 50 }}>
         <div style={{ color: C.navy, fontWeight: 700, fontSize: 74, lineHeight: 1.2 }}>{tier.label}</div>
-        <div style={{ color: "#5b6478", fontWeight: 500, fontSize: 42, marginTop: 6 }}>{tier.note}</div>
+        <div style={{ color: tier.highlight ? "#d0312d" : "#5b6478", fontWeight: tier.highlight ? 700 : 500, fontSize: 42, marginTop: 6 }}>{tier.note}</div>
       </Rise>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 40 }}>
         <div>
