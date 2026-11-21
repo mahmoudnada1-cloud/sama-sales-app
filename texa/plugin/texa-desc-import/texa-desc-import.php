@@ -127,6 +127,9 @@ function txa_di_ensure() {
 	set_transient( 'txa_di_tick', 1, MINUTE_IN_SECONDS );
 	$state = txa_di_state();
 	if ( ! txa_di_pending_files( $state ) ) {
+		if ( false !== get_option( 'txa_di_watch' ) ) {
+			delete_option( 'txa_di_watch' ); // Nothing left to do: a later package starts with a fresh stall clock.
+		}
 		return;
 	}
 	if ( get_transient( 'txa_di_lock' ) ) {
@@ -367,10 +370,11 @@ function txa_di_do_batch( $via ) {
 		}
 	}
 	$state['last_run'] = gmdate( 'c' );
-	$state['beat']     = txa_di_now();
 	$state['alts_set'] = ( isset( $state['alts_set'] ) ? (int) $state['alts_set'] : 0 ) + ( isset( $GLOBALS['txa_di_alts'] ) ? (int) $GLOBALS['txa_di_alts'] : 0 );
 	if ( 'inline' === $via ) {
 		$state['inline'] = ( isset( $state['inline'] ) ? (int) $state['inline'] : 0 ) + 1;
+	} else {
+		$state['beat'] = txa_di_now(); // Only the queue resets the stall clock; while it stays quiet the fallback keeps working.
 	}
 	if ( ! txa_di_pending_files( $state ) ) {
 		$state['status'] = 'done';
