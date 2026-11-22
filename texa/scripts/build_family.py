@@ -7,7 +7,8 @@
   <family_id>.json   الإعداد: family_id, kind, piece_word, guide_title, needs_confirmation, notes
                      kind ∈ panel | roll | plank_sqm | tile | linear | piece
                      اختياري: waste_pct (نسبة الهدر %، الافتراضي 10)، noun / noun_alt (وصف النوع في فقرة الإجابة)،
-                              missing_policy = "skip" (تخطّي المنتج بلا مقاس بدل توليده بلا أرقام)
+                              missing_policy = "skip" (تخطّي المنتج بلا مقاس بدل توليده بلا أرقام)،
+                              kw_rule = "v5" (الكلمة المفتاحية كما يخرجها المولّد v5 دون إصلاح نهايتها)
 
 طبقة المنتج مولَّدة من بيانات المنتج نفسه؛ التحليل والحساب مستوردان من build_products.py (لا نسخ).
 حتمي: لا عشوائية ولا تاريخ تشغيل. لا يتصل بالموقع ولا يكتب أي سعر.
@@ -67,7 +68,7 @@ WALL_PATTERN_TIPS = {
 }
 # نصائح لونية لا تصلح لغير الجدران (أرضيات/قطع تشطيب): تُستبعد بهذه الكلمات
 NOT_FLOOR = re.compile(r'جدار|الجدران|خلفية|ستائر')
-NOT_TRIM = re.compile(r'جدار|الجدران|خلفية|قاعدة|يوسّع|المساح|الغرفة|المكان|ستائر|أثاث|سجاد|مسطّحة|الضوء')
+NOT_TRIM = re.compile(r'الاتساع|جدار|الجدران|خلفية|قاعدة|يوسّع|المساح|الغرفة|المكان|ستائر|أثاث|سجاد|مسطّحة|الضوء')
 SENT_SPLIT = re.compile(r'(?<!\d)\.|\.(?!\d)|[؟!\n]')
 
 
@@ -160,7 +161,7 @@ def eng_columns(F, c, cfg, kw):
     f = bp.fnum
     L, W = max(F['dims']), min(F['dims'])
     Ww = bp.pick(EX_WIDTHS, pid, 'fam-w')
-    h = bp.pick([x for x in EX_HEIGHTS if x <= L + 1e-9] or [EX_HEIGHTS[0]], pid, 'fam-h')
+    h = bp.pick([x for x in EX_HEIGHTS if x <= L + 1e-9] or [math.floor(L * 10 + 1e-9) / 10.0], pid, 'fam-h')
     q = Ww / W
     n = ceil(q)
     exact = abs(q - round(q)) < 1e-9
@@ -273,11 +274,12 @@ def eng_area(F, c, cfg, kw):
     waste = cfg['_waste']
     wp = f(waste * 100, 1)
     if floor:
+        rm = 'مساحة' if F['sub'] in ('exterior', 'hpl') else 'غرفة'
         ra, rb = bp.pick(bp.ROOMS_FLOOR, pid, 'fam-room')
         A = ra * rb
-        place, placeq, yl, mine = 'غرفة %s × %s م' % (f(ra, 1), f(rb, 1)), 'لغرفة %s × %s م' % (f(ra, 1), f(rb, 1)), 'يلزمها', 'مقاس غرفتك'
+        place, placeq, yl, mine = '%s %s × %s م' % (rm, f(ra, 1), f(rb, 1)), 'ل%s %s × %s م' % (rm, f(ra, 1), f(rb, 1)), 'يلزمها', 'مقاس المكان' if rm == 'مساحة' else 'مقاس غرفتك'
         ra2, rb2 = bp.pick([r for r in bp.ROOMS_FLOOR if r != (ra, rb)], pid, 'fam-room2')
-        A2, place2 = ra2 * rb2, 'لغرفة %s × %s م' % (f(ra2, 1), f(rb2, 1))
+        A2, place2 = ra2 * rb2, 'ل%s %s × %s م' % (rm, f(ra2, 1), f(rb2, 1))
     else:
         Ww, h = bp.pick(EX_WIDTHS, pid, 'fam-w'), bp.pick(EX_HEIGHTS, pid, 'fam-h')
         A = Ww * h
@@ -293,7 +295,7 @@ def eng_area(F, c, cfg, kw):
         a, b = max(d), min(d)
         bits.append('مقاس ال%s %s × %s سم (%s م²)' % (w, f(a * 100, 1), f(b * 100, 1), f(pa)))
         s = 'مقاس ال%s: %s × %s سم = %s م²' % (w, f(a * 100, 1), f(b * 100, 1), f(pa))
-        if pa < 1:
+        if pa <= 0.5:
             s += '، أي نحو %s في المتر المربع' % f(1 / pa, 1)
         li.append(s + '.')
     elif pa:
@@ -396,7 +398,7 @@ def answer_paragraph(F, c, cfg, num):
     name = bp.esc(F['name'])
     P = cfg['_P']
     nn = cfg.get('noun')
-    if nn is None and cfg['kind'] == 'panel':
+    if nn is None and cfg['kind'] == 'panel' and c['thing'].startswith('بديل'):
         nn, alt = '%s جداري من %s' % (P[0], c['thing']), 'تكسية جدران من %s' % c['thing']
     else:
         alt = cfg.get('noun_alt') or nn
@@ -438,7 +440,7 @@ def answer_paragraph(F, c, cfg, num):
         s3 = 'مقاس%s %s.' % (h, c['size'])
     else:
         s3 = ''
-    s4 = ' يليق بـ%s.' % c['rooms']
+    s4 = ' %s بـ%s.' % (g(fem, 'يليق', 'تليق'), c['rooms'])
     out = (s1 + s2 + s3).rstrip()
     if out.endswith(':'):
         out = out[:-1] + '.'
@@ -475,9 +477,15 @@ def tip_section(F, c):
         else:
             head = 'تنسيق ' + this
         if sub == 'accessory':
-            sents_.append(bp.pick([bp.SURFACE_DEFAULT['linear'][0], bp.SURFACE_DEFAULT['linear'][2]], pid, 'tip-p'))
+            st = bp.pick([bp.SURFACE_DEFAULT['linear'][0], bp.SURFACE_DEFAULT['linear'][2]], pid, 'tip-p')
         else:
-            sents_.append(bp.pick(bp.SURFACE_DEFAULT['linear' if kind == 'linear' else 'other'], pid, 'tip-p'))
+            st = bp.pick(bp.SURFACE_DEFAULT['linear' if kind == 'linear' else 'other'], pid, 'tip-p')
+        if this.startswith('هذا'):
+            st = re.sub(r'^(مقاس|لون|خطّ)ها', r'\1ه', st)
+        else:
+            st = re.sub(r'^(ملمس|تفاصيل|حضور)ه(?= )', r'\1ها', st)
+        sents_.append(st)
+        if sub != 'accessory':
             sents_.append(bp.pick(types, pid, 'tip-t'))
         return head, bp.esc('. '.join(sents_) + '.')
     if kind == 'floor':
@@ -514,18 +522,19 @@ def faq_plain(F, c, cfg, kw, why):
     calc = bp.A(bp.URL_CALC, 'حاسبة الكميات')
     has_size = bool(F.get('dims') or c.get('post_h'))
     if cfg['kind'] == 'piece':
-        a1 = 'يُحسب بالعدد لا بالمساحة: عُدّ المواضع التي ستُركَّب فيها ال%s وأضف %s احتياط.' % (w, w)
+        a1 = 'الحساب بالعدد لا بالمساحة: عُدّ المواضع التي %s فيها ال%s وأضف %s احتياط.' % (g(fem, 'سيُركَّب', 'ستُركَّب'), w, w)
         if F.get('dims') and c.get('size'):
             a1 += ' مقاس ال%s %s.' % (w, c['size'])
     elif why == 'conflict':
         a1 = 'المقاس مذكور بقيمتين مختلفتين في بيانات هذا المنتج. اسأل فريق تكسا عن المقاس الصحيح، ثم أدخله مع أبعاد مكانك في %s.' % calc
     else:
-        a1 = 'مقاس ال%s غير مذكور في بيانات هذا المنتج. اطلب المقاس من فريق تكسا، ثم أدخله مع أبعاد مكانك في %s.' % (w, calc)
+        what = 'طول' if cfg['kind'] == 'linear' else 'مقاس'
+        a1 = '%s ال%s غير مذكور في بيانات هذا المنتج. اطلبه من فريق تكسا، ثم أدخله مع أبعاد مكانك في %s.' % (what, w, calc)
     qa = [('كيف أحسب الكمية من %s؟' % bp.esc(kw), a1)]
     miss = []
-    if not has_size:
-        miss.append('المقاس')
-    if not c['thick'] and F['kind'] in ('panel', 'slat', 'small', 'floor'):
+    if not has_size and not (cfg['kind'] == 'piece' and re.search(r'\d\s*(?:سم|cm|×|x)', F['name'])):
+        miss.append('الطول' if cfg['kind'] == 'linear' else 'المقاس')
+    if not c['thick'] and F['kind'] in ('panel', 'slat', 'small', 'floor') and not re.search(r'\d\s*(?:ملم|مم)', F['name']):
         miss.append('السماكة')
     if not c['material']:
         miss.append('الخامة')
@@ -533,7 +542,7 @@ def faq_plain(F, c, cfg, kw, why):
         miss.append('وحدة البيع')
     a2 = []
     if miss:
-        a2.append('اسأل عن %s، %s في بيانات هذا المنتج.' % (' و'.join(miss), 'فهو غير مذكور' if miss == ['المقاس'] else 'فهي غير مذكورة'))
+        a2.append('اسأل عن %s، %s في بيانات هذا المنتج.' % (' و'.join(miss), 'فهو غير مذكور' if miss in (['المقاس'], ['الطول']) else 'فهي غير مذكورة'))
     a2.append(('قارن درجة %s بصورة واقعية في ضوء مكانك.' % c['cd']) if c['has_color'] else 'اطلب صورة واقعية للون قبل اعتماده.')
     a2 = ' '.join(a2)
     qa.append(('ما الذي أتأكد منه قبل طلب %s ال%s؟' % (g(fem, 'هذا', 'هذه'), w), a2))
@@ -617,6 +626,25 @@ def product_tests(o, B):
     return fails
 
 
+def clean_kw(F, kw):
+    """يصلح نهاية الكلمة المفتاحية حين تنقطع داخل مقاس: «… 120 ×» تُحذف، و«… 7» تُكمَّل بوحدتها «7 ملم». تبقى مقطعاً حرفياً من الاسم."""
+    lab, toks = F['label'].split(), kw.split()
+    if lab[:len(toks)] != toks:
+        return kw
+    n = len(toks)
+    while n > 2 and lab[n - 1] in ('×', 'x', 'X', '*'):
+        n -= 1
+        if n > 2 and re.fullmatch(r'[\d.,]+', lab[n - 1]):
+            n -= 1
+    if n > 2 and re.fullmatch(r'[\d.,]+', lab[n - 1]) and n < len(lab):
+        if lab[n] in ('ملم', 'مم', 'سم', 'م'):
+            n += 1
+        elif lab[n] in ('×', 'x', 'X', '*'):
+            n -= 1
+    new = ' '.join(lab[:n])
+    return new if (new != kw and len(new) <= bp.KW_MAX_CHARS + 4 and new in F['name']) else kw
+
+
 def build(B, family_id, fdir=FAMILY_DIR):
     """يبني عائلة واحدة. يرفع ValueError لخطأ على مستوى العائلة (إعداد/طبقة)."""
     fam = B.fams.get(family_id)
@@ -649,7 +677,13 @@ def build(B, family_id, fdir=FAMILY_DIR):
         c = bp.build_context(F)
         if c['material'] == 'ستيل' and F['sub'] == 'shiplap':            # «استيل» في الاسم لون معدني لا خامة اللوح
             c['material'] = ''
+        P = cfg['_P']
+        if P[1] and c['u'] != P[0]:       # اسم القطعة المتفق عليه للعائلة في الجدول والوصف التعريفي أيضاً
+            c.update(u=P[0], U='ال' + P[0], uacc=P[3], upl=P[2], Upl='ال' + P[2], fem=P[4],
+                     one=g(P[4], 'الواحد', 'الواحدة'), yg=g(P[4], 'يغطي', 'تغطي'))
         kw = bp.rm_keyword(F)
+        if cfg.get('kw_rule') != 'v5':        # sb-5mm مطبَّق بكلمات v5 كما هي؛ بقية العائلات تُصلَح نهاية الكلمة المقطوعة
+            kw = clean_kw(F, kw)
         num, why = numbers(F, c, cfg, kw)
         iss = ['%s: %s' % (tag[l], t) for l, t in sorted(F['issues'], key=lambda t: ('conflict', 'missing', 'note').index(t[0]))]
         if not num and cfg['kind'] != 'piece':
