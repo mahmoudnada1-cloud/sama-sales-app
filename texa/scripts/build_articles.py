@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+# NOTE 2026-11-22: this generator still encodes the OLD roll rule (no 7% waste, room by perimeter) and the
+# pre-22-Nov prices (products-slim.json). The live posts 35056/35057 and content/article-1.json, article-3.json
+# were patched to match the quantity calculator by scripts/patch_articles_calc_rule.py.
+# Do NOT republish this script's output for articles 1 and 3 without porting that rule here first.
 import json,re,collections,statistics as st,math,os
 B='/home/user/sama-sales-app/texa/'
 d=json.load(open(B+'data/products-slim.json'))
