@@ -1,0 +1,198 @@
+{
+ "35055": {
+  "content_hash": "b41a73b9960ddec199eeed2f5e14c632f61abfa3",
+  "changed": [
+   {
+    "index": 0,
+    "old_hash": "3fdfc71d91372bf44eb3a0e51498a9b22f5bfb2a",
+    "new_hash": "6c0e5743b84f73f93227867d337839c0ad816f31",
+    "old": "<!-- wp:paragraph -->\n<p><strong>الإجابة المختصرة:</strong> غرفة 4 × 4 م بارتفاع 2.8 م تحتاج <strong>4 رولات</strong> من ورق الجدران الكوري القياسي (طول 15.6 م × عرض 106 سم) لتغطية الجدران الأربعة. الجدار الواحد حتى عرض 5 أمتار يكفيه <strong>رول واحد</strong>. الرول الواحد يغطي نحو 16.5 م² ويعطي 5 شرائح كاملة بارتفاع الجدار.</p>\n<!-- /wp:paragraph -->",
+    "new": "<!-- wp:paragraph -->\n<p><strong>الإجابة المختصرة:</strong> غرفة 4 × 4 م بارتفاع 2.8 م تحتاج <strong>4 رولات</strong> من ورق الجدران الكوري القياسي (طول 15.6 م × عرض 106 سم) لتغطية الجدران الأربعة. الجدار الواحد حتى عرض 4.9 م يكفيه <strong>رول واحد</strong>، وجدار بعرض 5 م يحتاج رولين. الرول الواحد يغطي نحو 16.5 م² ويعطي 5 شرائح كاملة بارتفاع الجدار.</p>\n<!-- /wp:paragraph -->"
+   },
+   {
+    "index": 2,
+    "old_hash": "9635fb98cbda0232fdefaf25de453743b5cc735e",
+    "new_hash": "3d72a398c8e641c0c7993ad4ac947598b5de6bc2",
+    "old": "<!-- wp:paragraph -->\n<p>الأرقام محسوبة لرول مقاسه 15.6 م × 106 سم، وهو مقاس أغلب ورق الجدران الكوري في تكسا ديكور، وبدون خصم الأبواب والنوافذ حتى يبقى معك احتياط للقص.</p>\n<!-- /wp:paragraph -->",
+    "new": "<!-- wp:paragraph -->\n<p>الأرقام محسوبة بطريقة <a href=\"https://texadecore.store/quantity-calculator/\">حاسبة الكميات</a> لرول مقاسه 15.6 م × 106 سم، وهو مقاس أغلب ورق الجدران الكوري في تكسا ديكور: كل جدار يُحسب على حدة مع هدر قص 7%، ثم تُجمع رولات الجدران. الأبواب والنوافذ الصغيرة لا تُخصم حتى يبقى معك احتياط للقص.</p>\n<!-- /wp:paragraph -->"
+   },
+   {
+    "index": 3,
+    "old_hash": "eaf0a2d9d068fa84aa6739d1b6600dbafb7c1003",
+    "new_hash": "a2236b30085d13578cc2e78654566a8015919991",
+    "old": "<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><thead><tr><th>مقاس الغرفة</th><th>محيط الجدران</th><th>عدد الشرائح</th><th>الرولات (ارتفاع حتى 3 م)</th><th>الرولات (ارتفاع 3.2 م)</th></tr></thead><tbody><tr><td>3 × 3 م</td><td>12 م</td><td>12</td><td>3</td><td>3</td></tr><tr><td>3 × 4 م</td><td>14 م</td><td>14</td><td>3</td><td>4</td></tr><tr><td>4 × 4 م</td><td>16 م</td><td>16</td><td>4</td><td>4</td></tr><tr><td>4 × 5 م</td><td>18 م</td><td>17</td><td>4</td><td>5</td></tr><tr><td>5 × 5 م</td><td>20 م</td><td>19</td><td>4</td><td>5</td></tr><tr><td>5 × 6 م</td><td>22 م</td><td>21</td><td>5</td><td>6</td></tr><tr><td>6 × 8 م (مجلس)</td><td>28 م</td><td>27</td><td>6</td><td>7</td></tr></tbody></table></figure>\n<!-- /wp:table -->",
+    "new": "<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><thead><tr><th>مقاس الغرفة</th><th>شرائح كل جدار</th><th>الرولات (ارتفاع حتى 3 م)</th><th>الرولات (ارتفاع فوق 3 م حتى 3.8 م)</th></tr></thead><tbody><tr><td>3 × 3 م</td><td>4 + 4 + 4 + 4</td><td>4</td><td>4</td></tr><tr><td>3 × 4 م</td><td>4 + 4 + 5 + 5</td><td>4</td><td>6</td></tr><tr><td>4 × 4 م</td><td>5 + 5 + 5 + 5</td><td>4</td><td>8</td></tr><tr><td>4 × 5 م</td><td>5 + 5 + 6 + 6</td><td>6</td><td>8</td></tr><tr><td>5 × 5 م</td><td>6 + 6 + 6 + 6</td><td>8</td><td>8</td></tr><tr><td>5 × 6 م</td><td>6 + 6 + 7 + 7</td><td>8</td><td>8</td></tr><tr><td>6 × 8 م (مجلس)</td><td>7 + 7 + 9 + 9</td><td>8</td><td>10</td></tr></tbody></table></figure>\n<!-- /wp:table -->"
+   },
+   {
+    "index": 5,
+    "old_hash": "fe297a5f1a219675bd36f50745e54a8371bbec1d",
+    "new_hash": "1196734d2d9455d8c2604cf67f6f20212c4ba947",
+    "old": "<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><thead><tr><th>عرض الجدار</th><th>عدد الشرائح</th><th>الرولات (ارتفاع حتى 3 م)</th></tr></thead><tbody><tr><td>2 م</td><td>2</td><td>1</td></tr><tr><td>3 م</td><td>3</td><td>1</td></tr><tr><td>4 م</td><td>4</td><td>1</td></tr><tr><td>5 م</td><td>5</td><td>1</td></tr><tr><td>6 م</td><td>6</td><td>2</td></tr></tbody></table></figure>\n<!-- /wp:table -->",
+    "new": "<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><thead><tr><th>عرض الجدار</th><th>عدد الشرائح</th><th>الرولات (ارتفاع حتى 3 م)</th></tr></thead><tbody><tr><td>2 م</td><td>3</td><td>1</td></tr><tr><td>3 م</td><td>4</td><td>1</td></tr><tr><td>4 م</td><td>5</td><td>1</td></tr><tr><td>5 م</td><td>6</td><td>2</td></tr><tr><td>6 م</td><td>7</td><td>2</td></tr></tbody></table></figure>\n<!-- /wp:table -->"
+   },
+   {
+    "index": 7,
+    "old_hash": "9624dabffe3427f23350a8734e019b31c6dcc08c",
+    "new_hash": "2addbf276a27bc36778ec345edc81040e6c06873",
+    "old": "<!-- wp:list {\"ordered\":true} -->\n<ol class=\"wp-block-list\"><!-- wp:list-item -->\n<li><strong>احسب عدد الشرائح:</strong> اجمع عرض الجدران التي ستغطيها بالمتر واقسمه على 1.06 (عرض الرول)، ثم قرّب الناتج للأعلى.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong>احسب كم شريحة يعطيك الرول:</strong> اقسم 15.6 على ارتفاع الجدار وقرّب للأسفل. ارتفاع 2.8 أو 3 م يعطي 5 شرائح، وارتفاع 3.2 م يعطي 4 شرائح.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong>احسب الرولات:</strong> اقسم عدد الشرائح على شرائح الرول الواحد وقرّب للأعلى.</li>\n<!-- /wp:list-item --></ol>\n<!-- /wp:list -->",
+    "new": "<!-- wp:list {\"ordered\":true} -->\n<ol class=\"wp-block-list\"><!-- wp:list-item -->\n<li><strong>احسب شرائح كل جدار على حدة:</strong> اضرب عرض الجدار بالمتر في 1.07 (هدر قص 7%) واقسم الناتج على 1.06 (عرض الرول)، ثم قرّب للأعلى.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong>احسب كم شريحة يعطيك الرول:</strong> أضف 10 سم إلى ارتفاع الجدار هامشاً للقص، ثم اقسم 15.6 على الناتج وقرّب للأسفل. ارتفاع حتى 3 م يعطي 5 شرائح، وارتفاع فوق 3 م حتى 3.8 م يعطي 4 شرائح.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong>احسب الرولات:</strong> اقسم شرائح الجدار على شرائح الرول الواحد وقرّب للأعلى، ثم اجمع رولات الجدران كلها.</li>\n<!-- /wp:list-item --></ol>\n<!-- /wp:list -->"
+   },
+   {
+    "index": 8,
+    "old_hash": "cccbecc3bdaa7d906f14cfd92d4188710bcd83aa",
+    "new_hash": "48152e99d7b174fdde4589c5ee842259d85f0e69",
+    "old": "<!-- wp:paragraph -->\n<p><strong>مثال:</strong> غرفة 4 × 5 م بارتفاع 2.8 م. المحيط 18 م ÷ 1.06 = 17 شريحة. الرول يعطي 5 شرائح، فتحتاج 17 ÷ 5 = 3.4، أي <strong>4 رولات</strong>.</p>\n<!-- /wp:paragraph -->",
+    "new": "<!-- wp:paragraph -->\n<p><strong>مثال:</strong> غرفة 4 × 5 م بارتفاع 2.8 م. الجدار بعرض 4 م: 4 × 1.07 ÷ 1.06 = 4.04، أي 5 شرائح ورول واحد. الجدار بعرض 5 م: 5 × 1.07 ÷ 1.06 = 5.05، أي 6 شرائح ورولان. المجموع 1 + 1 + 2 + 2 = <strong>6 رولات</strong>.</p>\n<!-- /wp:paragraph -->"
+   },
+   {
+    "index": 12,
+    "old_hash": "988478478881aeb2f6922cbf5d5ee82f2565de2f",
+    "new_hash": "ae0a97eed72fb402804d624a3d978ed47c0f6b99",
+    "old": "<!-- wp:list -->\n<ul class=\"wp-block-list\"><!-- wp:list-item -->\n<li><strong>النقشات الكبيرة المتكررة:</strong> مطابقة النقشة بين الشرائح تستهلك جزءاً من كل شريحة، وقد تنقص شرائح الرول من 5 إلى 4. الورق السادة والمقلّم لا يحتاج ذلك.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong>الجدران غير المستقيمة أو كثيرة الزوايا والأعمدة:</strong> كل زاوية تعني قصاً إضافياً.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong>إذا كان عدد الشرائح يملأ الرولات تماماً:</strong> مثل 15 شريحة على 3 رولات، فأي خطأ قص واحد يوقف العمل.</li>\n<!-- /wp:list-item --></ul>\n<!-- /wp:list -->",
+    "new": "<!-- wp:list -->\n<ul class=\"wp-block-list\"><!-- wp:list-item -->\n<li><strong>النقشات الكبيرة المتكررة:</strong> مطابقة النقشة بين الشرائح تستهلك جزءاً من كل شريحة، وقد تنقص شرائح الرول من 5 إلى 4. الورق السادة والمقلّم لا يحتاج ذلك.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong>الجدران غير المستقيمة أو كثيرة الزوايا والأعمدة:</strong> كل زاوية تعني قصاً إضافياً.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong>إذا كانت شرائح الجدار تملأ الرول تماماً:</strong> مثل جدار بعرض 4 م يأخذ الشرائح الخمس كلها من رول واحد، فأي خطأ قص واحد يوقف العمل.</li>\n<!-- /wp:list-item --></ul>\n<!-- /wp:list -->"
+   },
+   {
+    "index": 15,
+    "old_hash": "ed400df2148e3f4f8aa68191125ef718f47838b8",
+    "new_hash": "6019a640f68451eac3b1137ae91b1f6c5b2892d4",
+    "old": "<!-- wp:paragraph -->\n<p>أسعار رول ورق الجدران الكوري (15.6 م × 106 سم) في تكسا ديكور تبدأ من 75 ريالاً وتصل إلى 229 ريالاً للرول شاملة الضريبة، حسب التصميم (أسعار المتجر بتاريخ 21 نوفمبر 2026). على هذا تكون خامة غرفة 4 × 4 م (4 رولات) بين 300 و916 ريالاً، وخامة جدار واحد حتى 5 أمتار بين 75 و229 ريالاً. أجرة التركيب تُضاف بحسب المدينة، وتفاصيلها في <a href=\"https://texadecore.store/install-services/\">صفحة خدمات التركيب</a>.</p>\n<!-- /wp:paragraph -->",
+    "new": "<!-- wp:paragraph -->\n<p>أسعار رول ورق الجدران الكوري (15.6 م × 106 سم) في تكسا ديكور تبدأ من 75 ريالاً وتصل إلى 229 ريالاً للرول شاملة الضريبة، حسب التصميم (أسعار المتجر بتاريخ 21 نوفمبر 2026). على هذا تكون خامة غرفة 4 × 4 م (4 رولات) بين 300 و916 ريالاً، وخامة جدار واحد حتى 4.9 م بين 75 و229 ريالاً. أجرة التركيب تُضاف بحسب المدينة، وتفاصيلها في <a href=\"https://texadecore.store/install-services/\">صفحة خدمات التركيب</a>.</p>\n<!-- /wp:paragraph -->"
+   },
+   {
+    "index": 18,
+    "old_hash": "8795e69335f35647255e5fe60d4c3deb9ca0699a",
+    "new_hash": "f6072531a48507a8a43755bf46ff2915ab375d46",
+    "old": "<!-- wp:paragraph -->\n<p>الرول 15.6 م × 106 سم مساحته نحو 16.5 م²، ويعطي 5 شرائح كاملة لجدار ارتفاعه حتى 3 أمتار، أي يغطي جداراً عرضه 5.3 م.</p>\n<!-- /wp:paragraph -->",
+    "new": "<!-- wp:paragraph -->\n<p>الرول 15.6 م × 106 سم مساحته نحو 16.5 م²، ويعطي 5 شرائح كاملة لجدار ارتفاعه حتى 3 أمتار، أي يغطي بعد احتساب هدر القص جداراً عرضه حتى 4.9 م.</p>\n<!-- /wp:paragraph -->"
+   },
+   {
+    "index": 20,
+    "old_hash": "56e09735e38c528267704497e4271b9152e6f053",
+    "new_hash": "b4b4ea8b0183603fd407ba847871dafb7867527b",
+    "old": "<!-- wp:paragraph -->\n<p>4 رولات إذا كان ارتفاع الجدار حتى 3 أمتار، و5 رولات إذا كان الارتفاع 3.2 م.</p>\n<!-- /wp:paragraph -->",
+    "new": "<!-- wp:paragraph -->\n<p>6 رولات إذا كان ارتفاع الجدار حتى 3 أمتار، و8 رولات إذا كان الارتفاع فوق 3 م حتى 3.8 م.</p>\n<!-- /wp:paragraph -->"
+   }
+  ],
+  "excerpt": null,
+  "rank_math_description": null
+ },
+ "35057": {
+  "content_hash": "2f6b826f75732dd8bb8a6e8a1f880fd31defb600",
+  "changed": [
+   {
+    "index": 0,
+    "old_hash": "0bbae1d34aafb2586164b8440d69f4597a1c01b4",
+    "new_hash": "4bba380dc7531084aafeae19760b1f7a642789d2",
+    "old": "<!-- wp:paragraph -->\n<p><strong>الإجابة المختصرة:</strong> تغطية جدار واحد حتى عرض 5 أمتار بورق الجدران الكوري تحتاج رولاً واحداً، وخامته في تكسا ديكور بين 75 و229 ريالاً شاملة الضريبة. غرفة 4 × 4 م كاملة تحتاج 4 رولات، أي 300 إلى 916 ريالاً للخامة. تكلفة الدهان تختلف حسب نوعه والمصنعية، وتُطلب تسعيرتها من دهّان في مدينتك قبل المقارنة.</p>\n<!-- /wp:paragraph -->",
+    "new": "<!-- wp:paragraph -->\n<p><strong>الإجابة المختصرة:</strong> تغطية جدار واحد حتى عرض 4.9 م بورق الجدران الكوري تحتاج رولاً واحداً، وخامته في تكسا ديكور بين 75 و229 ريالاً شاملة الضريبة. غرفة 4 × 4 م كاملة تحتاج 4 رولات، أي 300 إلى 916 ريالاً للخامة. تكلفة الدهان تختلف حسب نوعه والمصنعية، وتُطلب تسعيرتها من دهّان في مدينتك قبل المقارنة.</p>\n<!-- /wp:paragraph -->"
+   },
+   {
+    "index": 3,
+    "old_hash": "5f19081d5c8a3b145e6bac9183ba74a650ed8369",
+    "new_hash": "5da4d10763590ebf763bb57b9686303d03afb658",
+    "old": "<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><thead><tr><th>المساحة</th><th>عدد الرولات</th><th>بأقل سعر (75)</th><th>بالسعر الأوسط (179)</th><th>بأعلى سعر (229)</th></tr></thead><tbody><tr><td>جدار واحد بعرض 3 م</td><td>1</td><td>75 ريالاً</td><td>179 ريالاً</td><td>229 ريالاً</td></tr><tr><td>جدار واحد بعرض 4 م</td><td>1</td><td>75 ريالاً</td><td>179 ريالاً</td><td>229 ريالاً</td></tr><tr><td>جدار واحد بعرض 5 م</td><td>1</td><td>75 ريالاً</td><td>179 ريالاً</td><td>229 ريالاً</td></tr><tr><td>جدار واحد بعرض 6 م</td><td>2</td><td>150 ريالاً</td><td>358 ريالاً</td><td>458 ريالاً</td></tr><tr><td>غرفة 3 × 4 م</td><td>3</td><td>225 ريالاً</td><td>537 ريالاً</td><td>687 ريالاً</td></tr><tr><td>غرفة 4 × 4 م</td><td>4</td><td>300 ريالاً</td><td>716 ريالاً</td><td>916 ريالاً</td></tr><tr><td>غرفة 4 × 5 م</td><td>4</td><td>300 ريالاً</td><td>716 ريالاً</td><td>916 ريالاً</td></tr><tr><td>غرفة 5 × 6 م</td><td>5</td><td>375 ريالاً</td><td>895 ريالاً</td><td>1,145 ريالاً</td></tr></tbody></table></figure>\n<!-- /wp:table -->",
+    "new": "<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><thead><tr><th>المساحة</th><th>عدد الرولات</th><th>بأقل سعر (75)</th><th>بالسعر الأوسط (179)</th><th>بأعلى سعر (229)</th></tr></thead><tbody><tr><td>جدار واحد بعرض 3 م</td><td>1</td><td>75 ريالاً</td><td>179 ريالاً</td><td>229 ريالاً</td></tr><tr><td>جدار واحد بعرض 4 م</td><td>1</td><td>75 ريالاً</td><td>179 ريالاً</td><td>229 ريالاً</td></tr><tr><td>جدار واحد بعرض 5 م</td><td>2</td><td>150 ريالاً</td><td>358 ريالاً</td><td>458 ريالاً</td></tr><tr><td>جدار واحد بعرض 6 م</td><td>2</td><td>150 ريالاً</td><td>358 ريالاً</td><td>458 ريالاً</td></tr><tr><td>غرفة 3 × 4 م</td><td>4</td><td>300 ريالاً</td><td>716 ريالاً</td><td>916 ريالاً</td></tr><tr><td>غرفة 4 × 4 م</td><td>4</td><td>300 ريالاً</td><td>716 ريالاً</td><td>916 ريالاً</td></tr><tr><td>غرفة 4 × 5 م</td><td>6</td><td>450 ريالاً</td><td>1,074 ريالاً</td><td>1,374 ريالاً</td></tr><tr><td>غرفة 5 × 6 م</td><td>8</td><td>600 ريالاً</td><td>1,432 ريالاً</td><td>1,832 ريالاً</td></tr></tbody></table></figure>\n<!-- /wp:table -->"
+   },
+   {
+    "index": 14,
+    "old_hash": "e77745af8c544a08ac6d37b5a300f82b0ad9cb1b",
+    "new_hash": "584c6080a37a9b81dca45304442f7ecca73830cc",
+    "old": "<!-- wp:paragraph -->\n<p>أكثر استخدام عملي لورق الجدران هو جدار واحد بارز: خلف السرير أو خلف التلفزيون أو في المدخل، مع دهان بقية الغرفة. هذا الجدار حتى عرض 5 أمتار يكفيه رول واحد، فتبقى خامته بين 75 و229 ريالاً مهما كان التصميم، وتحصل على النقشة حيث تُرى.</p>\n<!-- /wp:paragraph -->",
+    "new": "<!-- wp:paragraph -->\n<p>أكثر استخدام عملي لورق الجدران هو جدار واحد بارز: خلف السرير أو خلف التلفزيون أو في المدخل، مع دهان بقية الغرفة. هذا الجدار حتى عرض 4.9 م يكفيه رول واحد، فتبقى خامته بين 75 و229 ريالاً مهما كان التصميم، وتحصل على النقشة حيث تُرى.</p>\n<!-- /wp:paragraph -->"
+   },
+   {
+    "index": 16,
+    "old_hash": "ca686104f78a958ccdb741c5294676e9a6456c6e",
+    "new_hash": "4893360481e0624aa2dd6847b5722029ddb8968a",
+    "old": "<!-- wp:list {\"ordered\":true} -->\n<ol class=\"wp-block-list\"><!-- wp:list-item -->\n<li>قِس عرض الجدران التي ستغطيها بالمتر واقسمه على 1.06 وقرّب للأعلى: هذا عدد الشرائح.</li>\n<!-- /wp:list-item --><!-- wp:list-item -->\n<li>اقسم عدد الشرائح على 5 (لارتفاع حتى 3 م) وقرّب للأعلى: هذا عدد الرولات.</li>\n<!-- /wp:list-item --><!-- wp:list-item -->\n<li>اضرب عدد الرولات في سعر الرول الذي اخترته، أو أدخل المقاسات في <a href=\"https://texadecore.store/quantity-calculator/\">حاسبة الكميات</a>.</li>\n<!-- /wp:list-item --></ol>\n<!-- /wp:list -->",
+    "new": "<!-- wp:list {\"ordered\":true} -->\n<ol class=\"wp-block-list\"><!-- wp:list-item -->\n<li>لكل جدار على حدة: اضرب عرضه بالمتر في 1.07 (هدر قص 7%) واقسم الناتج على 1.06 وقرّب للأعلى: هذا عدد شرائحه.</li>\n<!-- /wp:list-item --><!-- wp:list-item -->\n<li>اقسم شرائح الجدار على 5 (لارتفاع حتى 3 م) وقرّب للأعلى، ثم اجمع رولات الجدران: هذا عدد الرولات.</li>\n<!-- /wp:list-item --><!-- wp:list-item -->\n<li>اضرب عدد الرولات في سعر الرول الذي اخترته، أو أدخل المقاسات في <a href=\"https://texadecore.store/quantity-calculator/\">حاسبة الكميات</a>.</li>\n<!-- /wp:list-item --></ol>\n<!-- /wp:list -->"
+   },
+   {
+    "index": 19,
+    "old_hash": "a648619f2bf0547f5b355ae698ea2aaccfde42d2",
+    "new_hash": "3ae0a0e2c27e84864aaee480d0a96724af3c6dfd",
+    "old": "<!-- wp:paragraph -->\n<p>يعتمد على تسعيرة الدهان في مدينتك وعلى حالة الجدار. الثابت أن خامة ورق الجدران الكوري في تكسا ديكور بين نحو 4.5 و13.9 ريالاً للمتر المربع، وأن جداراً واحداً يكلّف رولاً واحداً. اطلب تسعيرة دهان للمساحة نفسها وقارن المجموعين.</p>\n<!-- /wp:paragraph -->",
+    "new": "<!-- wp:paragraph -->\n<p>يعتمد على تسعيرة الدهان في مدينتك وعلى حالة الجدار. الثابت أن خامة ورق الجدران الكوري في تكسا ديكور بين نحو 4.5 و13.9 ريالاً للمتر المربع، وأن جداراً واحداً حتى عرض 4.9 م يكلّف رولاً واحداً. اطلب تسعيرة دهان للمساحة نفسها وقارن المجموعين.</p>\n<!-- /wp:paragraph -->"
+   },
+   {
+    "index": 21,
+    "old_hash": "0829d4b112b6096cc62b253dbac301e0cb0e1d8d",
+    "new_hash": "0a961fdf991843509b8663e5dc454bb994678491",
+    "old": "<!-- wp:paragraph -->\n<p>رول واحد إذا كان عرض الجدار حتى 5 أمتار وارتفاعه حتى 3 أمتار، أي من 75 إلى 229 ريالاً للخامة. جدار بعرض 6 أمتار يحتاج رولين.</p>\n<!-- /wp:paragraph -->",
+    "new": "<!-- wp:paragraph -->\n<p>رول واحد إذا كان عرض الجدار حتى 4.9 م وارتفاعه حتى 3 أمتار، أي من 75 إلى 229 ريالاً للخامة. جدار بعرض 5 أو 6 أمتار يحتاج رولين.</p>\n<!-- /wp:paragraph -->"
+   }
+  ],
+  "excerpt": "جدار واحد حتى عرض 4.9 م بورق الجدران الكوري يحتاج رولاً واحداً (75–229 ريالاً للخامة)، وغرفة 4×4 تحتاج 4 رولات. مقارنة صريحة مع الدهان بنداً بنداً.",
+  "rank_math_description": "ورق جدران أم دهان؟ جدار حتى 4.9 م يكفيه رول واحد بـ75–229 ريالاً وغرفة 4×4 تحتاج 4 رولات. جدول تكلفة ومقارنة بالتحضير والغبار والإصلاح ومتى تختار كلاً منهما."
+ },
+ "35056": {
+  "content_hash": "e69819de9d1c98f20a5796a6ae220f9faf3332e6",
+  "changed": [
+   {
+    "index": 0,
+    "old_hash": "9e2f0151932d514895b7a20def4424e695c64a72",
+    "new_hash": "bcedb2e0444d0c8b48b034025d93b717722a58b9",
+    "old": "<!-- wp:paragraph -->\n<p><strong>الإجابة المختصرة:</strong> سعر رول ورق الجدران الكوري في السعودية لدى تكسا ديكور من 75 إلى 229 ريالاً شاملاً الضريبة، بحسب التصميم. الرول 15.6 م × 106 سم ويغطي نحو 16.5 م²، فيكون سعر المتر المربع بين نحو 4.5 و13.9 ريالاً. أكثر الأسعار شيوعاً 179 و189 ريالاً للرول. الأسعار محدّثة بتاريخ 21 نوفمبر 2026.</p>\n<!-- /wp:paragraph -->",
+    "new": "<!-- wp:paragraph -->\n<p><strong>الإجابة المختصرة:</strong> سعر رول ورق الجدران الكوري في السعودية لدى تكسا ديكور من 75 إلى 229 ريالاً شاملاً الضريبة، بحسب التصميم. الرول 15.6 م × 106 سم ويغطي نحو 16.5 م²، فيكون سعر المتر المربع بين نحو 4.5 و13.9 ريالاً. أكثر الأسعار شيوعاً 179 و189 ريالاً للرول. الأسعار محدّثة بتاريخ 22 نوفمبر 2026.</p>\n<!-- /wp:paragraph -->"
+   },
+   {
+    "index": 3,
+    "old_hash": "f7f44dcab51ed49f48fec2e74172f08b4d4950b6",
+    "new_hash": "a0b7611531bf0f277700cae322467fa2fe037947",
+    "old": "<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><thead><tr><th>سعر الرول</th><th>عدد التصاميم</th><th>سعر المتر المربع تقريباً</th></tr></thead><tbody><tr><td>75 ريالاً</td><td>229</td><td>4.5 ريالاً</td></tr><tr><td>99–135 ريالاً</td><td>185</td><td>6.0–8.2 ريالاً</td></tr><tr><td>166–178 ريالاً</td><td>162</td><td>10.1–10.8 ريالاً</td></tr><tr><td>179–189 ريالاً</td><td>523</td><td>10.8–11.5 ريالاً</td></tr><tr><td>196–229 ريالاً</td><td>197</td><td>11.9–13.9 ريالاً</td></tr></tbody></table></figure>\n<!-- /wp:table -->",
+    "new": "<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><thead><tr><th>سعر الرول</th><th>عدد التصاميم</th><th>سعر المتر المربع تقريباً</th></tr></thead><tbody><tr><td>75 ريالاً</td><td>255</td><td>4.5 ريالاً</td></tr><tr><td>109–135 ريالاً</td><td>159</td><td>6.6–8.2 ريالاً</td></tr><tr><td>166–178 ريالاً</td><td>162</td><td>10.1–10.8 ريالاً</td></tr><tr><td>179–189 ريالاً</td><td>523</td><td>10.8–11.5 ريالاً</td></tr><tr><td>196–229 ريالاً</td><td>197</td><td>11.9–13.9 ريالاً</td></tr></tbody></table></figure>\n<!-- /wp:table -->"
+   },
+   {
+    "index": 4,
+    "old_hash": "ace2d27b5170e443cf96ac42117a99e7c95fcb42",
+    "new_hash": "eafccfef890d273594334862bf2392c1c2a3f1b8",
+    "old": "<!-- wp:paragraph -->\n<p>نحو 40% من التصاميم (523 من 1,296) سعرها 179 أو 189 ريالاً، وهذا هو السعر المعتاد للرول. فئة 75 ريالاً تضم 229 تصميماً، أغلبها ورود ونقشات وكلاسيك.</p>\n<!-- /wp:paragraph -->",
+    "new": "<!-- wp:paragraph -->\n<p>نحو 40% من التصاميم (523 من 1,296) سعرها 179 أو 189 ريالاً، وهذا هو السعر المعتاد للرول. فئة 75 ريالاً تضم 255 تصميماً، أغلبها ورود ونقشات وكلاسيك.</p>\n<!-- /wp:paragraph -->"
+   },
+   {
+    "index": 6,
+    "old_hash": "4bbd7b469da5ef28fbbb949f951a154b9658893b",
+    "new_hash": "80cbc9fcaeda4e858aebd9ce8f9b88056d0f1999",
+    "old": "<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><thead><tr><th>التصميم</th><th>عدد التصاميم</th><th>مدى السعر للرول</th><th>السعر الأكثر شيوعاً</th></tr></thead><tbody><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d8%b3%d8%a7%d8%af%d9%87/\">سادة</a></td><td>742</td><td>99–229 ريالاً</td><td>189 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d9%86%d9%82%d8%b4%d8%a7%d8%aa/\">نقشات</a></td><td>156</td><td>75–204 ريالاً</td><td>75 و179 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d9%88%d8%b1%d9%88%d8%af/\">ورود</a></td><td>96</td><td>75–196 ريالاً</td><td>75 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d8%b3%d8%a7%d8%af%d9%87-%d9%85%d9%82%d9%84%d9%85/\">سادة مقلّم</a></td><td>70</td><td>75–204 ريالاً</td><td>75 و179 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d9%85%d9%88%d8%af%d8%b1%d9%86/\">مودرن</a></td><td>68</td><td>75–204 ريالاً</td><td>75 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d8%b1%d8%ae%d8%a7%d9%85%d9%8a/\">رخامي</a></td><td>57</td><td>166–204 ريالاً</td><td>179 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d9%88%d8%b1%d9%82-%d8%ac%d8%af%d8%b1%d8%a7%d9%86-%d8%a7%d8%b7%d9%81%d8%a7%d9%84/\">أطفال</a></td><td>52</td><td>174–229 ريالاً</td><td>229 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d9%83%d9%84%d8%a7%d8%b3%d9%8a%d9%83/\">كلاسيك</a></td><td>49</td><td>75–204 ريالاً</td><td>75 ريالاً</td></tr></tbody></table></figure>\n<!-- /wp:table -->",
+    "new": "<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><thead><tr><th>التصميم</th><th>عدد التصاميم</th><th>مدى السعر للرول</th><th>السعر الأكثر شيوعاً</th></tr></thead><tbody><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d8%b3%d8%a7%d8%af%d9%87/\">سادة</a></td><td>742</td><td>75–229 ريالاً</td><td>189 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d9%86%d9%82%d8%b4%d8%a7%d8%aa/\">نقشات</a></td><td>156</td><td>75–204 ريالاً</td><td>75 و179 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d9%88%d8%b1%d9%88%d8%af/\">ورود</a></td><td>96</td><td>75–196 ريالاً</td><td>75 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d8%b3%d8%a7%d8%af%d9%87-%d9%85%d9%82%d9%84%d9%85/\">سادة مقلّم</a></td><td>70</td><td>75–204 ريالاً</td><td>75 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d9%85%d9%88%d8%af%d8%b1%d9%86/\">مودرن</a></td><td>68</td><td>75–204 ريالاً</td><td>75 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d8%b1%d8%ae%d8%a7%d9%85%d9%8a/\">رخامي</a></td><td>57</td><td>166–204 ريالاً</td><td>179 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d9%88%d8%b1%d9%82-%d8%ac%d8%af%d8%b1%d8%a7%d9%86-%d8%a7%d8%b7%d9%81%d8%a7%d9%84/\">أطفال</a></td><td>52</td><td>174–229 ريالاً</td><td>229 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d9%83%d9%84%d8%a7%d8%b3%d9%8a%d9%83/\">كلاسيك</a></td><td>49</td><td>75–204 ريالاً</td><td>75 ريالاً</td></tr></tbody></table></figure>\n<!-- /wp:table -->"
+   },
+   {
+    "index": 9,
+    "old_hash": "8ca583243369a0e22ff304bcccec8770ad74479c",
+    "new_hash": "fe184209e8e7d35fbd0e3e9191703a166eba4434",
+    "old": "<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><thead><tr><th>اللون</th><th>عدد التصاميم</th><th>مدى السعر للرول</th><th>السعر الأكثر شيوعاً</th></tr></thead><tbody><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d9%88%d8%b1%d9%82-%d8%ac%d8%af%d8%b1%d8%a7%d9%86-%d8%a8%d9%8a%d8%ac/\">بيج</a></td><td>466</td><td>75–229 ريالاً</td><td>75 و189 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d9%88%d8%b1%d9%82-%d8%ac%d8%af%d8%b1%d8%a7%d9%86-%d8%b1%d9%85%d8%a7%d8%af%d9%8a/\">رمادي</a></td><td>334</td><td>75–229 ريالاً</td><td>179 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d9%88%d8%b1%d9%82-%d8%ac%d8%af%d8%b1%d8%a7%d9%86-%d8%a3%d8%b2%d8%b1%d9%82/\">أزرق</a></td><td>70</td><td>75–229 ريالاً</td><td>75 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d9%88%d8%b1%d9%82-%d8%ac%d8%af%d8%b1%d8%a7%d9%86-%d9%88%d8%b1%d8%af%d9%8a/\">وردي</a></td><td>62</td><td>75–229 ريالاً</td><td>75 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d9%88%d8%b1%d9%82-%d8%ac%d8%af%d8%b1%d8%a7%d9%86-%d8%a3%d8%ae%d8%b6%d8%b1/\">أخضر</a></td><td>45</td><td>75–229 ريالاً</td><td>179 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d9%88%d8%b1%d9%82-%d8%ac%d8%af%d8%b1%d8%a7%d9%86-%d8%a3%d8%ad%d9%85%d8%b1/\">أحمر</a></td><td>9</td><td>75–189 ريالاً</td><td>75 و179 ريالاً</td></tr></tbody></table></figure>\n<!-- /wp:table -->",
+    "new": "<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><thead><tr><th>اللون</th><th>عدد التصاميم</th><th>مدى السعر للرول</th><th>السعر الأكثر شيوعاً</th></tr></thead><tbody><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d9%88%d8%b1%d9%82-%d8%ac%d8%af%d8%b1%d8%a7%d9%86-%d8%a8%d9%8a%d8%ac/\">بيج</a></td><td>466</td><td>75–229 ريالاً</td><td>75 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d9%88%d8%b1%d9%82-%d8%ac%d8%af%d8%b1%d8%a7%d9%86-%d8%b1%d9%85%d8%a7%d8%af%d9%8a/\">رمادي</a></td><td>334</td><td>75–229 ريالاً</td><td>179 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d9%88%d8%b1%d9%82-%d8%ac%d8%af%d8%b1%d8%a7%d9%86-%d8%a3%d8%b2%d8%b1%d9%82/\">أزرق</a></td><td>70</td><td>75–229 ريالاً</td><td>75 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d9%88%d8%b1%d9%82-%d8%ac%d8%af%d8%b1%d8%a7%d9%86-%d9%88%d8%b1%d8%af%d9%8a/\">وردي</a></td><td>62</td><td>75–229 ريالاً</td><td>75 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d9%88%d8%b1%d9%82-%d8%ac%d8%af%d8%b1%d8%a7%d9%86-%d8%a3%d8%ae%d8%b6%d8%b1/\">أخضر</a></td><td>45</td><td>75–229 ريالاً</td><td>179 ريالاً</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d9%88%d8%b1%d9%82-%d8%ac%d8%af%d8%b1%d8%a7%d9%86-%d8%a3%d8%ad%d9%85%d8%b1/\">أحمر</a></td><td>9</td><td>75–189 ريالاً</td><td>75 و179 ريالاً</td></tr></tbody></table></figure>\n<!-- /wp:table -->"
+   },
+   {
+    "index": 12,
+    "old_hash": "9b874c93ee755584c1dea820d96b7be6377ee145",
+    "new_hash": "fe54180fb4780152abfb43190f5a7acd0375269e",
+    "old": "<!-- wp:paragraph -->\n<p>اضرب عدد الرولات في سعر الرول. الجدار الواحد حتى عرض 5 أمتار وارتفاع 3 أمتار يكفيه رول واحد، وغرفة 4 × 4 م تحتاج 4 رولات:</p>\n<!-- /wp:paragraph -->",
+    "new": "<!-- wp:paragraph -->\n<p>اضرب عدد الرولات في سعر الرول. الجدار الواحد حتى عرض 4.9 م وارتفاع 3 أمتار يكفيه رول واحد، وغرفة 4 × 4 م تحتاج 4 رولات:</p>\n<!-- /wp:paragraph -->"
+   },
+   {
+    "index": 13,
+    "old_hash": "ce2361f2813ce7372bae6b4ad8fd34cac2202712",
+    "new_hash": "d3bd898b56205041ccd98f08bb571cf6a8bec030",
+    "old": "<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><thead><tr><th>المساحة</th><th>عدد الرولات</th><th>بسعر 75</th><th>بسعر 189</th><th>بسعر 229</th></tr></thead><tbody><tr><td>جدار واحد حتى 5 م</td><td>1</td><td>75 ريالاً</td><td>189 ريالاً</td><td>229 ريالاً</td></tr><tr><td>غرفة 3 × 4 م</td><td>3</td><td>225 ريالاً</td><td>567 ريالاً</td><td>687 ريالاً</td></tr><tr><td>غرفة 4 × 4 م</td><td>4</td><td>300 ريالاً</td><td>756 ريالاً</td><td>916 ريالاً</td></tr><tr><td>غرفة 5 × 6 م</td><td>5</td><td>375 ريالاً</td><td>945 ريالاً</td><td>1,145 ريالاً</td></tr></tbody></table></figure>\n<!-- /wp:table -->",
+    "new": "<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><thead><tr><th>المساحة</th><th>عدد الرولات</th><th>بسعر 75</th><th>بسعر 189</th><th>بسعر 229</th></tr></thead><tbody><tr><td>جدار واحد حتى 4.9 م</td><td>1</td><td>75 ريالاً</td><td>189 ريالاً</td><td>229 ريالاً</td></tr><tr><td>غرفة 3 × 4 م</td><td>4</td><td>300 ريالاً</td><td>756 ريالاً</td><td>916 ريالاً</td></tr><tr><td>غرفة 4 × 4 م</td><td>4</td><td>300 ريالاً</td><td>756 ريالاً</td><td>916 ريالاً</td></tr><tr><td>غرفة 5 × 6 م</td><td>8</td><td>600 ريالاً</td><td>1,512 ريالاً</td><td>1,832 ريالاً</td></tr></tbody></table></figure>\n<!-- /wp:table -->"
+   },
+   {
+    "index": 22,
+    "old_hash": "4a297c4c0e9c26530b46618cd348e1390d1b5a56",
+    "new_hash": "d3fffff0eba0058d8a71d5a57c46a3bba5558562",
+    "old": "<!-- wp:paragraph -->\n<p>من 75 إلى 229 ريالاً للرول شاملاً الضريبة في تكسا ديكور، والسعر الأكثر شيوعاً 179 إلى 189 ريالاً (أسعار 21 نوفمبر 2026).</p>\n<!-- /wp:paragraph -->",
+    "new": "<!-- wp:paragraph -->\n<p>من 75 إلى 229 ريالاً للرول شاملاً الضريبة في تكسا ديكور، والسعر الأكثر شيوعاً 179 إلى 189 ريالاً (أسعار 22 نوفمبر 2026).</p>\n<!-- /wp:paragraph -->"
+   },
+   {
+    "index": 26,
+    "old_hash": "3acdec87d6f673c5dfc6146c352922d56395743a",
+    "new_hash": "dd70e6d60922306b78686394997461b31d684bd3",
+    "old": "<!-- wp:paragraph -->\n<p>229 تصميماً بسعر 75 ريالاً للرول، أغلبها في أقسام <a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d9%88%d8%b1%d9%88%d8%af/\">الورود</a> و<a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d9%86%d9%82%d8%b4%d8%a7%d8%aa/\">النقشات</a> و<a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d9%83%d9%84%d8%a7%d8%b3%d9%8a%d9%83/\">الكلاسيك</a>.</p>\n<!-- /wp:paragraph -->",
+    "new": "<!-- wp:paragraph -->\n<p>255 تصميماً بسعر 75 ريالاً للرول، أغلبها في أقسام <a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d9%88%d8%b1%d9%88%d8%af/\">الورود</a> و<a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d9%86%d9%82%d8%b4%d8%a7%d8%aa/\">النقشات</a> و<a href=\"https://texadecore.store/product-category/%d9%88%d8%b1%d9%82-%d8%a7%d9%84%d8%ac%d8%af%d8%b1%d8%a7%d9%86/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d9%83%d9%84%d8%a7%d8%b3%d9%8a%d9%83/\">الكلاسيك</a>.</p>\n<!-- /wp:paragraph -->"
+   }
+  ],
+  "excerpt": "سعر رول ورق الجدران الكوري من 75 إلى 229 ريالاً شاملاً الضريبة (15.6 م × 106 سم). جداول الأسعار حسب التصميم واللون، محدّثة 22 نوفمبر 2026.",
+  "rank_math_description": "سعر رول ورق الجدران الكوري في السعودية من 75 إلى 229 ريالاً شاملاً الضريبة. جداول الأسعار حسب التصميم واللون وتكلفة الغرفة، محدّثة 22 نوفمبر 2026."
+ }
+}
