@@ -1174,13 +1174,13 @@
    "written": 48,
    "with_numbers": 48,
    "without_numbers": 0,
-   "words_median": 684.5,
+   "words_median": 696.0,
    "words_ge600": 48,
    "family_layer_words": 390,
    "density": {
-    "min": 0.72,
-    "median": 0.73,
-    "max": 0.75,
+    "min": 0.71,
+    "median": 0.72,
+    "max": 0.74,
     "in_range": 48
    },
    "specific_sentences_layer_median_pct": 32.6
@@ -1192,13 +1192,13 @@
    "written": 111,
    "with_numbers": 111,
    "without_numbers": 0,
-   "words_median": 682,
+   "words_median": 694,
    "words_ge600": 111,
    "family_layer_words": 387,
    "density": {
-    "min": 0.72,
-    "median": 0.73,
-    "max": 0.78,
+    "min": 0.71,
+    "median": 0.72,
+    "max": 0.77,
     "in_range": 111
    },
    "specific_sentences_layer_median_pct": 34.8
@@ -1210,12 +1210,12 @@
    "written": 52,
    "with_numbers": 51,
    "without_numbers": 1,
-   "words_median": 678.0,
+   "words_median": 690.0,
    "words_ge600": 51,
    "family_layer_words": 389,
    "density": {
-    "min": 0.72,
-    "median": 0.74,
+    "min": 0.7,
+    "median": 0.72,
     "max": 0.91,
     "in_range": 52
    },
@@ -1228,13 +1228,13 @@
    "written": 57,
    "with_numbers": 57,
    "without_numbers": 0,
-   "words_median": 687,
+   "words_median": 699,
    "words_ge600": 57,
    "family_layer_words": 388,
    "density": {
-    "min": 0.72,
-    "median": 0.73,
-    "max": 0.75,
+    "min": 0.7,
+    "median": 0.72,
+    "max": 0.74,
     "in_range": 57
    },
    "specific_sentences_layer_median_pct": 32.0
@@ -1246,13 +1246,13 @@
    "written": 75,
    "with_numbers": 75,
    "without_numbers": 0,
-   "words_median": 688,
+   "words_median": 701,
    "words_ge600": 75,
    "family_layer_words": 395,
    "density": {
-    "min": 0.71,
-    "median": 0.73,
-    "max": 0.77,
+    "min": 0.7,
+    "median": 0.71,
+    "max": 0.75,
     "in_range": 75
    },
    "specific_sentences_layer_median_pct": 33.3
@@ -1264,13 +1264,13 @@
    "written": 156,
    "with_numbers": 156,
    "without_numbers": 0,
-   "words_median": 691.0,
+   "words_median": 703.0,
    "words_ge600": 156,
    "family_layer_words": 399,
    "density": {
-    "min": 0.7,
-    "median": 0.72,
-    "max": 0.77,
+    "min": 0.69,
+    "median": 0.71,
+    "max": 0.75,
     "in_range": 156
    },
    "specific_sentences_layer_median_pct": 35.0
@@ -1282,12 +1282,12 @@
    "written": 534,
    "with_numbers": 533,
    "without_numbers": 1,
-   "words_median": 690.0,
+   "words_median": 702.0,
    "words_ge600": 533,
    "family_layer_words": 399,
    "density": {
-    "min": 0.7,
-    "median": 0.72,
+    "min": 0.69,
+    "median": 0.71,
     "max": 0.9,
     "in_range": 534
    },
@@ -1300,12 +1300,12 @@
    "written": 287,
    "with_numbers": 225,
    "without_numbers": 62,
-   "words_median": 678,
+   "words_median": 691,
    "words_ge600": 225,
    "family_layer_words": 386,
    "density": {
-    "min": 0.71,
-    "median": 0.74,
+    "min": 0.7,
+    "median": 0.72,
     "max": 0.99,
     "in_range": 287
    },
@@ -1318,13 +1318,13 @@
    "written": 69,
    "with_numbers": 69,
    "without_numbers": 0,
-   "words_median": 703,
+   "words_median": 716,
    "words_ge600": 69,
    "family_layer_words": 406,
    "density": {
-    "min": 0.7,
-    "median": 0.71,
-    "max": 0.76,
+    "min": 0.68,
+    "median": 0.7,
+    "max": 0.75,
     "in_range": 69
    },
    "specific_sentences_layer_median_pct": 33.3

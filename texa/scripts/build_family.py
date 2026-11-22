@@ -308,8 +308,19 @@ def eng_width(F, c, cfg, kw):
     return dict(summary=summary, bullets=li, faq=qa, qty_n=n, qty_short='%s لجدار عرضه %s م' % (n_txt, f(Ww, 1)), partial=True)
 
 
+ROLL_WASTE = 1.07      # هالك القص في حاسبة المتجر
+ROLL_TRIM = 0.10       # ما تضيفه الحاسبة على ارتفاع الجدار لكل شريحة
+
+
+def roll_calc(width, L, W, h):
+    """قاعدة حاسبة المتجر لجدار واحد: (عدد الشرائح، شرائح الرول، عدد الرولات)."""
+    spr = int(math.floor(L / (h + ROLL_TRIM) + 1e-9))
+    strips = ceil(width * ROLL_WASTE / W)
+    return strips, spr, (ceil(strips / spr) if spr else 0)
+
+
 def eng_roll(F, c, cfg, kw):
-    """ورق الجدران: الحساب بالشرائح، ولا تُخصم الأبواب والنوافذ (قاعدة مقال المتجر)."""
+    """ورق الجدران: الحساب بالشرائح كما في حاسبة المتجر: 7% هالك على عرض الجدار، وكل جدار يُحسب وحده."""
     if F['kind'] != 'wallpaper' or not c.get('calc') or not F.get('dims'):
         return None
     P = cfg['_P']
@@ -317,35 +328,32 @@ def eng_roll(F, c, cfg, kw):
     f = bp.fnum
     S = bp.NOUNS['strip']
     L, W = max(F['dims']), min(F['dims'])
-    spr = int(math.floor(L / bp.WALL_H + 1e-9))
+    Ww, ra, rb = float(c['Ww']), float(c['ra']), float(c['rb'])
+    strips, spr, rolls = roll_calc(Ww, L, W, bp.WALL_H)
     if spr < 1:
         return None
-    Ww, ra, rb = float(c['Ww']), float(c['ra']), float(c['rb'])
-    strips = ceil(Ww / W)
-    rolls = ceil(strips / spr)
-    Pm = 2 * (ra + rb)
-    strips_r = ceil(Pm / W)
-    rolls_r = ceil(strips_r / spr)
+    sa, _, na = roll_calc(ra, L, W, bp.WALL_H)
+    sb, _, nb = roll_calc(rb, L, W, bp.WALL_H)
+    rolls_r = 2 * (na + nb)
     Ww2, h2 = float(c['Ww2']), float(c['h2'])
-    st2 = ceil(Ww2 / W)
-    rolls2 = ceil(st2 / spr)
-    sprh = int(math.floor(L / h2 + 1e-9))
+    st2, _, rolls2 = roll_calc(Ww2, L, W, bp.WALL_H)
+    sprh = int(math.floor(L / (h2 + ROLL_TRIM) + 1e-9))
     ty, tg = g(fem, 'يعطي', 'تعطي'), g(fem, 'يغطي', 'تغطي')
-    summary = 'ال%s %s م × %s سم، %s نحو %s م² و%s %s بارتفاع %s م، وجدار بعرض %s م يلزمه %s.' % (
+    summary = 'ال%s %s م × %s سم، %s نحو %s م² و%s %s بارتفاع %s م، وجدار بعرض %s م يلزمه %s بعد إضافة 7%% هالك للقص.' % (
         w, f(L, 2), f(W * 100, 1), tg, f(L * W), ty, cntw(spr, S), f(bp.WALL_H, 1), f(Ww, 1), cntw(rolls, P))
     li = ['تغطية ال%s: %s م × %s سم = %s م² تقريباً.' % (w, f(L, 2), f(W * 100, 1), f(L * W)),
-          'الشرائح: %s ÷ %s = %s، أي %s كاملة من كل %s لجدار ارتفاعه %s م.' % (
-              f(L, 2), f(bp.WALL_H, 1), f(L / bp.WALL_H, 2), cntw(spr, S), w, f(bp.WALL_H, 1)),
-          'مثال جدار عرضه %s م: %s ÷ %s = %s ← %s، أي %s.' % (f(Ww, 1), f(Ww, 1), f(W, 2), f(Ww / W, 2), cntw(strips, S), cntw(rolls, P)),
-          'مثال غرفة %s × %s م: محيطها %s م ← %s ← %s. الحساب بالشرائح، ولا تُخصم الأبواب والنوافذ.' % (
-              f(ra, 1), f(rb, 1), f(Pm, 1), cntw(strips_r, S), cntw(rolls_r, P)),
+          'الشرائح: %s كاملة من كل %s لجدار ارتفاعه %s م، مع ترك 10 سم في كل شريحة للقص.' % (cntw(spr, S), w, f(bp.WALL_H, 1)),
+          'مثال جدار عرضه %s م: %s × 1.07 (هالك 7%%) ÷ %s = %s ← %s، أي %s.' % (
+              f(Ww, 1), f(Ww, 1), f(W, 2), f(Ww * ROLL_WASTE / W, 2), cntw(strips, S), cntw(rolls, P)),
+          'مثال غرفة %s × %s م: يُحسب كل جدار وحده ثم تُجمع النتائج، فالمجموع %s. لا تُخصم الأبواب والنوافذ الصغيرة.' % (
+              f(ra, 1), f(rb, 1), cntw(rolls_r, P)),
           calc_line(F, 'مقاس جدارك')]
-    a2 = '%s: %s ÷ %s = %s، والباقي لا يكفي شريحة كاملة.' % (cntw(sprh, S), f(L, 2), f(h2, 1), f(L / h2, 2))
+    a2 = '%s، لأن كل شريحة تأخذ %s م مع 10 سم للقص.' % (cntw(sprh, S), f(h2, 1))
     if sprh < spr:
         a2 += ' هذا أقل من %s عند ارتفاع %s م، فأعد حساب العدد على هذا الأساس.' % (cntw(spr, S), f(bp.WALL_H, 1))
     qa = [('كم %s أحتاج من %s لجدار عرضه %s م؟' % (acc, bp.esc(kw), f(Ww2, 1)),
-           '%s: %s ÷ %s = %s ← %s، وكل %s %s %s بارتفاع %s م.' % (
-               cntw(rolls2, P), f(Ww2, 1), f(W, 2), f(Ww2 / W, 2), cntw(st2, S), w, ty, cntw(spr, S), f(bp.WALL_H, 1))),
+           '%s: %s × 1.07 ÷ %s = %s ← %s، وكل %s %s %s بارتفاع %s م.' % (
+               cntw(rolls2, P), f(Ww2, 1), f(W, 2), f(Ww2 * ROLL_WASTE / W, 2), cntw(st2, S), w, ty, cntw(spr, S), f(bp.WALL_H, 1))),
           ('كم شريحة %s ال%s إن كان ارتفاع الجدار %s م؟' % (ty, w, f(h2, 1)), a2)]
     return dict(summary=summary, bullets=li, faq=qa, qty_n=rolls, qty_short='%s لجدار بعرض %s م' % (cntw(rolls, P), f(Ww, 1)))
 
@@ -1014,13 +1022,11 @@ RM_KEYS = ['الكلمة في العنوان', 'العنوان يبدأ بالك
 
 
 def roll_selftest():
-    """قاعدة المالك لورق الجدران = قاعدة المقالات: بالشرائح، جدار 5 م = رول واحد، غرفة 5×6 = 5 رولات، بلا خصم الأبواب."""
-    L, W = 15.6, 1.06
-    spr = int(math.floor(L / bp.WALL_H + 1e-9))
-    assert spr == 5
-    assert ceil(ceil(5 / W) / spr) == 1
-    assert ceil(ceil(2 * (5 + 6) / W) / spr) == 5
-    assert ceil(ceil(2 * (3 + 4) / W) / spr) == 3 and ceil(ceil(2 * (4 + 5) / W) / spr) == 4
+    """قاعدة المالك لورق الجدران = حاسبة المتجر: 7% هالك على العرض، وكل جدار وحده، بلا خصم الأبواب."""
+    L, W, r = 15.6, 1.06, lambda x, h=3.0: roll_calc(x, 15.6, 1.06, h)[2]
+    assert roll_calc(5, L, W, 2.8)[1] == 5 and roll_calc(5, L, W, 3.0)[1] == 5 and roll_calc(5, L, W, 3.2)[1] == 4
+    assert (r(3), r(4), r(4.9), r(5), r(6)) == (1, 1, 1, 2, 2)
+    assert 2 * (r(3) + r(4)) == 4 and 4 * r(4) == 4 and 2 * (r(4) + r(5)) == 6 and 2 * (r(5) + r(6)) == 8
 
 
 def global_stats(all_outs, stats, failed):
