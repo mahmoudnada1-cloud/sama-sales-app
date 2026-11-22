@@ -1,0 +1,89 @@
+{
+ "measured_at": "2026-11-22",
+ "brand": "تكسا ديكور",
+ "domain": "texadecore.store",
+ "market": {
+  "country": "SA",
+  "language": "ar"
+ },
+ "prompts": [
+  {
+   "n": 1,
+   "prompt": "ما أفضل متجر لشراء ورق جدران كوري في السعودية؟"
+  },
+  {
+   "n": 2,
+   "prompt": "من أين أشتري باركيه SPC ضد الماء في السعودية؟"
+  },
+  {
+   "n": 3,
+   "prompt": "ما أفضل متجر بديل الرخام للجدران في السعودية؟"
+  },
+  {
+   "n": 4,
+   "prompt": "من أين أشتري بديل الخشب المضلع للجدران في السعودية؟"
+  },
+  {
+   "n": 5,
+   "prompt": "أين أجد بديل الشيبورد في السعودية وما سعره؟"
+  },
+  {
+   "n": 6,
+   "prompt": "ما أفضل متجر نعلات باركيه وبانوهات جدران في السعودية؟"
+  },
+  {
+   "n": 7,
+   "prompt": "من أين أشتري بديل الطوب وبديل الحجر للجدران في السعودية؟"
+  },
+  {
+   "n": 8,
+   "prompt": "أين أشتري موكيت بلاطات للمكاتب في السعودية؟"
+  },
+  {
+   "n": 9,
+   "prompt": "من أين أشتري صفائح طينية وحجرية مرنة للواجهات في السعودية؟"
+  },
+  {
+   "n": 10,
+   "prompt": "ما هو متجر تكسا ديكور وهل هو موثوق؟"
+  }
+ ],
+ "summary": "No engine could be measured in this run: every paid tool refused on plan/credits. No answers were obtained, so there is no mention, citation or competitor data. Nothing was created or changed.",
+ "engines": {
+  "chatgpt": {
+   "status": "not measured",
+   "reason": "OpenSEO explore_prompt (project 37844a95-8ac6-4080-83a6-aab0f73236f5, prompt 1, models chat_gpt+gemini+perplexity, webSearch true, country SA) returned: \"Upgrade to the paid plan to use Prompt Explorer. Retrying won't help.\" No answer was obtained for any prompt.",
+   "results": []
+  },
+  "gemini": {
+   "status": "not measured",
+   "reason": "OpenSEO explore_prompt (project 37844a95-8ac6-4080-83a6-aab0f73236f5, prompt 1, models chat_gpt+gemini+perplexity, webSearch true, country SA) returned: \"Upgrade to the paid plan to use Prompt Explorer. Retrying won't help.\" No answer was obtained for any prompt.",
+   "results": []
+  },
+  "perplexity": {
+   "status": "not measured",
+   "reason": "OpenSEO explore_prompt (project 37844a95-8ac6-4080-83a6-aab0f73236f5, prompt 1, models chat_gpt+gemini+perplexity, webSearch true, country SA) returned: \"Upgrade to the paid plan to use Prompt Explorer. Retrying won't help.\" No answer was obtained for any prompt.",
+   "results": []
+  },
+  "copilot": {
+   "status": "not measured",
+   "reason": "No tool in this environment can query Microsoft Copilot. (Ahrefs AI-responses count, which includes Copilot citation counts, was tried and returned HTTP 400 \"Insufficient plan\".)",
+   "results": []
+  },
+  "google_ai_overview": {
+   "status": "not measured",
+   "reason": "OpenRush inspect_ai_visibility (domain texadecore.store, location Saudi Arabia, language Arabic) returned 402: \"Insufficient credits. Refill or turn on auto top-up at https://www.openrush.com/dashboard/billing\". One call made, not retried.",
+   "results": []
+  }
+ },
+ "tool_attempts": {
+  "openseo_list_projects": "ok (free) - existing project 37844a95-8ac6-4080-83a6-aab0f73236f5 for texadecore.store, market SA/ar",
+  "openseo_explore_prompt": "failed: \"Upgrade to the paid plan to use Prompt Explorer. Retrying won't help. The organization owner can manage the plan at https://app.openseo.so/billing\"",
+  "openrush_inspect_ai_visibility": "failed: 402 \"Insufficient credits\"",
+  "semrush_aio_prompt_tracking": "reports list empty; status_hint: \"the user's Semrush account does not have the access rights required to see this toolkit's reports and actions\" (needs Enterprise AIO subscription; also only covers prompts tracked in a persistent AIO project)",
+  "similarweb_get-gen-ai-campaigns": "403 FORBIDDEN_ERROR: \"Access forbidden. Upgrade your account.\"",
+  "ahrefs_site-explorer-ai-responses-count": "HTTP 400: {\"error\": \"Insufficient plan\"} (target texadecore.store, mode subdomains)",
+  "seocrawl_list_properties": "error: \"billing_context_missing\" (SEOcrawl prompt tools also require a persistent tracked prompt; none created)"
+ },
+ "side_effects": "none - no projects, trackers, monitors or prompts created; no website changed"
+}
