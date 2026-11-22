@@ -17,7 +17,11 @@ function txa_fg_data( $name ) {
 	static $cache = array();
 	if ( ! isset( $cache[ $name ] ) ) {
 		$file           = __DIR__ . '/data/' . $name . '.php';
-		$data           = is_readable( $file ) ? include $file : array();
+		try {
+			$data = is_readable( $file ) ? include $file : array();
+		} catch ( \Throwable $e ) {
+			$data = array(); // A damaged data file must never break the product page.
+		}
 		$cache[ $name ] = is_array( $data ) ? $data : array();
 	}
 	return $cache[ $name ];
@@ -93,7 +97,7 @@ function txa_fg_rank_math( $hook ) {
 	wp_enqueue_script( 'txa-fg-rank-math' );
 	wp_add_inline_script(
 		'txa-fg-rank-math',
-		'(function(){if(!window.wp||!wp.hooks)return;var g=' . wp_json_encode( "\n" . $guide ) . ';wp.hooks.addFilter("rank_math_content","texa/family-guide",function(c){c=String(c||"");return c.indexOf("txa-family")>-1?c:c+g;});})();'
+		'(function(){if(!window.wp||!wp.hooks)return;var g=' . wp_json_encode( "\n" . $guide, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ) . ';wp.hooks.addFilter("rank_math_content","texa/family-guide",function(c){c=String(c||"");return c.indexOf("txa-family")>-1?c:c+g;});})();'
 	);
 }
 add_action( 'admin_enqueue_scripts', 'txa_fg_rank_math' );
