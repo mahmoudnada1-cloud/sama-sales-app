@@ -532,7 +532,7 @@ def faq_plain(F, c, cfg, kw, why):
         a1 = '%s ال%s غير مذكور في بيانات هذا المنتج. اطلبه من فريق تكسا، ثم أدخله مع أبعاد مكانك في %s.' % (what, w, calc)
     qa = [('كيف أحسب الكمية من %s؟' % bp.esc(kw), a1)]
     miss = []
-    if not has_size and not (cfg['kind'] == 'piece' and re.search(r'\d\s*(?:سم|cm|×|x)', F['name'])):
+    if not has_size and why != 'conflict' and not (cfg['kind'] == 'piece' and re.search(r'\d\s*(?:سم|cm|×|x)', F['name'])):
         miss.append('الطول' if cfg['kind'] == 'linear' else 'المقاس')
     if not c['thick'] and F['kind'] in ('panel', 'slat', 'small', 'floor') and not re.search(r'\d\s*(?:ملم|مم)', F['name']):
         miss.append('السماكة')
@@ -549,7 +549,7 @@ def faq_plain(F, c, cfg, kw, why):
     return qa
 
 
-def link_line(F, kw, B):
+def link_line(F, kw, B, with_kw=True):
     pid, root = F['id'], F['root']
     rname = B.root_name.get(root)
     subs = []
@@ -560,10 +560,10 @@ def link_line(F, kw, B):
         subs.append((-len(p), bp.H(pid, 'lk-' + cat), cat))
     subs = [s[2] for s in sorted(subs)[:2]]
     root_a = bp.A(B.links[rname], rname)
+    near = ('لخيارات قريبة من %s' % bp.esc(kw)) if with_kw else 'لخيارات قريبة'
     if subs:
-        return 'لخيارات قريبة من %s تصفّح %s، أو ارجع إلى قسم %s.' % (
-            bp.esc(kw), ' و'.join(bp.A(B.links[s], s) for s in subs), root_a)
-    return 'لخيارات قريبة من %s تصفّح قسم %s.' % (bp.esc(kw), root_a)
+        return '%s تصفّح %s، أو ارجع إلى قسم %s.' % (near, ' و'.join(bp.A(B.links[s], s) for s in subs), root_a)
+    return '%s تصفّح قسم %s.' % (near, root_a)
 
 
 def product_layer(F, c, cfg, kw, num, why, usage):
@@ -700,6 +700,10 @@ def build(B, family_id, fdir=FAMILY_DIR):
         sep = '<h2>%s: %s</h2>' % (bp.esc(kw), bp.esc(cfg['guide_title'].strip()))
         tail = '<p>%s</p>' % link_line(F, kw, B)
         desc = '\n'.join([layer, sep, family_html, tail, bp.MARK])
+        t0 = bp.clean_text(desc)
+        if t0.count(kw) * 100.0 / len(t0.split()) > DENS_HI:      # نص قصير: تُحذف الكلمة من سطر الروابط بدل تجاوز الكثافة
+            tail = '<p>%s</p>' % link_line(F, kw, B, with_kw=False)
+            desc = '\n'.join([layer, sep, family_html, tail, bp.MARK])
         title = bp.build_title(F, c, kw, used_titles)
         meta = re.sub(r' {2,}', ' ', bp.build_meta(F, c, kw, used_metas))
         excerpt = re.sub(r' {2,}', ' ', bp.tidy(bp.build_excerpt(F, c, kw)))
