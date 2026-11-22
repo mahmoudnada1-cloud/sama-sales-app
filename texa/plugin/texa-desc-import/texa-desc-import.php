@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 const TXA_DI_STATE  = 'txa_di_state';
 const TXA_DI_HOOK   = 'txa_di_run_batch';
-const TXA_DI_BATCH  = 100;
+const TXA_DI_BATCH  = 300;
 const TXA_DI_GAP    = 45;
 const TXA_DI_BUDGET = 20;  // Seconds of work per batch; the rest of the batch waits for the next run.
 const TXA_DI_STALL  = 300; // Seconds without a finished batch before a page view runs one itself.
