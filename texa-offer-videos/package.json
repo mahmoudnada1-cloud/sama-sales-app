@@ -8,7 +8,8 @@
     "render": "remotion render src/index.ts",
     "render:parquet-spc": "remotion render src/index.ts offer-parquet-spc out/parquet-spc.mp4",
     "render:parquet-spc-30": "remotion render src/index.ts offer-parquet-spc-30 out/parquet-spc-30.mp4",
-    "render:skirting": "remotion render src/index.ts offer-skirting out/skirting.mp4"
+    "render:skirting": "remotion render src/index.ts offer-skirting out/skirting.mp4",
+    "render:wallpaper": "remotion render src/index.ts offer-wallpaper out/wallpaper.mp4"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.545",

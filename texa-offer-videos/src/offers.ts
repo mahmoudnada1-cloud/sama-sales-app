@@ -176,4 +176,46 @@ export const offers: Offer[] = [
       extra: "تركيب احترافي · شحن لكل مدن المملكة 🚚",
     },
   },
+  {
+    // عروض ورق جدران مميزة (كتالوج NEOM) — 75 ريال للرول
+    id: "wallpaper",
+    voDir: "wallpaper/vo",
+    music: "parquet-spc/music.mp3",
+    voDelay: 2,
+    heroImage: "wallpaper/storm.jpg",
+    heroDim: 0.62,
+    roomImage: "wallpaper/roughwood.jpg",
+    url: "texadecore.store",
+    phone: "0591409002",
+    coverFrames: 15,
+    cover: { lead: "عروض", name: "ورق الجدران", from: 75, note: "السعر شامل الضريبة", image: "wallpaper/storm.jpg" },
+    hook: {
+      vo: "h", frames: 144,
+      badge: "عروض ورق جدران مميزة",
+      title: "العروض وصلت!",
+      big: "غيّر جدارك",
+      sub: "في يوم واحد",
+      bigAt: 55, subAt: 85,
+    },
+    features: {
+      heading: "ورق جدران تكسا",
+      items: [
+        { vo: "f1", frames: 188, title: "ورق جدران كوري", sub: `رول كبير مقاس ${ltr("1.06 × 15.6")} م` },
+        { vo: "f2", frames: 168, title: "26 تصميم", sub: "سادة، مموج، مودرن ومقلم" },
+        { vo: "f3", frames: 96, title: "حاسبة الكميات 📐", sub: "احسب كم رول تحتاج قبل الطلب" },
+      ],
+    },
+    unit: "ريال / رول",
+    tierBadge: "عروض ورق جدران مميزة",
+    tiers: [
+      { vo: "p", frames: 131, label: "ورق جدران كوري", note: "سعر منخفض جديد", highlight: true, now: 75, images: ["wallpaper/dalton.jpg", "wallpaper/even.jpg", "wallpaper/deacon.jpg"] },
+    ],
+    tools: {},
+    outro: {
+      vo: "o", frames: 160, pace: 0.4,
+      lines: ["الأسعار شاملة الضريبة ✅", "العرض ساري حتى نفاد الكمية"],
+      cta: "اطلب الآن من متجرنا",
+      extra: "قياس وتركيب احترافي · شحن لكل مدن المملكة 🚚",
+    },
+  },
 ];
