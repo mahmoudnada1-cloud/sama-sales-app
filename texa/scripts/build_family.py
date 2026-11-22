@@ -188,7 +188,7 @@ def eng_columns(F, c, cfg, kw):
     qa = [('كم %s من %s %s لجدار عرضه %s م؟' % (acc, bp.esc(kw), yl, f(w2, 1)),
            '%s: %s ÷ %s = %s ويُقرَّب إلى الأعلى، بشرط ألا يزيد ارتفاع الجدار على %s سم.' % (
                cntw(ceil(q2), P), f(w2, 1), f(W, 2), f(q2, 2), f(L * 100, 1)))]
-    v = bp.H(pid, 'fam-q2') % 3
+    v = 2 if F['sub'] in ('exterior', 'hpl') else bp.H(pid, 'fam-q2') % 3      # الخارجي: لا غرف ولا كرانيش
     extra = '%s %s' % (w, g(fem, 'إضافي', 'إضافية'))
     if v == 0:
         h2 = bp.pick([3.0, 3.2], pid, 'fam-h2')
@@ -216,6 +216,37 @@ def eng_columns(F, c, cfg, kw):
                    '%d × %s = %s م عرضاً بارتفاع حتى %s سم، أي %s م².' % (k, f(W, 2), f(k * W, 2), f(L * 100, 1), f(k * cov, 2))))
     return dict(summary=summary, bullets=li, faq=qa, qty_n=n,
                 qty_short='%s لجدار %s × %s م' % (n_txt, f(Ww, 1), f(h, 1)))
+
+
+def eng_width(F, c, cfg, kw):
+    """أعواد/ألواح مضلعة عُرف عرضها فقط (الطول غير مذكور): العدد بعرض الجدار، بلا مساحة ولا ادعاء عن الارتفاع."""
+    W = F.get('single')
+    if F['kind'] != 'slat' or F.get('dims') or not W or not 0.05 <= W <= 0.6:
+        return None
+    pid, P = F['id'], cfg['_P']
+    w, acc, fem = P[0], P[3], P[4]
+    f = bp.fnum
+    Ww = bp.pick(EX_WIDTHS, pid, 'fam-w')
+    q = Ww / W
+    n = ceil(q)
+    n_txt = cntw(n, P)
+    exact = abs(q - round(q)) < 1e-9
+    summary = 'عرض ال%s %s سم، فجدار عرضه %s م يلزمه %s. طول ال%s غير مذكور في بيانات المنتج.' % (w, f(W * 100, 1), f(Ww, 1), n_txt, w)
+    ex = 'مثال بحساب الأعمدة لجدار عرضه %s م: %s ÷ %s = ' % (f(Ww, 1), f(Ww, 1), f(W, 2))
+    if exact:
+        ex += '%d بالضبط، فيلزمك %s دون قص في العرض.' % (n, n_txt)
+    else:
+        ex += '%s، فيلزمك %s، %s إلى عرض %s سم.' % (f(q, 2), n_txt, g(fem, 'ويُقص الأخير', 'وتُقص الأخيرة'),
+                                                   f(round((W - (n * W - Ww)) * 100, 1), 1))
+    li = ['عرض ال%s: %s سم. الطول غير مذكور في بيانات هذا المنتج، فلا تغطية بالمتر المربع هنا.' % (w, f(W * 100, 1)), ex,
+          'العدد صحيح ما دام طول ال%s يغطي ارتفاع جدارك؛ اسأل عن الطول قبل الطلب.' % w, calc_link('مقاس جدارك')]
+    w2 = bp.pick([x for x in FAQ_WIDTHS if abs(x - Ww) > 0.05], pid, 'fam-w2')
+    k = bp.pick([10, 15, 20, 25, 30], pid, 'fam-k')
+    qa = [('كم %s من %s %s لجدار عرضه %s م؟' % (acc, bp.esc(kw), g(fem, 'يلزم', 'تلزم'), f(w2, 1)),
+           '%s: %s ÷ %s = %s ويُقرَّب إلى الأعلى، بشرط أن يغطي طول ال%s ارتفاع الجدار.' % (
+               cntw(ceil(w2 / W), P), f(w2, 1), f(W, 2), f(w2 / W, 2), w)),
+          ('كم متراً من عرض الجدار تغطي %s من%s؟' % (cntw(k, P), g(fem, 'ه', 'ها')), '%d × %s = %s م.' % (k, f(W, 2), f(k * W, 2)))]
+    return dict(summary=summary, bullets=li, faq=qa, qty_n=n, qty_short='%s لجدار عرضه %s م' % (n_txt, f(Ww, 1)), partial=True)
 
 
 def eng_roll(F, c, cfg, kw):
@@ -381,9 +412,12 @@ def numbers(F, c, cfg, kw):
     r = None
     if kind == 'roll':
         r = eng_roll(F, c, cfg, kw)
-    elif kind == 'panel':
+    elif kind == 'panel' or (kind == 'linear' and F['kind'] == 'slat'):
+        # الأعواد المضلعة (slat) تُحسب بعرض الجدار حتى لو سُمّيت العائلة linear
         if F['kind'] in ('panel', 'slat', 'small') and F.get('dims'):
             r = eng_columns(F, c, cfg, kw) if max(F['dims']) >= FULL_HEIGHT else eng_area(F, c, cfg, kw)
+        else:
+            r = eng_width(F, c, cfg, kw)
     elif kind in ('plank_sqm', 'tile'):
         if F['kind'] != 'wallpaper':
             r = eng_area(F, c, cfg, kw)
@@ -447,8 +481,10 @@ def answer_paragraph(F, c, cfg, num):
     return out + s4
 
 
-def spec_rows(F, c, usage):
+def spec_rows(F, c, usage, num=None):
     rows = [r for r in bp.spec_rows(F, c) if r[0] != 'النوع']      # «النوع» واحد في كل العائلة، مكانه طبقة العائلة
+    if num and num.get('partial'):
+        rows.insert(1 if F['code'] else 0, ('العرض', '%s سم' % bp.fnum(F['single'] * 100, 1)))
     u = usage.get(F['id'])
     if u and u[0] == 'داخلي' and u[1] in ('عالية', 'متوسطة'):
         rows.append(('الاستخدام', 'داخلي (حسب وصف المنتج)'))
@@ -574,7 +610,7 @@ def product_layer(F, c, cfg, kw, num, why, usage):
     if num:
         parts.append('<h2>%s</h2>' % (('أرقام ال%s %s' % (w, bp.esc(F['code']))) if F['code'] else 'أرقام ' + this))
         parts.append('<ul>\n' + '\n'.join('<li>%s</li>' % x for x in num['bullets']) + '\n</ul>')
-    rows = spec_rows(F, c, usage)
+    rows = spec_rows(F, c, usage, num)
     parts.append('<h2>مواصفات %s</h2>' % bp.esc(kw))
     parts.append('<table class="txa-specs">\n<tbody>\n' + '\n'.join(
         '<tr><th scope="row">%s</th><td>%s</td></tr>' % (bp.esc(a), bp.esc(b)) for a, b in rows) + '\n</tbody>\n</table>')
@@ -691,6 +727,8 @@ def build(B, family_id, fdir=FAMILY_DIR):
                 review.append((pid, F['name'], F['url'], 'لم يُولَّد (missing_policy=skip): ' + (' | '.join(iss) or 'لا مقاس')))
                 continue
             iss.insert(0, 'وُلّد بلا قسم الأرقام (%s)' % ('تعارض في المقاس' if why == 'conflict' else 'لا مقاس يكفي لحساب نوع «%s»' % cfg['kind']))
+        if num and num.get('partial'):
+            iss.insert(0, 'أرقام بالعرض فقط: طول القطعة غير مذكور في بيانات المنتج')
         if num:
             # مثال الكمية نفسه في الوصف المختصر والوصف التعريفي
             c.update(calc=bool(c.get('calc')), qty_short=num['qty_short'], qty_n=num['qty_n'], n=num['qty_n'])
@@ -712,7 +750,8 @@ def build(B, family_id, fdir=FAMILY_DIR):
         kc = text.count(kw)
         o = dict(id=pid, name=F['name'], kw=kw, description=desc, layer=layer, excerpt=excerpt, title=title, meta=meta,
                  image_alt=F['name'], words=nw, layer_words=words(layer), kw_count=kc, density=kc * 100.0 / nw,
-                 n_rows=n_rows, slug=F['slug'], issues=F['issues'], usage=B.usage.get(pid, ('', '', '')), F=F, has_num=bool(num))
+                 n_rows=n_rows, slug=F['slug'], issues=F['issues'], usage=B.usage.get(pid, ('', '', '')), F=F, has_num=bool(num),
+                 partial=bool(num and num.get('partial')))
         fails = product_tests(o, B)
         if fails:
             review.append((pid, F['name'], F['url'], 'لم يُكتب في CSV — فشل اختبار: ' + ' | '.join(fails)))
@@ -780,7 +819,7 @@ def measure(res, B):
     lw = sorted(o['layer_words'] for o in outs)
     tw = sorted(o['words'] for o in outs)
     base.update(
-        with_numbers=sum(1 for o in outs if o['has_num']), without_numbers=sum(1 for o in outs if not o['has_num']),
+        with_numbers=sum(1 for o in outs if o['has_num']), partial_numbers=sum(1 for o in outs if o['partial']), without_numbers=sum(1 for o in outs if not o['has_num']),
         layer_words=dict(min=lw[0], median=med(lw), max=lw[-1], in_180_260=sum(1 for x in lw if 180 <= x <= 260)),
         total_words=dict(min=tw[0], median=med(tw), max=tw[-1], ge600=sum(1 for x in tw if x >= 600)),
         product_share_of_words_median=round(med([o['layer_words'] / o['words'] for o in outs]) * 100, 1),
@@ -839,8 +878,9 @@ def run_all(B, fdir, out_dir, report_path):
          'مولَّد آلياً من `texa/scripts/build_family.py --all`. لا يتصل بالموقع. كل رقم أدناه محسوب من المخرجات نفسها.', '',
          '## الخلاصة', '',
          '- عائلات لها ملفا html+json: **%d** من %d في `families.json`. بُنيت %d، وفشلت %d.' % (len(have), len(B.fams), len(stats), len(failed)),
-         '- منتجات كُتبت في ملفات CSV: **%d** (بأرقام %d، بلا قسم أرقام %d).' % (
-             sum(s['generated'] for s in stats), sum(s.get('with_numbers', 0) for s in stats), sum(s.get('without_numbers', 0) for s in stats)),
+         '- منتجات كُتبت في ملفات CSV: **%d** (بأرقام %d، منها %d بالعرض فقط لأن الطول غير مذكور؛ بلا قسم أرقام %d).' % (
+             sum(s['generated'] for s in stats), sum(s.get('with_numbers', 0) for s in stats),
+             sum(s.get('partial_numbers', 0) for s in stats), sum(s.get('without_numbers', 0) for s in stats)),
          '- لم تُكتب: %d (يدوية/مستثناة/تخطٍّ)، منها %d بسبب فشل اختبار. التفاصيل في `data/out/review-needed-v6.csv` (%d صفاً).' % (
              sum(s['not_generated'] for s in stats), sum(s['test_failed'] for s in stats), len(review)),
          '- عناوين SEO مكررة بين كل العائلات: %d.' % sum(1 for v in titles.values() if v > 1),
