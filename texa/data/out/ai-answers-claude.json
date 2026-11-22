@@ -1,0 +1,414 @@
+[
+ {
+  "n": 1,
+  "question": "ما أفضل متجر لشراء ورق جدران كوري في السعودية؟",
+  "queries": [
+   "أفضل متجر ورق جدران كوري في السعودية",
+   "ورق جدران كوري متجر إلكتروني الرياض جدة"
+  ],
+  "answer": "بصراحة لم يظهر لي في البحث متجر إلكتروني متخصص وموثّق يمكن أن أسميه «الأفضل» لورق الجدران الكوري في السعودية؛ النتائج كانت إعلانات مبوبة ومتاجر عامة. ما وجدته بالترتيب: 1) السوق المفتوح (OpenSooq): إعلانات لبائعين في جدة والرياض يذكرون توفر الورق الكوري والفيتنامي مع التركيب (أحدها من نحو 250 ريالاً). 2) مستعمل (mstaml): صفحة إعلانات لورق حائط أمريكي/ألماني/كوري/تايواني مع معلمي تركيب في الرياض وجدة. 3) شي إن: ورق جدران لاصق رخيص، لكنه ليس كورياً مؤكداً. هذه كلها بائعون أفراد غير مُقيَّمين، فاطلب عينة وصوراً حقيقية وبلد المنشأ مكتوباً، وادفع عند الاستلام. والأفضل أن تبحث في خرائط جوجل عن «ورق جدران كوري» في مدينتك وتقارن التقييمات.",
+  "recommended": [
+   {
+    "name": "السوق المفتوح (OpenSooq)",
+    "domain": "sa.opensooq.com"
+   },
+   {
+    "name": "مستعمل (mstaml)",
+    "domain": "mstaml.com"
+   },
+   {
+    "name": "شي إن (SHEIN)",
+    "domain": "m.shein.com"
+   }
+  ],
+  "sources": [
+   "https://sa.opensooq.com/ar/search/281231852",
+   "https://sa.opensooq.com/en/search/280909864",
+   "https://www.mstaml.com/product/%D9%88%D8%B1%D9%82-%D8%AD%D8%A7%D8%A6%D8%B7-%D8%A7%D9%85%D8%B1%D9%8A%D9%83%D9%8A-%D8%A7%D9%84%D9%85%D8%A7%D9%86%D9%8A-%D9%83%D9%88%D8%B1%D9%8A-%D8%AA%D8%A7%D9%8A%D9%88%D8%A7%D9%86%D9%8A",
+   "https://m.shein.com/ar/Wall-Paper-c-3488.html"
+  ],
+  "all_result_domains": [
+   "sa.pricena.com",
+   "m.shein.com",
+   "jarir.com",
+   "sa.opensooq.com",
+   "jo.opensooq.com",
+   "mstaml.com"
+  ]
+ },
+ {
+  "n": 2,
+  "question": "من أين أشتري باركيه SPC ضد الماء في السعودية؟",
+  "queries": [
+   "شراء باركيه SPC ضد الماء السعودية",
+   "باركيه SPC متجر إلكتروني السعودية سعر المتر"
+  ],
+  "answer": "الخيارات التي ظهرت لي بالترتيب: 1) يوماتس (YouMats): منصة مواد بناء فيها صفحات منتجات باركيه SPC صيني مقاوم للماء بسماكات 5 و8 ملم مع مواصفات وضمان لون معلن. 2) حراج: إعلانات موردين لباركيه SPC ضد الماء مع التركيب (تعامل معها كإعلانات أفراد). 3) السوق المفتوح ومستعمل: إعلانات مشابهة لمحلات باركيه. الأسعار المتداولة في المقالات: الصيني نحو 34–45 ريالاً للمتر، التركي 35–50، الألماني 45–65 بدون تركيب، وبعض المصادر تذكر 55–80 ريالاً شاملاً التركيب؛ وهي أرقام متضاربة فتأكد من السعر الحالي. قبل الشراء تحقق من السماكة الكلية، وطبقة التآكل (0.3–0.5 ملم على الأقل)، ووجود فوم عازل، والضمان مكتوباً.",
+  "recommended": [
+   {
+    "name": "يوماتس (YouMats)",
+    "domain": "youmats.com"
+   },
+   {
+    "name": "حراج",
+    "domain": "haraj.com.sa"
+   },
+   {
+    "name": "السوق المفتوح (OpenSooq)",
+    "domain": "sa.opensooq.com"
+   },
+   {
+    "name": "مستعمل (mstaml)",
+    "domain": "mstaml.com"
+   }
+  ],
+  "sources": [
+   "https://youmats.com/en/floors-and-walls/parquet-flooring/chinese-waterproof-spc-wood-flooring-5-mm-thick-brown-model-1701-886/i",
+   "https://youmats.com/en/floors-and-walls/parquet-flooring/chinese-spc-parquet-brown-color-8mm-thick-model-1120-003-406/i",
+   "https://haraj.com.sa/en/11188684112/SPC_Waterproof_Parquet/",
+   "https://haraj.com.sa/en/11164834937/SPC_waterproof_parquet/",
+   "https://www.bayut.sa/blog/منزلي/بديل-الباركيه/",
+   "https://projectsegy.com/parquet-prices-saudi-arabia/",
+   "https://sa.aqar.fm/blog/en/decor/spc-vs-hdf-parquet-flooring-which-is-better-for-your-home/"
+  ],
+  "all_result_domains": [
+   "english.mubasher.info",
+   "argaam.com",
+   "youmats.com",
+   "haraj.com.sa",
+   "mstaml.com",
+   "bayut.sa",
+   "projectsegy.com",
+   "miqatona.com",
+   "sa.aqar.fm",
+   "invest.albanknote.com",
+   "sa.opensooq.com",
+   "danubehome.com",
+   "wickes.co.uk"
+  ]
+ },
+ {
+  "n": 3,
+  "question": "ما أفضل متجر بديل الرخام للجدران في السعودية؟",
+  "queries": [
+   "أفضل متجر بديل الرخام للجدران في السعودية",
+   "ألواح بديل الرخام للجدران متجر إلكتروني السعودية"
+  ],
+  "answer": "لم أجد مقارنة مستقلة تحدد «الأفضل»، لكن هذه الخيارات التي ظهرت بالترتيب: 1) يوماتس (YouMats): يعرض ألواح بديل الرخام للجدران بمقاس 290×120 سم (أحدها بنحو 500 ريال شامل الضريبة) مع دفع إلكتروني، وهو الأنسب لألواح PVC/UV الاقتصادية. 2) ايكيا السعودية: ألواح جدران بمظهر الرخام من الكوارتز تُفصَّل حسب المقاس (من نحو 1150 ريالاً للمتر المربع، ضمان 25 سنة)، أغلى لكنها أنسب للمطابخ. 3) رغدان (raghdan.sa): شركة سعودية لديها دليل مفصل عن بديل الرخام وأسعاره؛ يمكن طلب عرض سعر منها. تنبيه: ألواح PVC قد تنتفخ مع الرطوبة في الحمامات وتتأثر بالزيوت في المطابخ، فاسأل عن الضمان وسياسة الإرجاع.",
+  "recommended": [
+   {
+    "name": "يوماتس (YouMats)",
+    "domain": "youmats.com"
+   },
+   {
+    "name": "ايكيا السعودية",
+    "domain": "ikea.com"
+   },
+   {
+    "name": "رغدان",
+    "domain": "raghdan.sa"
+   }
+  ],
+  "sources": [
+   "https://youmats.com/en/cladding/marble-alternative/marble-alternative-to-council-facades-290-x-120-cm-rectangular-shape-model-rlux-r365-beige-resin-with-golden-veins-216/i",
+   "https://www.ikea.com/sa/en/cat/splashbacks-wall-panels-19121/f/marble-splashbacks-wall-panels-f-appearance--54637/",
+   "https://www.ikea.com/sa/en/p/rahult-custom-made-wall-panel-white-grey-beige-marble-effect-quartz-10598089",
+   "https://raghdan.sa/ar/news/marble-alternative-2025-complete-guide-to-types-prices-installation-methods-pros-and-cons/",
+   "https://www.sayidaty.net/node/1680441",
+   "https://sa.aqar.fm/blog/?p=13555"
+  ],
+  "all_result_domains": [
+   "sayidaty.net",
+   "sa.aqar.fm",
+   "raghdan.sa",
+   "bayut.sa",
+   "arabnews.pk",
+   "arabnews.com",
+   "ikea.com",
+   "youmats.com",
+   "mstaml.com"
+  ]
+ },
+ {
+  "n": 4,
+  "question": "من أين أشتري بديل الخشب المضلع للجدران في السعودية؟",
+  "queries": [
+   "شراء بديل الخشب المضلع للجدران السعودية",
+   "ألواح بديل الخشب المضلع WPC للجدران متجر السعودية سعر"
+  ],
+  "answer": "لم يظهر لي متجر سعودي بسعر واضح للألواح المضلعة تحديداً، وأقرب ما وجدته بالترتيب: 1) يوماتس (YouMats): قسم «بديل الخشب» فيه شرائح/ألواح بديل خشب داخلية للجدران بطول 290 سم (عرض 12–17 سم) من موردين محليين، مع طلب عرض سعر. 2) حراج: إعلانات موردين لتكسيات WPC وبديل الخشب (داخلي وخارجي). 3) السوق المفتوح: إعلانات تلبيس جدران بديل خشب WPC (من نحو 200 ريال) وموردين بالجملة في الرياض. 4) مستعمل: إعلانات محلات باركيه وبديل خشب وتكسيات. اطلب السعر بالمتر المربع مع تحديد السماكة والمقاس، وعينة قبل الشراء، واسأل عن مقاومة الحريق والرطوبة.",
+  "recommended": [
+   {
+    "name": "يوماتس (YouMats)",
+    "domain": "youmats.com"
+   },
+   {
+    "name": "حراج",
+    "domain": "haraj.com.sa"
+   },
+   {
+    "name": "السوق المفتوح (OpenSooq)",
+    "domain": "sa.opensooq.com"
+   },
+   {
+    "name": "مستعمل (mstaml)",
+    "domain": "mstaml.com"
+   }
+  ],
+  "sources": [
+   "https://youmats.com/en/wood/wood-substitute/chinese-internal-wood-substitute-for-walls-size-1212290-mm-jp-25-palaces-for-decoration-company-596/i",
+   "https://youmats.com/en/wood/wood-substitute/chinese-internal-wood-substitute-for-walls-size-17020290-mm-jp-97-palaces-for-decoration-company-119/i",
+   "https://haraj.com.sa/en/11159822914/Exterior_CladdingOutdoor_SeatingWaterproof_WPC_Wood_Wood/",
+   "https://haraj.com/en/11180732118/Sales_and_Supply_of_Modern_Finishing_Materials_from_the_Fact/",
+   "https://sa.opensooq.com/en/search/280964872",
+   "https://www.mstaml.com/en/product/%D8%A3%D8%B3%D8%B9%D8%A7%D8%B1-%D8%A7%D9%84%D8%A8%D8%A7%D8%B1%D9%83%D9%8A%D9%87-%D8%A8%D8%AF%D9%8A%D9%84-%D8%A7%D9%84%D8%AE%D8%B4%D8%A8-%D9%88%D8%A7%D9%84%D8%AA%D9%83%D8%B3%D9%8A%D8%A7%D8%AA"
+  ],
+  "all_result_domains": [
+   "sa.tilga.com",
+   "mstaml.com",
+   "youmats.com",
+   "sa.opensooq.com",
+   "usabuildersdepot.com",
+   "haraj.com.sa",
+   "haraj.com",
+   "jingsourcing.com",
+   "qrfy.io",
+   "ebarza.com",
+   "saib.com.sa"
+  ]
+ },
+ {
+  "n": 5,
+  "question": "أين أجد بديل الشيبورد في السعودية وما سعره؟",
+  "queries": [
+   "بديل الشيبورد السعودية سعر المتر",
+   "ألواح بديل الشيبورد للجدران متجر السعودية سعر اللوح"
+  ],
+  "answer": "أين تجده (بالترتيب): 1) يوماتس (YouMats): قسم كامل لبديل الشيبورد، وألواح بمقاس 120×290 سم وسماكة 6 ملم. 2) السوق المفتوح: إعلانات توريد وتركيب ألواح بديل الشيبورد بأسعار الجملة في الرياض. 3) حراج: إعلانات بديل الشيبورد «الترند». 4) مستعمل: إعلانات بديل الشيبورد وبديل الرخام. السعر: لم أجد سعراً موثقاً بالمتر؛ الأرقام التي ظهرت متفاوتة: نحو 66 إلى 149 ريالاً في صفحات يوماتس، وإعلان في الرياض بـ90 ريالاً، وأغلبها لا يوضح هل السعر للوح أم للمتر. اطلب سعر اللوح حسب المقاس والسماكة ثم احسبه بالمتر المربع (لوح 120×290 ≈ 3.5 م²)، واسأل هل يشمل التركيب.",
+  "recommended": [
+   {
+    "name": "يوماتس (YouMats)",
+    "domain": "youmats.com"
+   },
+   {
+    "name": "السوق المفتوح (OpenSooq)",
+    "domain": "sa.opensooq.com"
+   },
+   {
+    "name": "حراج",
+    "domain": "haraj.com.sa"
+   },
+   {
+    "name": "مستعمل (mstaml)",
+    "domain": "mstaml.com"
+   }
+  ],
+  "sources": [
+   "https://www.youmats.com/en/floors-and-walls/chipboard-alternative",
+   "https://youmats.com/en/wood/wood-substitute/wood-alternative-for-sheboard-walls-120-x-290-cm-model-ak-km6068-light-beige-color-529/i",
+   "https://sa.opensooq.com/ar/search/283058008",
+   "https://sa.opensooq.com/ar/search/281909260",
+   "https://haraj.com.sa/11163871161/Chipboard_Alternative_Trend_Chipboard_Alternative/",
+   "https://www.mstaml.com/product/%D8%A8%D8%AF%D9%8A%D9%84-%D8%A7%D9%84%D8%B4%D9%8A%D8%A8%D9%88%D8%B1-%D8%A3%D8%B3%D8%B9%D8%A7%D8%B1%D9%87-%D9%88%D9%85%D9%82%D8%A7%D8%B3%D8%A7%D8%AA%D9%87-%D8%A3%D9%84%D9%88%D8%A7%D8%AD-%D8%A8%D8%AF%D9%8A%D9%84-%D8%A7%D9%84%D8%B1%D8%AE%D8%A7%D9%85-%D8%A8%D8%A3%D9%81%D8%B6%D9%84-%D8%A7%D9%84%D8%A7%D8%B3%D8%B9%D8%A7%D8%B1"
+  ],
+  "all_result_domains": [
+   "mstaml.com",
+   "sa.opensooq.com",
+   "youmats.com",
+   "haraj.com.sa"
+  ]
+ },
+ {
+  "n": 6,
+  "question": "ما أفضل متجر نعلات باركيه وبانوهات جدران في السعودية؟",
+  "queries": [
+   "متجر نعلات باركيه وبانوهات جدران السعودية",
+   "نعلات باركيه بانوهات فوم جدران متجر إلكتروني الرياض"
+  ],
+  "answer": "لم أجد متجراً إلكترونياً متخصصاً واضحاً، وهذه أفضل ما ظهر بالترتيب: 1) الغملاس للأرضيات الخشبية وورق الجدران: شركة سعودية متخصصة في الباركيه منذ 2008 ووكيل كرونوتكس الألمانية، مناسبة للباركيه ونعلاته. 2) «مستودع مخازن لمنتجات الديكور» في حي الجزيرة بالرياض: تقييمه 4.8 من 84 مراجعة، ويبيع باركيه وتكسيات جدران. 3) حراج: إعلانات نعلات فايبر وباركيه SPC في الرياض. 4) السوق المفتوح ومستعمل: محلات تعرض نعلات الباركيه بأنواعها وفوم الحوائط والكرانيش. أسعار تقريبية من الإعلانات: نعلة 8 سم نحو 23 ريالاً للمتر الطولي، وفوم/بانوهات 10 سم نحو 24 ريالاً للمتر الطولي. تحقق من الأسعار والخامة (فايبر، بوليسترين، MDF) مباشرة قبل الشراء.",
+  "recommended": [
+   {
+    "name": "الغملاس للأرضيات الخشبية وورق الجدران",
+    "domain": null
+   },
+   {
+    "name": "مستودع مخازن لمنتجات الديكور (الرياض)",
+    "domain": null
+   },
+   {
+    "name": "حراج",
+    "domain": "haraj.com.sa"
+   },
+   {
+    "name": "السوق المفتوح (OpenSooq)",
+    "domain": "sa.opensooq.com"
+   },
+   {
+    "name": "مستعمل (mstaml)",
+    "domain": "mstaml.com"
+   }
+  ],
+  "sources": [
+   "https://yourstory.com/companies/al-ghomlas",
+   "https://magicpin.com/saudi-arabia/Riyadh/Al-Jazirah-Riyadh/Lifestyle//store/229b569",
+   "https://haraj.com.sa/11170699599/Parquet_SPC_and_fiber_skirting/",
+   "https://sa.opensooq.com/en/search/283195674",
+   "https://sa.opensooq.com/en/search/280909864",
+   "https://www.mstaml.com/en/product/%D8%A3%D8%B3%D8%B9%D8%A7%D8%B1-%D8%A7%D9%84%D8%A8%D8%A7%D8%B1%D9%83%D9%8A%D9%87-%D8%A8%D8%AF%D9%8A%D9%84-%D8%A7%D9%84%D8%AE%D8%B4%D8%A8-%D9%88%D8%A7%D9%84%D8%AA%D9%83%D8%B3%D9%8A%D8%A7%D8%AA"
+  ],
+  "all_result_domains": [
+   "sa.opensooq.com",
+   "namshi.com",
+   "yourstory.com",
+   "magicpin.com",
+   "mstaml.com",
+   "haraj.com.sa"
+  ]
+ },
+ {
+  "n": 7,
+  "question": "من أين أشتري بديل الطوب وبديل الحجر للجدران في السعودية؟",
+  "queries": [
+   "شراء بديل الطوب وبديل الحجر للجدران السعودية",
+   "ألواح بديل الطوب بديل الحجر ديكور جدران متجر إلكتروني السعودية"
+  ],
+  "answer": "الخيارات التي ظهرت بالترتيب: 1) يوماتس (YouMats): قسم خاص ببدائل الطوب (ألواح خفيفة تحاكي الطوب، بعضها من الفلين بطبقة أكريليك) للاستخدام الداخلي والخارجي، مع أسعار تبدأ من نحو 37 ريالاً لبعض المنتجات وطلب عرض سعر. 2) حراج: إعلانات ألواح جدران ديكورية ثلاثية الأبعاد خفيفة سهلة القص والتركيب. 3) السوق المفتوح: قسم ألواح الحائط، وإعلانات لياسة ملونة بديل الحجر الطبيعي للواجهات (نحو 17–18 ريالاً للمتر). 4) مستعمل: إعلانات «بديل الحجر الصخري» في الرياض. ملاحظة: كثير مما يُسمى بديل الحجر في الإعلانات هو لياسة ملونة وليس ألواحاً جاهزة، فحدد النوع المطلوب، واطلب عينة وشهادات مقاومة الحريق خصوصاً للواجهات.",
+  "recommended": [
+   {
+    "name": "يوماتس (YouMats)",
+    "domain": "youmats.com"
+   },
+   {
+    "name": "حراج",
+    "domain": "haraj.com.sa"
+   },
+   {
+    "name": "السوق المفتوح (OpenSooq)",
+    "domain": "sa.opensooq.com"
+   },
+   {
+    "name": "مستعمل (mstaml)",
+    "domain": "mstaml.com"
+   }
+  ],
+  "sources": [
+   "https://youmats.com/en/floors-and-walls/brick-alternatives",
+   "https://haraj.com.sa/11179698729/Modern_Design_3D_Decorative_Wall_Panels/",
+   "https://sa.opensooq.com/ar/%D8%A7%D9%84%D9%85%D9%86%D8%B2%D9%84-%D9%88%D8%A7%D9%84%D8%AD%D8%AF%D9%8A%D9%82%D8%A9/%D8%A3%D9%84%D9%88%D8%A7%D8%AD-%D8%AD%D8%A7%D8%A6%D8%B7",
+   "https://sa.opensooq.com/en/search/283366526",
+   "https://www.mstaml.com/en/sa/product/saudi-arabia/riyadh-region/riyadh/decor-ornaments/%D8%A8%D8%AF%D9%8A%D9%84-%D8%A7%D9%84%D8%AD%D8%AC%D8%B1-%D8%A7%D9%84%D8%B5%D8%AE%D8%B1%D9%8A-%D8%AC%D9%85%D9%84-%D8%AC%D8%AF%D8%A7%D8%B1%D9%83"
+  ],
+  "all_result_domains": [
+   "eprints.kfupm.edu.sa",
+   "youmats.com",
+   "sa.opensooq.com",
+   "desertjungle.substack.com",
+   "bayut.sa",
+   "zameen.com",
+   "mstaml.com",
+   "environdec.com",
+   "arabic.alibaba.com",
+   "ae.opensooq.com",
+   "haraj.com.sa"
+  ]
+ },
+ {
+  "n": 8,
+  "question": "أين أشتري موكيت بلاطات للمكاتب في السعودية؟",
+  "queries": [
+   "موكيت بلاطات للمكاتب السعودية شراء",
+   "موكيت مربعات مكتبي 50×50 متجر الرياض جدة سعر"
+  ],
+  "answer": "لم يظهر لي متجر رسمي أو وكيل معروف، وكل النتائج إعلانات مبوبة. بالترتيب: 1) السوق المفتوح (OpenSooq): عدة إعلانات لتوريد وتركيب موكيت مكتبي بلاطات 50×50، خصوصاً في جدة ومكة، بأسعار معلنة بين 50 و65 ريالاً (وبعضها 100) مع توصيل؛ لكن الوحدة غير واضحة (بلاطة أم متر مربع). 2) مستعمل (mstaml): إعلانات بلاط موكيت للمكاتب والشركات بمقاسات 50×50 و60×60، جديدة ومستوردة مستعملة؛ انتبه أن بعض صفحاته لمعلنين في مصر. لم أجد إعلاناً واضحاً في الرياض. اطلب عرض سعر مكتوباً يوضح سعر المتر، هل البلاط جديد أم مستعمل، نوع الظهر والوبر، وتكلفة التركيب، وعاين عينة قبل الدفع.",
+  "recommended": [
+   {
+    "name": "السوق المفتوح (OpenSooq)",
+    "domain": "sa.opensooq.com"
+   },
+   {
+    "name": "مستعمل (mstaml)",
+    "domain": "mstaml.com"
+   }
+  ],
+  "sources": [
+   "https://sa.opensooq.com/ar/search/280343907",
+   "https://sa.opensooq.com/ar/search/281125392",
+   "https://sa.opensooq.com/ar/search/283269180",
+   "https://www.mstaml.com/product/%D9%85%D9%88%D9%83%D9%8A%D8%AA-%D8%A7%D8%B1%D8%B6%D9%8A%D8%A7%D8%AA",
+   "https://www.mstaml.com/product/%D8%A8%D9%84%D8%A7%D8%B7-%D9%85%D9%88%D9%83%D9%8A%D8%AA-%D9%84%D9%84%D9%85%D9%83%D8%A7%D8%AA%D8%A8-%D9%88%D8%A7%D9%84%D8%B4%D8%B1%D9%83%D8%A7%D8%AA-%D8%AC%D9%88%D8%AF%D8%A9-%D8%A7%D8%AD%D8%AA%D8%B1%D8%A7%D9%81%D9%8A%D8%A9-%D8%AA%D8%A8%D8%AF%D8%A3-%D9%85%D9%86-%D8%A7%D9%84%D8%A3%D8%B1%D8%B6%D9%8A%D8%A9-%D9%87%D9%84-%D8%AA%D8%AE%D8%B7%D8%B7-%D9%84%D8%AA%D8%AC%D8%AF%D9%8A%D8%AF-%D9%85%D9%83%D8%AA%D8%A8%D9%83-%D8%A3%D9%88-%D8%AA%D8%AC%D9%87%D9%8A%D8%B2-%D9%85%D9%82%D8%B1-%D8%B4%D8%B1%D9%83%D8%AA%D9%83%D8%9F"
+  ],
+  "all_result_domains": [
+   "mstaml.com",
+   "sa.opensooq.com"
+  ]
+ },
+ {
+  "n": 9,
+  "question": "من أين أشتري صفائح طينية وحجرية مرنة للواجهات في السعودية؟",
+  "queries": [
+   "صفائح طينية وحجرية مرنة للواجهات السعودية شراء"
+  ],
+  "answer": "الخيارات التي ظهرت بالترتيب: 1) يوماتس (YouMats): قسم «تكسيات الطين المعدّل MCM» فيه أكثر من 200 نمط، وقسم لقشرة الحجر المرنة، مع طلب عرض سعر لمشاريع الرياض وجدة والدمام. 2) لاكشري لاند (luxuryland.sa): متجر سعودي يشرح ويعرض الصفائح الطينية المعالجة (سماكة نحو 3 ملم) للتكسية الداخلية والخارجية. 3) IFF Store (iffstore.com): صفحة منتج بلاط MCM مرن «سوفت ستون» بمقاس 60×120 سم مع سلة شراء؛ تأكد من الشحن للسعودية. 4) للكميات الكبيرة: الاستيراد المباشر من مصانع صينية عبر علي بابا (سماكة 2–10 ملم) مع احتساب الشحن والجمارك. للواجهات تحديداً اطلب شهادة مقاومة الحريق ومطابقة كود البناء السعودي وعينة قبل الطلب؛ ادعاءات مثل «50 سنة دون تغير اللون» تسويقية وغير موثقة.",
+  "recommended": [
+   {
+    "name": "يوماتس (YouMats)",
+    "domain": "youmats.com"
+   },
+   {
+    "name": "لاكشري لاند",
+    "domain": "luxuryland.sa"
+   },
+   {
+    "name": "IFF Store",
+    "domain": "iffstore.com"
+   },
+   {
+    "name": "علي بابا (استيراد)",
+    "domain": "alibaba.com"
+   }
+  ],
+  "sources": [
+   "https://www.youmats.com/en/floors-and-walls/mcm-clay-cladding",
+   "https://youmats.com/en/floors-and-walls/stone-veneers",
+   "https://luxuryland.sa/en/blogs/tips-and-guides/stone-slabs-porcelain-natural-stone-guide",
+   "https://www.iffstore.com/en/product/mcm-modified-clay-tiles-soft-stone-cut-stone-60-x-120-cm/",
+   "https://bd-flexicladding.en.alibaba.com/product/1600151176560-822720068/Best_Selling_Design_Chile_Slate_Beige_Color_In_Saudi_Arabia_for_Hotel_Exterior_and_Interior_wall_Decoration.html"
+  ],
+  "all_result_domains": [
+   "luxuryland.sa",
+   "youmats.com",
+   "bd-flexicladding.en.alibaba.com",
+   "online.flippingbook.com",
+   "iffstore.com",
+   "alibaba.com"
+  ]
+ },
+ {
+  "n": 10,
+  "question": "ما هو متجر تكسا ديكور وهل هو موثوق؟",
+  "queries": [
+   "متجر تكسا ديكور",
+   "تكسا ديكور السعودية ورق جدران باركيه موثوق تقييم"
+  ],
+  "answer": "لم أجد في البحث أي معلومات عن متجر باسم «تكسا ديكور»: لا موقع رسمي ولا تقييمات ولا ذكر في مصادر مستقلة. النتائج كانت عن متاجر ديكور في ولاية تكساس الأمريكية وعن إعلانات ديكور عامة في السعودية لا علاقة لها بالاسم. لذلك لا أستطيع أن أؤكد أنه موثوق ولا أنه غير موثوق. إذا كنت تنوي الشراء منه فتحقق بنفسك: رقم السجل التجاري عبر وزارة التجارة، توثيق المتجر في منصة «معروف/المركز السعودي للأعمال»، وجود عنوان ورقم تواصل حقيقي وتقييمات على خرائط جوجل، وسيلة دفع آمنة (مدى/بطاقة أو الدفع عند الاستلام)، وسياسة إرجاع وضمان مكتوبة. وإذا أرسلت لي رابط المتجر أو اسمه بالإنجليزية أبحث عنه بدقة أكبر.",
+  "recommended": [],
+  "sources": [
+   "https://magicpin.com/saudi-arabia/Khafji/Al-Muhammadiyah-Khafji/Lifestyle//store/22b8691",
+   "https://sa.opensooq.com/en/search/280909864"
+  ],
+  "all_result_domains": [
+   "newhomesource.com",
+   "flickr.com",
+   "perryhomes.com",
+   "walmart.com",
+   "herring-grey-6ktc.squarespace.com",
+   "mapquest.com",
+   "archive.org",
+   "decoratorswarehouse.com",
+   "magicpin.com",
+   "jarir.com",
+   "mstaml.com",
+   "sa.opensooq.com"
+  ]
+ }
+]
