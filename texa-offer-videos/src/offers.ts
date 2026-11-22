@@ -177,7 +177,7 @@ export const offers: Offer[] = [
     },
   },
   {
-    // عروض ورق جدران مميزة (كتالوج NEOM) — 75 ريال للرول
+    // عروض ورق جدران مميزة (كتالوج NEOM) — 75 ريال للرول، بنفس صيغة فيديو الباركيه المختصر
     id: "wallpaper",
     voDir: "wallpaper/vo",
     music: "parquet-spc/music.mp3",
@@ -197,20 +197,17 @@ export const offers: Offer[] = [
       sub: "في يوم واحد",
       bigAt: 55, subAt: 85,
     },
-    features: {
-      heading: "ورق جدران تكسا",
-      items: [
-        { vo: "f1", frames: 188, title: "ورق جدران كوري", sub: `رول كبير مقاس ${ltr("1.06 × 15.6")} م` },
-        { vo: "f2", frames: 168, title: "26 تصميم", sub: "سادة، مموج، مودرن ومقلم" },
-        { vo: "f3", frames: 96, title: "حاسبة الكميات 📐", sub: "احسب كم رول تحتاج قبل الطلب" },
-      ],
-    },
     unit: "ريال / رول",
     tierBadge: "عروض ورق جدران مميزة",
     tiers: [
-      { vo: "p", frames: 131, label: "ورق جدران كوري", note: "سعر منخفض جديد", highlight: true, now: 75, images: ["wallpaper/dalton.jpg", "wallpaper/even.jpg", "wallpaper/deacon.jpg"] },
+      { vo: "p1", frames: 128, label: "16 تصميم سادة", note: "سعر منخفض جديد", highlight: true, now: 75, images: ["wallpaper/pommier.jpg", "wallpaper/even.jpg", "wallpaper/sw-plain.jpg"] },
+      { vo: "p2", frames: 102, label: "5 تصاميم مموجة", note: "سعر منخفض جديد", highlight: true, now: 75, images: ["wallpaper/storm.jpg", "wallpaper/sw-wavy-a.jpg", "wallpaper/sw-wavy-b.jpg"] },
+      { vo: "p3", frames: 91, label: "مودرن ومقلم", note: "سعر منخفض جديد", highlight: true, now: 75, images: ["wallpaper/deacon.jpg", "wallpaper/dalton.jpg", "wallpaper/roughwood.jpg"] },
     ],
-    tools: {},
+    tools: {
+      planner: { vo: "t", frames: 155, badge: "الحاسبة + مخطط الغرفة 📱", title: "احسب كميتك", accent: "وصمّم غرفتك", note: "مجاناً من جوالك" },
+      claim: { vo: "c", frames: 107, title: "سهّلناها عليك..", accent: "وبأقل الأسعار في السعودية" },
+    },
     outro: {
       vo: "o", frames: 160, pace: 0.4,
       lines: ["الأسعار شاملة الضريبة ✅", "العرض ساري حتى نفاد الكمية"],
