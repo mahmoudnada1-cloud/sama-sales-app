@@ -43,7 +43,37 @@ EX_HEIGHTS = [2.6, 2.7, 2.8]
 FAQ_WIDTHS = [2.5, 3.2, 3.8, 4.5, 5.2, 5.8, 6.5, 7]
 FULL_HEIGHT = 2.4                      # لوح بهذا الطول فأكثر يُركَّب واقفاً ويُحسب بالأعمدة
 DOOR = 0.9
-FORBIDDEN = re.compile(r'ضمان|حريق|اشتعال|شهاد(?:ة|ات)|FDA|(?<![ء-ي])(?:ال|لل|بال)?ربو(?![ء-ي])', re.I)
+# المحظور هو الادعاء لا التحذير: «مقاوم للحريق»، «شهادة/معتمد + جهة»، «ضمان» كوعد، FDA، الربو.
+# عبارات النفي والتحذير الصادقة مسموحة: «قابل للاشتعال»، «يُبعد عن اللهب»، «لا تذكر البيانات شهادات».
+_AR = '\u0621-\u064A'
+FORBIDDEN_RES = [re.compile(x, re.I) for x in (
+    r'(?:مقاوم\w*|مقاومة|يقاوم|تقاوم|ضد)\s+(?:لل|ال)?(?:حريق|حرائق|اشتعال|لهب|نار|نيران)',
+    r'لا\s+[يت]شتعل|غير\s+قابل\w*\s+للاشتعال|مضاد\w*\s+لل(?:حريق|اشتعال)|مانع\w*\s+لل(?:حريق|اشتعال)',
+    r'(?:شهاد(?:ة|ات)|معتمد\w*|اعتماد)\s+(?:من\s+)?(?:FDA|ISO|SGS|CE\b|SASO|ساسو|[أآا]يزو|الدفاع\s+المدني|هيئة|الهيئة|وزارة|منظمة)',
+    r'FDA',
+    r'(?<![' + _AR + r'])(?:ال|لل|بال|وال)?ربو(?![' + _AR + r'])',
+    r'(?<![' + _AR + r'])(?:و|ب|وب)?(?:ال)?ضمان(?![' + _AR + r'])',
+)]
+NEGATED = re.compile(r'(?:^|[^' + _AR + r'])(?:ليس\w*|غير|لا|بلا|دون|بدون|لم|ولا|وليس\w*)\s+(?:[' + _AR + r']+\s+){0,2}$')
+EXTRA_LINKS = {'https://texadecore.store/2026/11/21/marble-alternative-disadvantages/',
+               'https://texadecore.store/2026/11/21/wallpaper-rolls-per-room-table/',
+               'https://texadecore.store/2026/11/21/korean-wallpaper-prices-saudi/',
+               'https://texadecore.store/2026/11/21/wallpaper-vs-paint-cost/'}      # مقالات المتجر المنشورة
+
+
+class _Forbidden(object):
+    """بحث عن ادعاء محظور غير منفي. «لضمان» (بمعنى لكي) ليست وعداً فلا تطابق."""
+
+    @staticmethod
+    def search(text):
+        for rx in FORBIDDEN_RES:
+            for m in rx.finditer(text):
+                if not NEGATED.search(text[max(0, m.start() - 40):m.start()]):
+                    return m
+        return None
+
+
+FORBIDDEN = _Forbidden()
 
 # مفرد، مثنى، جمع (3–10)، تمييز (11+)، مؤنث؟
 NOUN = {
@@ -130,7 +160,7 @@ class Base(object):
         prods = bp.load_products()
         self.byF = {F['id']: F for F in bp.finalize([bp.extract(p, self.paths) for p in prods])}
         self.fams = {f['family_id']: f for f in json.load(open(FAMILIES, encoding='utf-8'))['families']}
-        self.allowed = bp.allowed_links(self.links)
+        self.allowed = bp.allowed_links(self.links) | EXTRA_LINKS
 
 
 def load_cfg(family_id, fdir):
