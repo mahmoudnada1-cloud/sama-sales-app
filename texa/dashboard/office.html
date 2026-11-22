@@ -104,6 +104,20 @@ aside h2{font-family:var(--display);font-size:18px;margin:0 0 8px}
 .log .who{font-weight:600} .log time{display:block;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
 .empty{color:var(--muted);font-size:13.5px;margin:0}
 .note{color:var(--muted);font-size:13px;margin:0}
+.results{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+.results h2{font-family:var(--display);font-size:20px;margin:0 0 4px}
+.results .asof{color:var(--muted);font-size:13px;margin:0 0 14px}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-bottom:16px}
+.rcard{border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-width:0}
+.rcard .num{font-family:var(--display);font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}
+.rcard .lbl{font-size:13.5px;font-weight:600}
+.rcard .det{font-size:12.5px;color:var(--muted);overflow-wrap:anywhere}
+.rlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.rlist li{border-inline-start:3px solid var(--line);padding-inline-start:10px;font-size:14px;overflow-wrap:anywhere}
+.rlist li.ok{border-color:var(--work)} .rlist li.todo{border-color:var(--wait)} .rlist li.owner{border-color:var(--done)}
+.rlist a{color:var(--done)}
+.rlist .tag{font-size:12px;font-weight:600;color:var(--muted);margin-inline-end:6px}
+.results h3{font-family:var(--display);font-size:16px;margin:14px 0 8px}
 @media (max-width:900px){ .main{grid-template-columns:minmax(0,1fr)} }
 @media (max-width:640px){ .floorplan{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (max-width:420px){ .floorplan{grid-template-columns:minmax(0,1fr)} }
@@ -138,6 +152,17 @@ aside h2{font-family:var(--display);font-size:18px;margin:0 0 8px}
       <p class="empty" id="logEmpty">لسه مفيش نشاط مسجّل. أول ما الفريق يبدأ مهمة هتظهر هنا.</p>
     </aside>
   </div>
+  <section class="results" id="results" aria-label="نتائج المشروع">
+    <h2>نتائج المشروع على المتجر</h2>
+    <p class="asof" id="rAsof">جارٍ تحميل النتائج…</p>
+    <div class="rgrid" id="rGrid"></div>
+    <h3>ما تم تنفيذه</h3>
+    <ul class="rlist" id="rDone"></ul>
+    <h3>قيد التنفيذ أو جاهز وينتظر</h3>
+    <ul class="rlist" id="rTodo"></ul>
+    <h3>ينتظر قرار أو بيانات من صاحب المتجر</h3>
+    <ul class="rlist" id="rOwner"></ul>
+  </section>
   <p class="note">الحالة بتتحدّث لوحدها كل ما Claude يشغّل وكيل أو يخلّص مهمة. جدران كل مكتب من خامات تكسا: ورق جدران، بديل خشب، بديل رخام، بديل طوب — والأرضية باركيه هرمي.</p>
 </div>
 
@@ -236,5 +261,22 @@ setInterval(()=>{paint();paintLog()},30000);
   const fail=()=>{clearTimeout(timer);live.textContent="تعذّر تحميل الحالة الحية."};
   db.collection("agents").onSnapshot(snap=>{ok();for(const k in state)delete state[k];snap.docs.forEach(d=>{state[d.id]=d.data()||{}});paint()},fail);
   db.collection("log").orderBy("at","desc").limit(12).onSnapshot(snap=>{logs=snap.docs.map(d=>d.data()||{});paintLog()},()=>{});
+  db.collection("results").onSnapshot(snap=>{
+    const items=snap.docs.map(d=>Object.assign({id:d.id},d.data()||{})).sort((a,b)=>(a.order||0)-(b.order||0));
+    const meta=items.find(x=>x.kind==="meta");
+    document.getElementById("rAsof").textContent=meta?(meta.text||""):(items.length?"":"لا توجد نتائج مسجّلة بعد.");
+    const grid=document.getElementById("rGrid"); grid.textContent="";
+    for(const x of items.filter(x=>x.kind==="metric")){const c=document.createElement("div");c.className="rcard";
+      const n=document.createElement("div");n.className="num";n.textContent=x.value||"";
+      const l=document.createElement("div");l.className="lbl";l.textContent=x.label||"";
+      const d=document.createElement("div");d.className="det";d.textContent=x.detail||"";c.append(n,l,d);grid.appendChild(c);}
+    for(const [kind,elId,cls] of [["done","rDone","ok"],["todo","rTodo","todo"],["owner","rOwner","owner"]]){
+      const ul=document.getElementById(elId); ul.textContent="";
+      for(const x of items.filter(x=>x.kind===kind)){const li=document.createElement("li");li.className=cls;
+        li.appendChild(document.createTextNode(x.text||""));
+        if(x.link&&/^https:\/\//.test(x.link)){li.appendChild(document.createTextNode(" "));const a=document.createElement("a");a.href=x.link;a.target="_blank";a.rel="noopener";a.textContent=x.linkText||"فتح";li.appendChild(a);}
+        ul.appendChild(li);}
+    }
+  },()=>{document.getElementById("rAsof").textContent="تعذّر تحميل النتائج."});
 })();
 </script>
