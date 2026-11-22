@@ -190,7 +190,7 @@ export const offers: Offer[] = [
     coverFrames: 15,
     cover: { lead: "عروض", name: "ورق الجدران", from: 75, note: "السعر شامل الضريبة", image: "wallpaper/storm.jpg" },
     hook: {
-      vo: "h", frames: 154,
+      vo: "h", frames: 152,
       badge: "عروض ورق جدران مميزة",
       title: "العروض وصلت!",
       big: "غيّر جدارك",
@@ -200,16 +200,16 @@ export const offers: Offer[] = [
     unit: "ريال / رول",
     tierBadge: "عروض ورق جدران مميزة",
     tiers: [
-      { vo: "p1", frames: 96, label: "تصميم سادة", note: "سعر منخفض جديد", highlight: true, now: 75, images: ["wallpaper/pommier.jpg", "wallpaper/even.jpg", "wallpaper/sw-plain.jpg"] },
-      { vo: "p2", frames: 93, label: "تصاميم مموجة", note: "سعر منخفض جديد", highlight: true, now: 75, images: ["wallpaper/storm.jpg", "wallpaper/sw-wavy-a.jpg", "wallpaper/sw-wavy-b.jpg"] },
-      { vo: "p3", frames: 97, label: "مودرن ومقلم", note: "سعر منخفض جديد", highlight: true, now: 75, images: ["wallpaper/deacon.jpg", "wallpaper/dalton.jpg", "wallpaper/roughwood.jpg"] },
+      { vo: "p1", frames: 95, label: "تصميم سادة", note: "سعر منخفض جديد", highlight: true, now: 75, images: ["wallpaper/pommier.jpg", "wallpaper/even.jpg", "wallpaper/sw-plain.jpg"] },
+      { vo: "p2", frames: 92, label: "تصاميم مموجة", note: "سعر منخفض جديد", highlight: true, now: 75, images: ["wallpaper/storm.jpg", "wallpaper/sw-wavy-a.jpg", "wallpaper/sw-wavy-b.jpg"] },
+      { vo: "p3", frames: 109, label: "مودرن ومقلّم", note: "سعر منخفض جديد", highlight: true, now: 75, images: ["wallpaper/deacon.jpg", "wallpaper/dalton.jpg", "wallpaper/roughwood.jpg"] },
     ],
     tools: {
-      planner: { vo: "t", frames: 166, badge: "الحاسبة + مخطط الغرفة 📱", title: "احسب كميتك", accent: "وصمّم غرفتك", note: "مجاناً من جوالك" },
-      claim: { vo: "c", frames: 114, title: "سهّلناها عليك..", accent: "وبأقل الأسعار في السعودية" },
+      planner: { vo: "t", frames: 164, badge: "الحاسبة + مخطط الغرفة 📱", title: "احسب كميتك", accent: "وصمّم غرفتك", note: "مجاناً من جوالك" },
+      claim: { vo: "c", frames: 113, title: "سهّلناها عليك..", accent: "وبأقل الأسعار في السعودية" },
     },
     outro: {
-      vo: "o", frames: 169, pace: 0.4,
+      vo: "o", frames: 168, pace: 0.4,
       lines: ["الأسعار شاملة الضريبة ✅", "العرض ساري حتى نفاد الكمية"],
       cta: "اطلب الآن من متجرنا",
       extra: "قياس وتركيب احترافي · شحن لكل مدن المملكة 🚚",
