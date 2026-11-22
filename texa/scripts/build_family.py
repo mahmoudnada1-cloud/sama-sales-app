@@ -51,6 +51,14 @@ FORBIDDEN_RES = [re.compile(x, re.I) for x in (
     r'لا\s+[يت]شتعل|غير\s+قابل\w*\s+للاشتعال|مضاد\w*\s+لل(?:حريق|اشتعال)|مانع\w*\s+لل(?:حريق|اشتعال)',
     r'(?:شهاد(?:ة|ات)|معتمد\w*|اعتماد)\s+(?:من\s+)?(?:FDA|ISO|SGS|CE\b|SASO|ساسو|[أآا]يزو|الدفاع\s+المدني|هيئة|الهيئة|وزارة|منظمة)',
     r'FDA',
+    r'آمن\w*\s+(?:تمام[اًً]+\s+)?(?:على\s+(?:ال)?(?:أطفال|اطفال|صحة)|لمن\s+يعانون|ومناسب\w*\s+لمن)|آمن\w*\s+وصحي',
+    # الحساسية كادعاء صحي فقط («مناسب لمن يعانون الحساسية»، «لا يسبب حساسية»)؛ التحذير («يهم من عنده حساسية») والمعنى غير الصحي مسموحان
+    r'(?:آمن|مناسب|ملائم|يناسب|تناسب|مثالي)\w*[^.\n؟!]{0,45}(?:حساسية|تنفسية)|(?:لا\s+[يت]سبب|مضاد\w*\s+لل?|ضد)\s*(?:ال)?حساسية|(?:ال)?[إا]كزيما',
+    r'(?<![' + _AR + r'])(?:و|ال|وال)?صحي(?:ة|اً|ًا|ا)?(?![' + _AR + r'])',
+    r'(?:مقاوم\w*|مقاومة|يقاوم|تقاوم|ضد)\s+(?:لل|ال)?(?:بهتان|نمل|حشرات|بكتيريا|جراثيم|فطريات|عفن)',
+    r'ثبات\s+(?:لوني|اللون|لون|الألوان)|مضاد\w*\s+لل(?:بكتيريا|جراثيم|فطريات)',
+    r'(?:مقاوم\w*|مقاومة|يقاوم|حماية|ضد)\s+(?:من\s+)?(?:لل|ال)?(?:[أا]شعة\s+(?:ال)?فوق\s+(?:ال)?بنفسجية|UV)',
+    r'خال(?:ٍ|ي|ية)?\s+من\s+(?:ال)?فورمالد\w+|صديق\w*\s+للبيئة',
     r'(?<![' + _AR + r'])(?:ال|لل|بال|وال)?ربو(?![' + _AR + r'])',
     r'(?<![' + _AR + r'])(?:و|ب|وب)?(?:ال)?ضمان(?![' + _AR + r'])',
 )]
@@ -74,6 +82,8 @@ class _Forbidden(object):
 
 
 FORBIDDEN = _Forbidden()
+# عبارات داخلية لا تُعرض للعميل (نقص البيانات وتعارضها يُسجَّل في ملف المراجعة فقط)
+INTERNAL = re.compile(r'حسب وصف المنتج|بيانات المتجر|في بيانات|بيانات (?:هذا )?المنتج|غير مذكور(?:ة|ين)? في|مذكور بقيم|بقيمتين مختلفتين|الوصف الأصلي|الوصف القديم')
 
 # مفرد، مثنى، جمع (3–10)، تمييز (11+)، مؤنث؟
 NOUN = {
@@ -96,6 +106,14 @@ WALL_PATTERN_TIPS = {
                     'اتجاه رؤوس الأسهم في النقشة الهرمية يُوحَّد بين الألواح المتجاورة',
                     'النقشة الهرمية تبرز على جدار تمييز واحد أكثر من تغطية الغرفة كلها'],
 }
+PARTITION_TIPS = ['الأعمدة المتباعدة بانتظام تفصل المكان دون أن تحجب الضوء',
+                  'وحّد لون الأعمدة مع الأبواب أو إطار التلفاز ليبدو الفاصل جزءاً من التشطيب',
+                  'اترك الفراغ بين كل عمودين متساوياً، فأي تفاوت فيه يظهر من أول نظرة',
+                  'إضاءة مخفية في السقف فوق الفاصل تُبرز إيقاع الأعمدة ليلاً']
+CARPET_TIPS = ['لون الأرضية يُختار قبل الستائر والأثاث لأنه القاعدة التي يُبنى عليها',
+               'درجة الأرضية تحدّد إحساس الغرفة أكثر من أي قطعة أثاث',
+               'تبديل اتجاه البلاطات بالتناوب يعطي نقشة شطرنجية، وتوحيده يعطي سطحاً متصلاً',
+               'الدرجات المتوسطة والمدرّجة أرحم بآثار الأقدام من السادة الفاتح أو الداكن جداً']
 # نصائح لونية لا تصلح لغير الجدران (أرضيات/قطع تشطيب): تُستبعد بهذه الكلمات
 NOT_FLOOR = re.compile(r'جدار|الجدران|خلفية|ستائر')
 NOT_TRIM = re.compile(r'الاتساع|جدار|الجدران|خلفية|قاعدة|يوسّع|المساح|الغرفة|المكان|ستائر|أثاث|سجاد|مسطّحة|الضوء')
@@ -144,7 +162,18 @@ def ceil(x):
     return int(math.ceil(x - 1e-9))
 
 
-def calc_link(what):
+# الأقسام التي تغطيها حاسبة الكميات فعلاً؛ غيرها (بارتشن، بانوهات وكرانيش وزخارف، إكسسوارات، موكيت، خارجي) بلا رابط حاسبة
+CALC_SUBS = {'wallpaper', 'spc', 'laminate', 'marble', 'shiplap', 'wood', 'brick', 'stone', 'clay', 'skirting'}
+WHATSAPP = 'أرسل لنا المقاسات على الواتساب لنحسب لك العدد.'
+META_NO_CALC = [('احسب كميتك واطلبه الآن من تكسا ديكور.', 'أرسل مقاسك واطلبه الآن من تكسا ديكور.'),
+                ('احسب الكمية واطلب مع شحن لكل المملكة.', 'أرسل المقاس واطلب مع شحن لكل المملكة.'),
+                ('تسوّقه الآن واحسب كميتك بحاسبة تكسا.', 'تسوّقه الآن وأرسل مقاسك لنحسب لك العدد.'),
+                ('اطلبه اليوم واحسب العدد بحاسبة الكميات.', 'اطلبه اليوم وأرسل المقاس لنحسب لك العدد.')]
+
+
+def calc_line(F, what):
+    if F['sub'] not in CALC_SUBS:
+        return WHATSAPP
     return 'أدخل %s في %s لتعرف عددك.' % (what, bp.A(bp.URL_CALC, 'حاسبة الكميات'))
 
 
@@ -211,7 +240,7 @@ def eng_columns(F, c, cfg, kw):
         li.append(lead + '%s، فيلزمك %s، %s إلى عرض %s سم.' % (f(q, 2), n_txt, g(fem, 'ويُقص الأخير', 'وتُقص الأخيرة'), f(last_cm, 1)))
     li.append('تشتري %s م² لجدار مساحته %s م²، والفرق %s م² يذهب في القص (%s سم من طول كل %s).' % (
         f(tot, 2), f(A, 2), f(tot - A, 2), f(cut_cm, 1), w))
-    li.append(calc_link('مقاس جدارك'))
+    li.append(calc_line(F, 'مقاس جدارك'))
     w2 = bp.pick([x for x in FAQ_WIDTHS if abs(x - Ww) > 0.05], pid, 'fam-w2')
     q2 = w2 / W
     yl = g(fem, 'يلزم', 'تلزم')
@@ -261,15 +290,15 @@ def eng_width(F, c, cfg, kw):
     n = ceil(q)
     n_txt = cntw(n, P)
     exact = abs(q - round(q)) < 1e-9
-    summary = 'عرض ال%s %s سم، فجدار عرضه %s م يلزمه %s. طول ال%s غير مذكور في بيانات المنتج.' % (w, f(W * 100, 1), f(Ww, 1), n_txt, w)
+    summary = 'عرض ال%s %s سم، فجدار عرضه %s م يلزمه %s. تأكد من طول ال%s مع فريقنا قبل الطلب.' % (w, f(W * 100, 1), f(Ww, 1), n_txt, w)
     ex = 'مثال بحساب الأعمدة لجدار عرضه %s م: %s ÷ %s = ' % (f(Ww, 1), f(Ww, 1), f(W, 2))
     if exact:
         ex += '%d بالضبط، فيلزمك %s دون قص في العرض.' % (n, n_txt)
     else:
         ex += '%s، فيلزمك %s، %s إلى عرض %s سم.' % (f(q, 2), n_txt, g(fem, 'ويُقص الأخير', 'وتُقص الأخيرة'),
                                                    f(round((W - (n * W - Ww)) * 100, 1), 1))
-    li = ['عرض ال%s: %s سم. الطول غير مذكور في بيانات هذا المنتج، فلا تغطية بالمتر المربع هنا.' % (w, f(W * 100, 1)), ex,
-          'العدد صحيح ما دام طول ال%s يغطي ارتفاع جدارك؛ اسأل عن الطول قبل الطلب.' % w, calc_link('مقاس جدارك')]
+    li = ['عرض ال%s: %s سم.' % (w, f(W * 100, 1)), ex,
+          'العدد صحيح ما دام طول ال%s يغطي ارتفاع جدارك؛ تأكد من الطول مع فريقنا قبل الطلب.' % w, calc_line(F, 'مقاس جدارك')]
     w2 = bp.pick([x for x in FAQ_WIDTHS if abs(x - Ww) > 0.05], pid, 'fam-w2')
     k = bp.pick([10, 15, 20, 25, 30], pid, 'fam-k')
     qa = [('كم %s من %s %s لجدار عرضه %s م؟' % (acc, bp.esc(kw), g(fem, 'يلزم', 'تلزم'), f(w2, 1)),
@@ -310,7 +339,7 @@ def eng_roll(F, c, cfg, kw):
           'مثال جدار عرضه %s م: %s ÷ %s = %s ← %s، أي %s.' % (f(Ww, 1), f(Ww, 1), f(W, 2), f(Ww / W, 2), cntw(strips, S), cntw(rolls, P)),
           'مثال غرفة %s × %s م: محيطها %s م ← %s ← %s. الحساب بالشرائح، ولا تُخصم الأبواب والنوافذ.' % (
               f(ra, 1), f(rb, 1), f(Pm, 1), cntw(strips_r, S), cntw(rolls_r, P)),
-          calc_link('مقاس جدارك')]
+          calc_line(F, 'مقاس جدارك')]
     a2 = '%s: %s ÷ %s = %s، والباقي لا يكفي شريحة كاملة.' % (cntw(sprh, S), f(L, 2), f(h2, 1), f(L / h2, 2))
     if sprh < spr:
         a2 += ' هذا أقل من %s عند ارتفاع %s م، فأعد حساب العدد على هذا الأساس.' % (cntw(spr, S), f(bp.WALL_H, 1))
@@ -361,7 +390,7 @@ def eng_area(F, c, cfg, kw):
         li.append(s + '.')
     elif pa:
         bits.append('%s ال%s %s %s م²' % (g(fem, 'يغطي', 'تغطي'), w, g(fem, 'الواحد', 'الواحدة'), f(pa)))
-        li.append('تغطية ال%s %s: %s م² (حسب وصف المنتج).' % (w, g(fem, 'الواحد', 'الواحدة'), f(pa)))
+        li.append('تغطية ال%s %s: %s م².' % (w, g(fem, 'الواحد', 'الواحدة'), f(pa)))
     if carton:
         bits.append('الكرتونة تغطي %s م²' % f(carton))
         s = 'الكرتونة تغطي %s م²' % f(carton)
@@ -371,7 +400,9 @@ def eng_area(F, c, cfg, kw):
     summary = '، و'.join(bits) + '، و%s %s %s بعد إضافة %s%% للقص.' % (place, yl, n_txt, wp)
     li.append('مثال %s: المساحة %s م²، ومع %s%% هدر للقص %s م².' % (place, f(A, 2), wp, f(need, 2)))
     li.append('%s ÷ %s = %s ← %s، تغطي %s م².' % (f(need, 2), f(ucov), f(need / ucov, 2), n_txt, f(n * ucov, 2)))
-    li.append(calc_link(mine))
+    if not carton and (F.get('_unit') or '').startswith('متر مربع'):
+        li.append('وحدة البيع المتر المربع، فالكمية المطلوبة %d م².' % ceil(need))
+    li.append(calc_line(F, mine))
     qa = [('كم %s أحتاج من %s %s؟' % (U[3], bp.esc(kw), place2),
            '%s: المساحة %s م²، ومع %s%% هدر %s م²، مقسومة على %s م² لكل %s.' % (
                cntw(n2, U), f(A2, 2), wp, f(need2, 2), f(ucov), U[0]))]
@@ -423,7 +454,7 @@ def eng_linear(F, c, cfg, kw):
         s += ' × %s سم' % f(W * 100, 1)
     li = [s + '.', ex + '.',
           '%s ÷ %s = %s ← %s، ومع %s للزوايا والقص %s.' % (f(run, 1), f(L, 2), f(run / L, 2), cntw(n0, P), spare, n_txt),
-          calc_link('مقاسك')]
+          calc_line(F, 'مقاسك')]
     k = bp.pick([5, 6, 8, 10, 12], pid, 'fam-k')
     qa = [('كم %s أحتاج من %s %s؟' % (acc, bp.esc(kw), place2),
            '%s: %s%s ÷ %s = %s ← %s، ومعها %s.' % (cntw(n2, P), how2, f(run2, 1), f(L, 2), f(run2 / L, 2), cntw(n02, P), spare)),
@@ -490,7 +521,7 @@ def answer_paragraph(F, c, cfg, num):
             facts[-1] = 'و' + facts[-1]
         s1 = '%s: %s' % (name, ('، '.join(facts) + '. ') if facts else '')
     look = []
-    surf = SURFACE.get(F['pattern'])
+    surf = 'سطح{h} ميتاليك لامع' if F.get('_metallic') else SURFACE.get(F['pattern'])
     if surf:
         look.append(surf.format(h=h))
     if c['cph']:
@@ -512,14 +543,23 @@ def answer_paragraph(F, c, cfg, num):
 
 
 def spec_rows(F, c, usage, num=None):
-    rows = [r for r in bp.spec_rows(F, c) if r[0] != 'النوع']      # «النوع» واحد في كل العائلة، مكانه طبقة العائلة
+    rows = []
+    for a, b in bp.spec_rows(F, c):
+        if a == 'النوع':                 # واحد في كل العائلة، مكانه طبقة العائلة
+            continue
+        b = b.replace(' (حسب وصف المنتج)', '')      # لا عبارات داخلية أمام العميل: القيمة تُكتب مباشرة
+        if a == 'النقشة / السطح' and F.get('_metallic'):
+            b = 'ميتاليك لامع'
+        rows.append((a, b))
     if num and num.get('partial'):
         rows.insert(1 if F['code'] else 0, ('العرض', '%s سم' % bp.fnum(F['single'] * 100, 1)))
+    if F.get('_unit') and not any(a == 'وحدة البيع' for a, _ in rows):
+        rows.append(('وحدة البيع', F['_unit']))
     u = usage.get(F['id'])
     if u and u[0] == 'داخلي' and u[1] in ('عالية', 'متوسطة'):
-        rows.append(('الاستخدام', 'داخلي (حسب وصف المنتج)'))
+        rows.append(('الاستخدام', 'داخلي'))
     elif u and u[1] == 'عالية' and u[0] in ('خارجي', 'الاثنان'):
-        rows.append(('الاستخدام', {'خارجي': 'خارجي', 'الاثنان': 'داخلي وخارجي'}[u[0]] + ' (حسب وصف المنتج)'))
+        rows.append(('الاستخدام', {'خارجي': 'خارجي', 'الاثنان': 'داخلي وخارجي'}[u[0]]))
     return rows
 
 
@@ -534,6 +574,13 @@ def tip_section(F, c):
         # واجهات وتكسيات خارجية: نصائح الألوان الداخلية (ستائر، أثاث) لا تنطبق
         a = bp.pick(types, pid, 'tip-t')
         b = bp.pick([t for t in types if t != a] or types, pid, 'tip-t2')
+        return 'تنسيق ' + this, bp.esc('%s. %s.' % (a, b))
+    if sub == 'partition':
+        a = bp.pick(PARTITION_TIPS, pid, 'tip-p')
+        b = bp.pick([t for t in PARTITION_TIPS if t != a], pid, 'tip-t')
+        hs = [t for t in col['h'] if not NOT_TRIM.search(t)] if col else []
+        if hs:
+            return head, bp.esc('%s %s. %s. %s.' % (c['cd'], bp.pick(hs, pid, 'tip-h'), a, b))
         return 'تنسيق ' + this, bp.esc('%s. %s.' % (a, b))
     if kind in ('linear', 'piece', 'post'):
         sents_ = []
@@ -556,6 +603,8 @@ def tip_section(F, c):
         return head, bp.esc('. '.join(sents_) + '.')
     if kind == 'floor':
         pool = bp.PATTERN_TIPS[pat] if pat in ('herringbone', 'wood') else bp.SURFACE_DEFAULT['floor']
+        if sub == 'carpet':               # بلاطات الموكيت لا «تُرصّ شرائح» ولا تُعامل كخشب
+            pool = CARPET_TIPS
         ptip = bp.pick(pool, pid, 'tip-p')
         if col:
             hs = [t for t in col['h'] if not NOT_FLOOR.search(t)] or col['h']
@@ -582,36 +631,38 @@ def tip_section(F, c):
 
 
 def faq_plain(F, c, cfg, kw, why):
-    """سؤالان نوعيان للمنتج بلا أرقام محسوبة: كيف تُحسب كميته، وما الذي ينقص بياناته."""
+    """سؤالان نوعيان للمنتج بلا أرقام محسوبة. لا يُذكر للعميل نقص البيانات ولا تعارضها؛ السبب يُسجَّل في ملف المراجعة فقط."""
     P = cfg['_P']
     w, fem = P[0], P[4]
-    calc = bp.A(bp.URL_CALC, 'حاسبة الكميات')
+    covered = F['sub'] in CALC_SUBS
     has_size = bool(F.get('dims') or c.get('post_h'))
-    if cfg['kind'] == 'piece':
+    if F['sub'] == 'partition':
+        a1 = ('عدد الأعمدة = طول الفاصل ÷ (عرض العمود + الفراغ بين عمودين). '
+              'أرسل طول الفاصل وارتفاع السقف لفريق تكسا على الواتساب ونحسب لك العدد.')
+    elif cfg['kind'] == 'piece':
         a1 = 'الحساب بالعدد لا بالمساحة: عُدّ المواضع التي %s فيها ال%s وأضف %s احتياط.' % (g(fem, 'سيُركَّب', 'ستُركَّب'), w, w)
         if F.get('dims') and c.get('size'):
             a1 += ' مقاس ال%s %s.' % (w, c['size'])
-    elif why == 'conflict':
-        a1 = 'المقاس مذكور بقيمتين مختلفتين في بيانات هذا المنتج. اسأل فريق تكسا عن المقاس الصحيح، ثم أدخله مع أبعاد مكانك في %s.' % calc
     else:
         what = 'طول' if cfg['kind'] == 'linear' else 'مقاس'
-        a1 = '%s ال%s غير مذكور في بيانات هذا المنتج. اطلبه من فريق تكسا، ثم أدخله مع أبعاد مكانك في %s.' % (what, w, calc)
+        a1 = 'تأكد من %s ال%s مع فريقنا قبل الطلب، ' % (what, w)
+        a1 += ('ثم أدخله مع أبعاد مكانك في %s.' % bp.A(bp.URL_CALC, 'حاسبة الكميات')) if covered else \
+            'ثم أرسل لنا أبعاد مكانك على الواتساب لنحسب لك العدد.'
     qa = [('كيف أحسب الكمية من %s؟' % bp.esc(kw), a1)]
     miss = []
-    if not has_size and why != 'conflict' and not (cfg['kind'] == 'piece' and re.search(r'\d\s*(?:سم|cm|×|x)', F['name'])):
-        miss.append('الطول' if cfg['kind'] == 'linear' else 'المقاس')
+    if not has_size and not (cfg['kind'] == 'piece' and F['sub'] != 'partition' and re.search(r'\d\s*(?:سم|cm|×|x)', F['name'])):
+        miss.append('مقطع العمود وارتفاعه' if F['sub'] == 'partition' else ('الطول' if cfg['kind'] == 'linear' else 'المقاس'))
     if not c['thick'] and F['kind'] in ('panel', 'slat', 'small', 'floor') and not re.search(r'\d\s*(?:ملم|مم)', F['name']):
         miss.append('السماكة')
     if not c['material']:
         miss.append('الخامة')
-    if not F.get('unit_sale'):
+    if not F.get('_unit') and not F.get('unit_sale'):
         miss.append('وحدة البيع')
     a2 = []
     if miss:
-        a2.append('اسأل عن %s، %s في بيانات هذا المنتج.' % (' و'.join(miss), 'فهو غير مذكور' if miss in (['المقاس'], ['الطول']) else 'فهي غير مذكورة'))
+        a2.append('تأكد مع فريقنا من %s قبل الطلب.' % ' و'.join(miss))
     a2.append(('قارن درجة %s بصورة واقعية في ضوء مكانك.' % c['cd']) if c['has_color'] else 'اطلب صورة واقعية للون قبل اعتماده.')
-    a2 = ' '.join(a2)
-    qa.append(('ما الذي أتأكد منه قبل طلب %s ال%s؟' % (g(fem, 'هذا', 'هذه'), w), a2))
+    qa.append(('ما الذي أتأكد منه قبل طلب %s ال%s؟' % (g(fem, 'هذا', 'هذه'), w), ' '.join(a2)))
     return qa
 
 
@@ -632,7 +683,7 @@ def link_line(F, kw, B, with_kw=True):
     return '%s تصفّح قسم %s.' % (near, root_a)
 
 
-def product_layer(F, c, cfg, kw, num, why, usage):
+def product_layer(F, c, cfg, kw, num, why, usage, kw_shared=False):
     P = cfg['_P']
     w, fem = P[0], P[4]
     this = '%s ال%s' % (g(fem, 'هذا', 'هذه'), w)
@@ -641,7 +692,8 @@ def product_layer(F, c, cfg, kw, num, why, usage):
         parts.append('<h2>%s</h2>' % (('أرقام ال%s %s' % (w, bp.esc(F['code']))) if F['code'] else 'أرقام ' + this))
         parts.append('<ul>\n' + '\n'.join('<li>%s</li>' % x for x in num['bullets']) + '\n</ul>')
     rows = spec_rows(F, c, usage, num)
-    parts.append('<h2>مواصفات %s</h2>' % bp.esc(kw))
+    # الكلمة المشتركة بين منتجين في العائلة: يُضاف الكود ليبقى العنوان الفرعي مختلفاً
+    parts.append('<h2>مواصفات %s%s</h2>' % (bp.esc(kw), (' – ' + bp.esc(F['code'])) if (kw_shared and F['code']) else ''))
     parts.append('<table class="txa-specs">\n<tbody>\n' + '\n'.join(
         '<tr><th scope="row">%s</th><td>%s</td></tr>' % (bp.esc(a), bp.esc(b)) for a, b in rows) + '\n</tbody>\n</table>')
     th, tp = tip_section(F, c)
@@ -669,6 +721,11 @@ def product_tests(o, B):
     m = bp.PRICE_RE.search(bare)
     if m:
         fails.append('سعر/عملة «%s»' % m.group(0))
+    m = INTERNAL.search(bare)
+    if m:
+        fails.append('عبارة داخلية «%s»' % m.group(0))
+    if o['F']['sub'] not in CALC_SUBS and ('quantity-calculator' in d or 'حاسب' in blob):
+        fails.append('إحالة إلى حاسبة الكميات في قسم لا تغطيه')
     hrefs = re.findall(r'href="([^"]+)"', d)
     bad = [h for h in hrefs if h not in B.allowed]
     if bad or not hrefs:
@@ -692,6 +749,67 @@ def product_tests(o, B):
     return fails
 
 
+MAT_LINE = re.compile(r'(?:الخامة|الخامه|المادة|الماده|مادة الصنع)\s*[:：]\s*([^\n.،؛]{2,40})')
+MAT_KNOWN = [(r'\bEPS\b', 'EPS'), (r'\bPU\b|بولي\s*يوريث[اي]ن', 'فوم بولي يوريثان (PU)'), (r'\bPS\b|بوليسترين|بولي\s*ستايرين', 'بوليسترين (PS)'),
+             (r'\bWPC\b', 'WPC'), (r'\bSPC\b', 'SPC'), (r'\bPVC\b', 'PVC'), (r'\bHDF\b', 'HDF'), (r'\bMDF\b', 'MDF'), (r'\bHPL\b', 'HPL')]
+UNIT_RES = [(re.compile(r'متر\s+مربع\s*[–-]\s*بدون\s+تركيب'), 'متر مربع (بدون تركيب)'),
+            (re.compile(r'السعر\s+(?:المعروض\s+)?لل?متر\s+المربع|بالمتر\s+المربع'), 'متر مربع'),
+            (re.compile(r'(?:يُ?باع|يسع[ّ]?ر\s+ويباع)\s+بالل?وح|السعر\s+لل[ّ]?وح'), 'لوح'),
+            (re.compile(r'(?:يُ?باع|يسع[ّ]?ر\s+ويباع)\s+بالقطعة|السعر\s+للقطعة'), 'قطعة'),
+            (re.compile(r'(?:يُ?باع)\s+بالل?فة|السعر\s+لل[ّ]?فة'), 'لفة'),
+            (re.compile(r'(?:يُ?باع)\s+بالكرتون'), 'كرتونة')]
+UNIT_MAP = {'لوح': 'لوح', 'اللوح': 'لوح', 'متر مربع': 'متر مربع', 'المتر المربع': 'متر مربع', 'قطعة': 'قطعة', 'القطعة': 'قطعة',
+            'لفة': 'لفة', 'اللفة': 'لفة', 'متر طولي': 'متر طولي', 'الصفيحة': 'صفيحة', 'صفيحة': 'صفيحة', 'كرتونة': 'كرتونة', 'الكرتونة': 'كرتونة'}
+
+
+def prepare(F):
+    """تصحيحات على بيانات المنتج قبل التوليد (مرة واحدة): النقشة من الاسم، الخامة، وحدة البيع. تعيد ملاحظات لملف المراجعة."""
+    if '_notes' in F:
+        return F['_notes']
+    notes = []
+    old = F.get('old_desc_text') or ''
+    nl = bp.norm_ar(F['label'])
+    # النقشة: الاسم يغلب القسم
+    if re.search(r'ميتا\s*ل[يـ]?ك|ميتالك|ميتاليك', F['label']):
+        if F['pattern'] != 'glossy':
+            notes.append('ملاحظة: النقشة صُحّحت من الاسم إلى «ميتاليك لامع»')
+        F['pattern'], F['_metallic'] = 'glossy', True
+    elif F['pattern'] in ('plain', None) and re.search(r'خشابي|خشبي|خشبيه', nl):
+        notes.append('ملاحظة: النقشة صُحّحت من الاسم إلى «مظهر خشبي»')
+        F['pattern'] = 'wood'
+    if F.get('material') == 'ستيل' and F['sub'] == 'shiplap':        # «استيل» في الاسم لون معدني لا خامة اللوح
+        F['material'] = None
+    mat_conflict = any('خام' in t for l, t in F['issues'] if l == 'conflict')
+    # الموكيت: الوجه والظهر خامتان مختلفتان
+    if F['sub'] == 'carpet' and re.search(r'بولي\s*بروب[ي]?ل[ي]?ن|\bPP\b', old) and re.search(r'PVC|كلوريد', old):
+        F['material'] = 'وجه بولي بروبيلين وظهر PVC'
+    elif F['sub'] == 'wood':
+        seen = {k for k, rx in (('WPC', r'WPC'), ('PVC', r'PVC'), ('PS', r'بوليسترين|بولي\s*ستايرين|\bPS\b')) if re.search(rx, old)}
+        if 'FDA' in old or len(seen) > 1:
+            if F.get('material'):
+                notes.append('تعارض: الخامة في الوصف الأصلي متناقضة (%s)؛ حُذف صف الخامة' % ' / '.join(sorted(seen) or ['—']))
+            else:
+                notes.append('ملاحظة: الخامة في الوصف الأصلي متناقضة أو غير محسومة (%s)؛ لا صف خامة' % ' / '.join(sorted(seen) or ['—']))
+            F['material'] = None
+    elif not F.get('material') and not mat_conflict:
+        m = MAT_LINE.search(bp.norm_digits(old))
+        if m:
+            hits = [name for rx, name in MAT_KNOWN if re.search(rx, m.group(1))]
+            if len(hits) == 1:
+                F['material'] = hits[0]
+    # وحدة البيع (بلا مبلغ) متى وُجدت في الوصف الأصلي
+    u = UNIT_MAP.get((F.get('unit_sale') or '').strip())
+    if not u:
+        got = [name for rx, name in UNIT_RES if rx.search(old)]
+        if got and (len(set(g_.split(' (')[0] for g_ in got)) == 1):
+            u = got[0]
+        elif got:
+            notes.append('تعارض: وحدة البيع مذكورة بأكثر من صيغة في الوصف الأصلي (%s)؛ لم تُكتب' % ' / '.join(sorted(set(got))))
+    F['_unit'] = u
+    F['_notes'] = notes
+    return notes
+
+
 def clean_kw(F, kw):
     """يصلح نهاية الكلمة المفتاحية حين تنقطع داخل مقاس: «… 120 ×» تُحذف، و«… 7» تُكمَّل بوحدتها «7 ملم». تبقى مقطعاً حرفياً من الاسم."""
     lab, toks = F['label'].split(), kw.split()
@@ -707,6 +825,9 @@ def clean_kw(F, kw):
             n += 1
         elif lab[n] in ('×', 'x', 'X', '*'):
             n -= 1
+    if n < 3:                        # كلمة من كلمتين لا تميّز المنتج (مثل «خشب خارجي»): تُطال من الاسم نفسه حتى 6 كلمات
+        while n < min(6, len(lab)) and len(' '.join(lab[:n + 1])) <= bp.KW_MAX_CHARS and not re.search(r'\d', lab[n]):
+            n += 1
     new = ' '.join(lab[:n])
     return new if (new != kw and len(new) <= bp.KW_MAX_CHARS + 4 and new in F['name']) else kw
 
@@ -719,7 +840,7 @@ def build(B, family_id, fdir=FAMILY_DIR):
     cfg = load_cfg(family_id, fdir)
     family_html = open(os.path.join(fdir, family_id + '.html'), encoding='utf-8').read().strip()
     ftext = bp.clean_text(family_html)
-    m = FORBIDDEN.search(ftext) or bp.PRICE_RE.search(ftext)
+    m = FORBIDDEN.search(ftext) or bp.PRICE_RE.search(ftext) or INTERNAL.search(ftext)
     if m:
         raise ValueError('طبقة العائلة تحوي كلمة محظورة «%s»: …%s…' % (m.group(0), ftext[max(0, m.start() - 40):m.end() + 40].replace('\n', ' ')))
     bad = [h for h in re.findall(r'href="([^"]+)"', family_html) if h not in B.allowed]
@@ -729,6 +850,12 @@ def build(B, family_id, fdir=FAMILY_DIR):
     outs, review = [], []
     used_titles, used_metas = set(), set()
     tag = {'conflict': 'تعارض', 'missing': 'نقص', 'note': 'ملاحظة'}
+    kw_n = Counter()
+    for pid in fam['product_ids']:
+        F = B.byF.get(pid)
+        if F is not None and not F['excluded'] and pid not in bp.MANUAL_IDS:
+            k0 = bp.rm_keyword(F)
+            kw_n[k0 if cfg.get('kw_rule') == 'v5' else clean_kw(F, k0)] += 1
     for pid in sorted(fam['product_ids']):
         F = B.byF.get(pid)
         if F is None:
@@ -740,9 +867,8 @@ def build(B, family_id, fdir=FAMILY_DIR):
         if F['excluded']:
             review.append((pid, F['name'], F['url'], 'مستثنى: ' + F['excluded']))
             continue
+        notes = prepare(F)
         c = bp.build_context(F)
-        if c['material'] == 'ستيل' and F['sub'] == 'shiplap':            # «استيل» في الاسم لون معدني لا خامة اللوح
-            c['material'] = ''
         P = cfg['_P']
         if P[1] and c['u'] != P[0]:       # اسم القطعة المتفق عليه للعائلة في الجدول والوصف التعريفي أيضاً
             c.update(u=P[0], U='ال' + P[0], uacc=P[3], upl=P[2], Upl='ال' + P[2], fem=P[4],
@@ -751,7 +877,7 @@ def build(B, family_id, fdir=FAMILY_DIR):
         if cfg.get('kw_rule') != 'v5':        # sb-5mm مطبَّق بكلمات v5 كما هي؛ بقية العائلات تُصلَح نهاية الكلمة المقطوعة
             kw = clean_kw(F, kw)
         num, why = numbers(F, c, cfg, kw)
-        iss = ['%s: %s' % (tag[l], t) for l, t in sorted(F['issues'], key=lambda t: ('conflict', 'missing', 'note').index(t[0]))]
+        iss = ['%s: %s' % (tag[l], t) for l, t in sorted(F['issues'], key=lambda t: ('conflict', 'missing', 'note').index(t[0]))] + notes
         if not num and cfg['kind'] != 'piece':
             if skip_missing:
                 review.append((pid, F['name'], F['url'], 'لم يُولَّد (missing_policy=skip): ' + (' | '.join(iss) or 'لا مقاس')))
@@ -764,7 +890,7 @@ def build(B, family_id, fdir=FAMILY_DIR):
             c.update(calc=bool(c.get('calc')), qty_short=num['qty_short'], qty_n=num['qty_n'], n=num['qty_n'])
         else:
             c.pop('qty_short', None)
-        layer, n_rows = product_layer(F, c, cfg, kw, num, why, B.usage)
+        layer, n_rows = product_layer(F, c, cfg, kw, num, why, B.usage, kw_shared=kw_n[kw] > 1)
         sep = '<h2>%s: %s</h2>' % (bp.esc(kw), bp.esc(cfg['guide_title'].strip()))
         tail = '<p>%s</p>' % link_line(F, kw, B)
         desc = '\n'.join([layer, sep, family_html, tail, bp.MARK])
@@ -774,6 +900,9 @@ def build(B, family_id, fdir=FAMILY_DIR):
             desc = '\n'.join([layer, sep, family_html, tail, bp.MARK])
         title = bp.build_title(F, c, kw, used_titles)
         meta = re.sub(r' {2,}', ' ', bp.build_meta(F, c, kw, used_metas))
+        if F['sub'] not in CALC_SUBS:          # لا إحالة إلى الحاسبة في أقسام لا تغطيها
+            for a_, b_ in META_NO_CALC:
+                meta = meta.replace(a_, b_)
         excerpt = re.sub(r' {2,}', ' ', bp.tidy(bp.build_excerpt(F, c, kw)))
         text = bp.clean_text(desc)
         nw = len(text.split())
@@ -884,11 +1013,72 @@ RM_KEYS = ['الكلمة في العنوان', 'العنوان يبدأ بالك
            'الكلمة في الرابط (slug)']
 
 
+def roll_selftest():
+    """قاعدة المالك لورق الجدران = قاعدة المقالات: بالشرائح، جدار 5 م = رول واحد، غرفة 5×6 = 5 رولات، بلا خصم الأبواب."""
+    L, W = 15.6, 1.06
+    spr = int(math.floor(L / bp.WALL_H + 1e-9))
+    assert spr == 5
+    assert ceil(ceil(5 / W) / spr) == 1
+    assert ceil(ceil(2 * (5 + 6) / W) / spr) == 5
+    assert ceil(ceil(2 * (3 + 4) / W) / spr) == 3 and ceil(ceil(2 * (4 + 5) / W) / spr) == 4
+
+
+def global_stats(all_outs, stats, failed):
+    """أرقام مجمّعة على كل ما كُتب، بطريقة التدقيق الأول: جمل >40 حرفاً بعد التقسيم على [.؟!\\n]، ومكرر = يظهر في ≥20 منتجاً."""
+    N = len(all_outs)
+    new = [bp.clean_text(o['description']) for o in all_outs]
+    old = [o['F'].get('old_desc_text') or '' for o in all_outs]
+    dn, do = bp.dup_stats(new, 20), bp.dup_stats(old, 20)
+
+    def share(ss_list):
+        df = Counter()
+        per = [bp.sentences(t) for t in ss_list]
+        for ss in per:
+            for x in set(ss):
+                df[x] += 1
+        tot = sum(len(ss) for ss in per)
+        return round(100.0 * sum(1 for ss in per for x in ss if df[x] >= 20) / max(1, tot), 1)
+    forb = {}
+    for rx in FORBIDDEN_RES:
+        n = 0
+        for o, t in zip(all_outs, new):
+            blob = (t + '\n' + o['title'] + '\n' + o['meta'] + '\n' + o['excerpt']).replace(o['name'], ' ').replace(bp.clean_name(o['name']), ' ').replace(o['kw'], ' ')
+            n += sum(1 for m in rx.finditer(blob) if not NEGATED.search(blob[max(0, m.start() - 40):m.start()]))
+        forb[rx.pattern[:60]] = n
+    pct = lambda n: round(100.0 * n / max(1, N), 1)
+    tw = sorted(o['words'] for o in all_outs)
+    rm = {k: '%d/%d' % (sum(s.get('checks_n', {}).get(k, 0) for s in stats), N) for k in RM_KEYS + ['الكثافة 0.6–1.2%']}
+    return dict(
+        products_written=N, families_built=len(stats), families_failed=[f for f, _ in failed],
+        with_numbers=sum(1 for o in all_outs if o['has_num']), width_only_numbers=sum(1 for o in all_outs if o['partial']),
+        without_numbers=sum(1 for o in all_outs if not o['has_num']),
+        words_ge600=sum(1 for x in tw if x >= 600), words_median=statistics.median(tw) if tw else 0,
+        dup_sentences_ge20_products=dict(
+            method='جمل >40 حرفاً بعد التقسيم على [.؟!\\n]؛ مكررة = تظهر حرفياً في ≥20 منتجاً',
+            new_per_product_median_pct=round(dn['median'] * 100, 1), new_per_product_mean_pct=round(dn['mean'] * 100, 1),
+            new_share_of_all_sentences_pct=share(new),
+            original_per_product_median_pct=round(do['median'] * 100, 1), original_per_product_mean_pct=round(do['mean'] * 100, 1),
+            original_share_of_all_sentences_pct=share(old)),
+        has_spec_table_pct=pct(sum(1 for o in all_outs if 'class="txa-specs"' in o['description'])),
+        has_questions_pct=pct(sum(1 for o in all_outs if o['layer'].count('<h3>') >= 2)),
+        has_internal_link_pct=pct(sum(1 for o in all_outs if 'href="https://texadecore.store/' in o['description'])),
+        has_numbers_section_pct=pct(sum(1 for o in all_outs if o['has_num'])),
+        rank_math_text_checks=rm, forbidden_counts=forb,
+        internal_phrases=sum(1 for t in new if INTERNAL.search(t)),
+        calculator_link_in_uncovered=sum(1 for o in all_outs if o['F']['sub'] not in CALC_SUBS and 'quantity-calculator' in o['description']),
+        per_family=[dict(family=s['family'], kind=s['kind'], family_count=s['family_count'], written=s['generated'],
+                         with_numbers=s.get('with_numbers', 0), without_numbers=s.get('without_numbers', 0),
+                         words_median=s.get('total_words', {}).get('median'), words_ge600=s.get('total_words', {}).get('ge600'),
+                         family_layer_words=s['family_layer_words'], density=s.get('density'),
+                         specific_sentences_layer_median_pct=s.get('specific_sentences_layer_median_pct')) for s in stats])
+
+
 def run_all(B, fdir, out_dir, report_path):
+    roll_selftest()
     have = sorted(f[:-5] for f in os.listdir(fdir) if f.endswith('.json') and os.path.exists(os.path.join(fdir, f[:-5] + '.html')))
     orphans = sorted(set(f.rsplit('.', 1)[0] for f in os.listdir(fdir) if f.endswith(('.json', '.html'))) - set(have))
     os.makedirs(out_dir, exist_ok=True)
-    stats, failed, review, titles = [], [], [], Counter()
+    stats, failed, review, titles, all_outs = [], [], [], Counter(), []
     for fid in have:
         try:
             res = build(B, fid, fdir)
@@ -899,6 +1089,7 @@ def run_all(B, fdir, out_dir, report_path):
         st = measure(res, B)
         st['needs_confirmation'] = res['cfg'].get('needs_confirmation') or []
         stats.append(st)
+        all_outs += res['outs']
         for o in res['outs']:
             titles[o['title']] += 1
         review += [(fid,) + r for r in res['review']]
@@ -957,6 +1148,9 @@ def run_all(B, fdir, out_dir, report_path):
         L += ['## ملفات ناقصة الزوج (html بلا json أو العكس)', '', '، '.join('`%s`' % m for m in orphans), '']
     with open(report_path, 'w', encoding='utf-8') as fh:
         fh.write('\n'.join(L) + '\n')
+    gs = global_stats(all_outs, stats, failed)
+    with open(os.path.join(out_dir, 'v6-build-stats.json'), 'w', encoding='utf-8') as fh:
+        json.dump(gs, fh, ensure_ascii=False, indent=1)
     return stats, failed, review, missing
 
 

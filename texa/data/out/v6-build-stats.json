@@ -1,0 +1,1333 @@
+{
+ "products_written": 4178,
+ "families_built": 71,
+ "families_failed": [],
+ "with_numbers": 3197,
+ "width_only_numbers": 174,
+ "without_numbers": 981,
+ "words_ge600": 2716,
+ "words_median": 648.0,
+ "dup_sentences_ge20_products": {
+  "method": "جمل >40 حرفاً بعد التقسيم على [.؟!\\n]؛ مكررة = تظهر حرفياً في ≥20 منتجاً",
+  "new_per_product_median_pct": 84.8,
+  "new_per_product_mean_pct": 80.7,
+  "new_share_of_all_sentences_pct": 81.2,
+  "original_per_product_median_pct": 71.4,
+  "original_per_product_mean_pct": 63.0,
+  "original_share_of_all_sentences_pct": 63.3
+ },
+ "has_spec_table_pct": 100.0,
+ "has_questions_pct": 100.0,
+ "has_internal_link_pct": 100.0,
+ "has_numbers_section_pct": 76.5,
+ "rank_math_text_checks": {
+  "الكلمة في العنوان": "4178/4178",
+  "العنوان يبدأ بالكلمة": "4178/4178",
+  "طول العنوان ≤60": "4178/4178",
+  "الكلمة في الوصف التعريفي": "4178/4178",
+  "طول الوصف التعريفي 120–160": "4178/4178",
+  "المحتوى يبدأ بالكلمة حرفياً": "4178/4178",
+  "الكلمة في عنوان فرعي H2": "4178/4178",
+  "المحتوى ≥600 كلمة": "2716/4178",
+  "الكلمة في النص البديل للصورة": "4178/4178",
+  "الكلمة في الرابط (slug)": "3266/4178",
+  "الكثافة 0.6–1.2%": "4178/4178"
+ },
+ "forbidden_counts": {
+  "(?:مقاوم\\w*|مقاومة|يقاوم|تقاوم|ضد)\\s+(?:لل|ال)?(?:حريق|حرائق": 0,
+  "لا\\s+[يت]شتعل|غير\\s+قابل\\w*\\s+للاشتعال|مضاد\\w*\\s+لل(?:حريق|ا": 0,
+  "(?:شهاد(?:ة|ات)|معتمد\\w*|اعتماد)\\s+(?:من\\s+)?(?:FDA|ISO|SGS|": 0,
+  "FDA": 0,
+  "آمن\\w*\\s+(?:تمام[اًً]+\\s+)?(?:على\\s+(?:ال)?(?:أطفال|اطفال|صح": 0,
+  "(?:آمن|مناسب|ملائم|يناسب|تناسب|مثالي)\\w*[^.\\n؟!]{0,45}(?:حسا": 0,
+  "(?<![ء-ي])(?:و|ال|وال)?صحي(?:ة|اً|ًا|ا)?(?![ء-ي])": 0,
+  "(?:مقاوم\\w*|مقاومة|يقاوم|تقاوم|ضد)\\s+(?:لل|ال)?(?:بهتان|نمل|": 0,
+  "ثبات\\s+(?:لوني|اللون|لون|الألوان)|مضاد\\w*\\s+لل(?:بكتيريا|جرا": 0,
+  "(?:مقاوم\\w*|مقاومة|يقاوم|حماية|ضد)\\s+(?:من\\s+)?(?:لل|ال)?(?:": 0,
+  "خال(?:ٍ|ي|ية)?\\s+من\\s+(?:ال)?فورمالد\\w+|صديق\\w*\\s+للبيئة": 0,
+  "(?<![ء-ي])(?:ال|لل|بال|وال)?ربو(?![ء-ي])": 0,
+  "(?<![ء-ي])(?:و|ب|وب)?(?:ال)?ضمان(?![ء-ي])": 0
+ },
+ "internal_phrases": 0,
+ "calculator_link_in_uncovered": 0,
+ "per_family": [
+  {
+   "family": "bk-baroque",
+   "kind": "panel",
+   "family_count": 19,
+   "written": 18,
+   "with_numbers": 18,
+   "without_numbers": 0,
+   "words_median": 638.5,
+   "words_ge600": 18,
+   "family_layer_words": 382,
+   "density": {
+    "min": 0.78,
+    "median": 0.78,
+    "max": 0.8,
+    "in_range": 18
+   },
+   "specific_sentences_layer_median_pct": 39.3
+  },
+  {
+   "family": "bk-narrow",
+   "kind": "panel",
+   "family_count": 8,
+   "written": 8,
+   "with_numbers": 8,
+   "without_numbers": 0,
+   "words_median": 568.5,
+   "words_ge600": 0,
+   "family_layer_words": 316,
+   "density": {
+    "min": 0.87,
+    "median": 0.88,
+    "max": 0.89,
+    "in_range": 8
+   },
+   "specific_sentences_layer_median_pct": 48.3
+  },
+  {
+   "family": "bk-regular",
+   "kind": "panel",
+   "family_count": 46,
+   "written": 46,
+   "with_numbers": 46,
+   "without_numbers": 0,
+   "words_median": 613.0,
+   "words_ge600": 46,
+   "family_layer_words": 373,
+   "density": {
+    "min": 0.79,
+    "median": 0.82,
+    "max": 0.83,
+    "in_range": 46
+   },
+   "specific_sentences_layer_median_pct": 66.7
+  },
+  {
+   "family": "bk-vintage",
+   "kind": "panel",
+   "family_count": 13,
+   "written": 13,
+   "with_numbers": 13,
+   "without_numbers": 0,
+   "words_median": 591,
+   "words_ge600": 0,
+   "family_layer_words": 337,
+   "density": {
+    "min": 0.84,
+    "median": 0.85,
+    "max": 0.86,
+    "in_range": 13
+   },
+   "specific_sentences_layer_median_pct": 50.0
+  },
+  {
+   "family": "cp-strip",
+   "kind": "tile",
+   "family_count": 38,
+   "written": 38,
+   "with_numbers": 38,
+   "without_numbers": 0,
+   "words_median": 627.5,
+   "words_ge600": 35,
+   "family_layer_words": 379,
+   "density": {
+    "min": 0.77,
+    "median": 0.8,
+    "max": 0.86,
+    "in_range": 38
+   },
+   "specific_sentences_layer_median_pct": 31.6
+  },
+  {
+   "family": "cp-tile",
+   "kind": "tile",
+   "family_count": 4,
+   "written": 4,
+   "with_numbers": 4,
+   "without_numbers": 0,
+   "words_median": 560.5,
+   "words_ge600": 0,
+   "family_layer_words": 303,
+   "density": {
+    "min": 0.89,
+    "median": 0.89,
+    "max": 0.9,
+    "in_range": 4
+   },
+   "specific_sentences_layer_median_pct": 61.6
+  },
+  {
+   "family": "cs-clay",
+   "kind": "panel",
+   "family_count": 87,
+   "written": 87,
+   "with_numbers": 44,
+   "without_numbers": 43,
+   "words_median": 559,
+   "words_ge600": 9,
+   "family_layer_words": 368,
+   "density": {
+    "min": 0.82,
+    "median": 0.89,
+    "max": 1.0,
+    "in_range": 87
+   },
+   "specific_sentences_layer_median_pct": 66.7
+  },
+  {
+   "family": "cs-stone",
+   "kind": "panel",
+   "family_count": 43,
+   "written": 43,
+   "with_numbers": 43,
+   "without_numbers": 0,
+   "words_median": 572,
+   "words_ge600": 0,
+   "family_layer_words": 351,
+   "density": {
+    "min": 0.87,
+    "median": 0.87,
+    "max": 0.88,
+    "in_range": 43
+   },
+   "specific_sentences_layer_median_pct": 50.0
+  },
+  {
+   "family": "ex-hpl",
+   "kind": "panel",
+   "family_count": 30,
+   "written": 30,
+   "with_numbers": 30,
+   "without_numbers": 0,
+   "words_median": 627.0,
+   "words_ge600": 30,
+   "family_layer_words": 390,
+   "density": {
+    "min": 0.78,
+    "median": 0.8,
+    "max": 0.81,
+    "in_range": 30
+   },
+   "specific_sentences_layer_median_pct": 42.9
+  },
+  {
+   "family": "ex-wpc-deck",
+   "kind": "plank_sqm",
+   "family_count": 7,
+   "written": 7,
+   "with_numbers": 7,
+   "without_numbers": 0,
+   "words_median": 555,
+   "words_ge600": 0,
+   "family_layer_words": 315,
+   "density": {
+    "min": 0.89,
+    "median": 0.9,
+    "max": 0.91,
+    "in_range": 7
+   },
+   "specific_sentences_layer_median_pct": 37.5
+  },
+  {
+   "family": "ex-wpc-wall",
+   "kind": "linear",
+   "family_count": 22,
+   "written": 22,
+   "with_numbers": 21,
+   "without_numbers": 1,
+   "words_median": 644.0,
+   "words_ge600": 21,
+   "family_layer_words": 382,
+   "density": {
+    "min": 0.76,
+    "median": 0.78,
+    "max": 0.98,
+    "in_range": 22
+   },
+   "specific_sentences_layer_median_pct": 52.8
+  },
+  {
+   "family": "mb-3d",
+   "kind": "panel",
+   "family_count": 58,
+   "written": 57,
+   "with_numbers": 57,
+   "without_numbers": 0,
+   "words_median": 667,
+   "words_ge600": 57,
+   "family_layer_words": 382,
+   "density": {
+    "min": 0.89,
+    "median": 0.9,
+    "max": 0.92,
+    "in_range": 57
+   },
+   "specific_sentences_layer_median_pct": 47.1
+  },
+  {
+   "family": "mb-concrete",
+   "kind": "panel",
+   "family_count": 66,
+   "written": 66,
+   "with_numbers": 47,
+   "without_numbers": 19,
+   "words_median": 635.5,
+   "words_ge600": 47,
+   "family_layer_words": 376,
+   "density": {
+    "min": 0.75,
+    "median": 0.79,
+    "max": 0.97,
+    "in_range": 66
+   },
+   "specific_sentences_layer_median_pct": 66.7
+  },
+  {
+   "family": "mb-fabric",
+   "kind": "panel",
+   "family_count": 5,
+   "written": 5,
+   "with_numbers": 5,
+   "without_numbers": 0,
+   "words_median": 572,
+   "words_ge600": 0,
+   "family_layer_words": 308,
+   "density": {
+    "min": 1.01,
+    "median": 1.05,
+    "max": 1.06,
+    "in_range": 5
+   },
+   "specific_sentences_layer_median_pct": 73.3
+  },
+  {
+   "family": "mb-gloss",
+   "kind": "panel",
+   "family_count": 147,
+   "written": 146,
+   "with_numbers": 76,
+   "without_numbers": 70,
+   "words_median": 649.0,
+   "words_ge600": 76,
+   "family_layer_words": 400,
+   "density": {
+    "min": 0.73,
+    "median": 0.89,
+    "max": 0.94,
+    "in_range": 146
+   },
+   "specific_sentences_layer_median_pct": 73.3
+  },
+  {
+   "family": "mb-openbook",
+   "kind": "panel",
+   "family_count": 9,
+   "written": 9,
+   "with_numbers": 9,
+   "without_numbers": 0,
+   "words_median": 601,
+   "words_ge600": 5,
+   "family_layer_words": 325,
+   "density": {
+    "min": 0.82,
+    "median": 0.83,
+    "max": 0.88,
+    "in_range": 9
+   },
+   "specific_sentences_layer_median_pct": 52.6
+  },
+  {
+   "family": "mb-print",
+   "kind": "panel",
+   "family_count": 22,
+   "written": 22,
+   "with_numbers": 0,
+   "without_numbers": 22,
+   "words_median": 539.5,
+   "words_ge600": 0,
+   "family_layer_words": 375,
+   "density": {
+    "min": 0.9,
+    "median": 0.93,
+    "max": 0.98,
+    "in_range": 22
+   },
+   "specific_sentences_layer_median_pct": 62.6
+  },
+  {
+   "family": "mb-resin",
+   "kind": "panel",
+   "family_count": 8,
+   "written": 8,
+   "with_numbers": 7,
+   "without_numbers": 1,
+   "words_median": 567.0,
+   "words_ge600": 0,
+   "family_layer_words": 299,
+   "density": {
+    "min": 0.87,
+    "median": 0.88,
+    "max": 1.09,
+    "in_range": 8
+   },
+   "specific_sentences_layer_median_pct": 57.2
+  },
+  {
+   "family": "mb-stone",
+   "kind": "panel",
+   "family_count": 20,
+   "written": 20,
+   "with_numbers": 20,
+   "without_numbers": 0,
+   "words_median": 643.0,
+   "words_ge600": 20,
+   "family_layer_words": 376,
+   "density": {
+    "min": 0.92,
+    "median": 0.93,
+    "max": 0.96,
+    "in_range": 20
+   },
+   "specific_sentences_layer_median_pct": 43.8
+  },
+  {
+   "family": "mb-veneer",
+   "kind": "panel",
+   "family_count": 13,
+   "written": 13,
+   "with_numbers": 0,
+   "without_numbers": 13,
+   "words_median": 449,
+   "words_ge600": 0,
+   "family_layer_words": 284,
+   "density": {
+    "min": 1.09,
+    "median": 1.11,
+    "max": 1.14,
+    "in_range": 13
+   },
+   "specific_sentences_layer_median_pct": 53.8
+  },
+  {
+   "family": "mo-capital",
+   "kind": "piece",
+   "family_count": 8,
+   "written": 8,
+   "with_numbers": 0,
+   "without_numbers": 8,
+   "words_median": 480.0,
+   "words_ge600": 0,
+   "family_layer_words": 353,
+   "density": {
+    "min": 1.03,
+    "median": 1.04,
+    "max": 1.05,
+    "in_range": 8
+   },
+   "specific_sentences_layer_median_pct": 22.2
+  },
+  {
+   "family": "mo-ceil-corner",
+   "kind": "piece",
+   "family_count": 15,
+   "written": 15,
+   "with_numbers": 0,
+   "without_numbers": 15,
+   "words_median": 498,
+   "words_ge600": 0,
+   "family_layer_words": 345,
+   "density": {
+    "min": 1.0,
+    "median": 1.0,
+    "max": 1.01,
+    "in_range": 15
+   },
+   "specific_sentences_layer_median_pct": 18.2
+  },
+  {
+   "family": "mo-corner",
+   "kind": "piece",
+   "family_count": 19,
+   "written": 19,
+   "with_numbers": 0,
+   "without_numbers": 19,
+   "words_median": 529,
+   "words_ge600": 0,
+   "family_layer_words": 385,
+   "density": {
+    "min": 0.94,
+    "median": 0.95,
+    "max": 1.01,
+    "in_range": 19
+   },
+   "specific_sentences_layer_median_pct": 18.2
+  },
+  {
+   "family": "mo-cornice",
+   "kind": "linear",
+   "family_count": 44,
+   "written": 44,
+   "with_numbers": 15,
+   "without_numbers": 29,
+   "words_median": 538.5,
+   "words_ge600": 0,
+   "family_layer_words": 393,
+   "density": {
+    "min": 0.84,
+    "median": 0.93,
+    "max": 0.97,
+    "in_range": 44
+   },
+   "specific_sentences_layer_median_pct": 27.3
+  },
+  {
+   "family": "mo-ornament",
+   "kind": "piece",
+   "family_count": 26,
+   "written": 26,
+   "with_numbers": 0,
+   "without_numbers": 26,
+   "words_median": 538.0,
+   "words_ge600": 0,
+   "family_layer_words": 385,
+   "density": {
+    "min": 0.91,
+    "median": 0.93,
+    "max": 0.97,
+    "in_range": 26
+   },
+   "specific_sentences_layer_median_pct": 27.3
+  },
+  {
+   "family": "mo-panel",
+   "kind": "linear",
+   "family_count": 67,
+   "written": 67,
+   "with_numbers": 17,
+   "without_numbers": 50,
+   "words_median": 539,
+   "words_ge600": 0,
+   "family_layer_words": 399,
+   "density": {
+    "min": 0.84,
+    "median": 0.93,
+    "max": 0.96,
+    "in_range": 67
+   },
+   "specific_sentences_layer_median_pct": 30.0
+  },
+  {
+   "family": "mo-sticks",
+   "kind": "linear",
+   "family_count": 5,
+   "written": 5,
+   "with_numbers": 5,
+   "without_numbers": 0,
+   "words_median": 522,
+   "words_ge600": 0,
+   "family_layer_words": 335,
+   "density": {
+    "min": 0.95,
+    "median": 0.96,
+    "max": 0.96,
+    "in_range": 5
+   },
+   "specific_sentences_layer_median_pct": 50.0
+  },
+  {
+   "family": "pq-acc",
+   "kind": "piece",
+   "family_count": 12,
+   "written": 12,
+   "with_numbers": 0,
+   "without_numbers": 12,
+   "words_median": 480.0,
+   "words_ge600": 0,
+   "family_layer_words": 357,
+   "density": {
+    "min": 1.03,
+    "median": 1.04,
+    "max": 1.05,
+    "in_range": 12
+   },
+   "specific_sentences_layer_median_pct": 28.6
+  },
+  {
+   "family": "pq-belgian",
+   "kind": "plank_sqm",
+   "family_count": 23,
+   "written": 23,
+   "with_numbers": 0,
+   "without_numbers": 23,
+   "words_median": 547,
+   "words_ge600": 0,
+   "family_layer_words": 379,
+   "density": {
+    "min": 0.88,
+    "median": 0.91,
+    "max": 0.95,
+    "in_range": 23
+   },
+   "specific_sentences_layer_median_pct": 54.5
+  },
+  {
+   "family": "pq-cn-5",
+   "kind": "plank_sqm",
+   "family_count": 21,
+   "written": 21,
+   "with_numbers": 21,
+   "without_numbers": 0,
+   "words_median": 627,
+   "words_ge600": 21,
+   "family_layer_words": 361,
+   "density": {
+    "min": 0.78,
+    "median": 0.8,
+    "max": 0.82,
+    "in_range": 21
+   },
+   "specific_sentences_layer_median_pct": 43.8
+  },
+  {
+   "family": "pq-cn-8",
+   "kind": "plank_sqm",
+   "family_count": 111,
+   "written": 110,
+   "with_numbers": 65,
+   "without_numbers": 45,
+   "words_median": 629.0,
+   "words_ge600": 65,
+   "family_layer_words": 402,
+   "density": {
+    "min": 0.74,
+    "median": 0.79,
+    "max": 0.91,
+    "in_range": 110
+   },
+   "specific_sentences_layer_median_pct": 70.6
+  },
+  {
+   "family": "pq-cn-other",
+   "kind": "plank_sqm",
+   "family_count": 12,
+   "written": 12,
+   "with_numbers": 3,
+   "without_numbers": 9,
+   "words_median": 479.0,
+   "words_ge600": 0,
+   "family_layer_words": 312,
+   "density": {
+    "min": 0.91,
+    "median": 1.04,
+    "max": 1.07,
+    "in_range": 12
+   },
+   "specific_sentences_layer_median_pct": 36.4
+  },
+  {
+   "family": "pq-german",
+   "kind": "plank_sqm",
+   "family_count": 47,
+   "written": 47,
+   "with_numbers": 22,
+   "without_numbers": 25,
+   "words_median": 561,
+   "words_ge600": 22,
+   "family_layer_words": 394,
+   "density": {
+    "min": 0.75,
+    "median": 0.89,
+    "max": 0.93,
+    "in_range": 47
+   },
+   "specific_sentences_layer_median_pct": 54.5
+  },
+  {
+   "family": "pq-herringbone-lam",
+   "kind": "plank_sqm",
+   "family_count": 32,
+   "written": 32,
+   "with_numbers": 7,
+   "without_numbers": 25,
+   "words_median": 533.5,
+   "words_ge600": 7,
+   "family_layer_words": 376,
+   "density": {
+    "min": 0.78,
+    "median": 0.94,
+    "max": 0.96,
+    "in_range": 32
+   },
+   "specific_sentences_layer_median_pct": 50.0
+  },
+  {
+   "family": "pq-spc-herringbone",
+   "kind": "plank_sqm",
+   "family_count": 35,
+   "written": 35,
+   "with_numbers": 16,
+   "without_numbers": 19,
+   "words_median": 545,
+   "words_ge600": 14,
+   "family_layer_words": 369,
+   "density": {
+    "min": 0.77,
+    "median": 0.92,
+    "max": 0.96,
+    "in_range": 35
+   },
+   "specific_sentences_layer_median_pct": 64.7
+  },
+  {
+   "family": "pq-spc-plank-4mm",
+   "kind": "plank_sqm",
+   "family_count": 56,
+   "written": 56,
+   "with_numbers": 32,
+   "without_numbers": 24,
+   "words_median": 647.5,
+   "words_ge600": 32,
+   "family_layer_words": 379,
+   "density": {
+    "min": 0.76,
+    "median": 0.77,
+    "max": 0.94,
+    "in_range": 56
+   },
+   "specific_sentences_layer_median_pct": 63.6
+  },
+  {
+   "family": "pq-spc-plank-5mm",
+   "kind": "plank_sqm",
+   "family_count": 67,
+   "written": 66,
+   "with_numbers": 18,
+   "without_numbers": 48,
+   "words_median": 568.0,
+   "words_ge600": 18,
+   "family_layer_words": 389,
+   "density": {
+    "min": 0.75,
+    "median": 0.88,
+    "max": 0.95,
+    "in_range": 66
+   },
+   "specific_sentences_layer_median_pct": 63.6
+  },
+  {
+   "family": "pq-spc-plank-8mm",
+   "kind": "plank_sqm",
+   "family_count": 3,
+   "written": 3,
+   "with_numbers": 2,
+   "without_numbers": 1,
+   "words_median": 532,
+   "words_ge600": 0,
+   "family_layer_words": 297,
+   "density": {
+    "min": 0.93,
+    "median": 0.94,
+    "max": 1.08,
+    "in_range": 3
+   },
+   "specific_sentences_layer_median_pct": 86.7
+  },
+  {
+   "family": "pq-spc-plank-na",
+   "kind": "plank_sqm",
+   "family_count": 37,
+   "written": 36,
+   "with_numbers": 3,
+   "without_numbers": 33,
+   "words_median": 540.0,
+   "words_ge600": 3,
+   "family_layer_words": 372,
+   "density": {
+    "min": 0.8,
+    "median": 0.93,
+    "max": 0.94,
+    "in_range": 36
+   },
+   "specific_sentences_layer_median_pct": 45.5
+  },
+  {
+   "family": "pq-spc-tile",
+   "kind": "tile",
+   "family_count": 21,
+   "written": 20,
+   "with_numbers": 9,
+   "without_numbers": 11,
+   "words_median": 559.5,
+   "words_ge600": 9,
+   "family_layer_words": 375,
+   "density": {
+    "min": 0.76,
+    "median": 0.89,
+    "max": 0.97,
+    "in_range": 20
+   },
+   "specific_sentences_layer_median_pct": 46.9
+  },
+  {
+   "family": "pq-turkish",
+   "kind": "plank_sqm",
+   "family_count": 9,
+   "written": 9,
+   "with_numbers": 0,
+   "without_numbers": 9,
+   "words_median": 463,
+   "words_ge600": 0,
+   "family_layer_words": 294,
+   "density": {
+    "min": 1.08,
+    "median": 1.08,
+    "max": 1.1,
+    "in_range": 9
+   },
+   "specific_sentences_layer_median_pct": 36.4
+  },
+  {
+   "family": "pt-inner",
+   "kind": "piece",
+   "family_count": 10,
+   "written": 10,
+   "with_numbers": 0,
+   "without_numbers": 10,
+   "words_median": 473.5,
+   "words_ge600": 0,
+   "family_layer_words": 308,
+   "density": {
+    "min": 1.02,
+    "median": 1.06,
+    "max": 1.07,
+    "in_range": 10
+   },
+   "specific_sentences_layer_median_pct": 25.0
+  },
+  {
+   "family": "pt-wpc",
+   "kind": "piece",
+   "family_count": 25,
+   "written": 25,
+   "with_numbers": 0,
+   "without_numbers": 25,
+   "words_median": 543,
+   "words_ge600": 0,
+   "family_layer_words": 382,
+   "density": {
+    "min": 0.89,
+    "median": 0.92,
+    "max": 0.96,
+    "in_range": 25
+   },
+   "specific_sentences_layer_median_pct": 27.3
+  },
+  {
+   "family": "sb-3mm",
+   "kind": "panel",
+   "family_count": 30,
+   "written": 29,
+   "with_numbers": 29,
+   "without_numbers": 0,
+   "words_median": 660,
+   "words_ge600": 29,
+   "family_layer_words": 382,
+   "density": {
+    "min": 0.75,
+    "median": 0.76,
+    "max": 0.78,
+    "in_range": 29
+   },
+   "specific_sentences_layer_median_pct": 58.8
+  },
+  {
+   "family": "sb-5mm",
+   "kind": "panel",
+   "family_count": 258,
+   "written": 258,
+   "with_numbers": 250,
+   "without_numbers": 8,
+   "words_median": 718.0,
+   "words_ge600": 258,
+   "family_layer_words": 444,
+   "density": {
+    "min": 0.67,
+    "median": 0.7,
+    "max": 0.86,
+    "in_range": 258
+   },
+   "specific_sentences_layer_median_pct": 81.2
+  },
+  {
+   "family": "sb-6mm",
+   "kind": "panel",
+   "family_count": 85,
+   "written": 85,
+   "with_numbers": 85,
+   "without_numbers": 0,
+   "words_median": 651,
+   "words_ge600": 85,
+   "family_layer_words": 375,
+   "density": {
+    "min": 0.74,
+    "median": 0.77,
+    "max": 0.81,
+    "in_range": 85
+   },
+   "specific_sentences_layer_median_pct": 72.2
+  },
+  {
+   "family": "sb-8mm",
+   "kind": "panel",
+   "family_count": 104,
+   "written": 103,
+   "with_numbers": 89,
+   "without_numbers": 14,
+   "words_median": 646,
+   "words_ge600": 89,
+   "family_layer_words": 374,
+   "density": {
+    "min": 0.75,
+    "median": 0.78,
+    "max": 0.96,
+    "in_range": 103
+   },
+   "specific_sentences_layer_median_pct": 75.0
+  },
+  {
+   "family": "sb-acc",
+   "kind": "linear",
+   "family_count": 8,
+   "written": 8,
+   "with_numbers": 0,
+   "without_numbers": 8,
+   "words_median": 461.5,
+   "words_ge600": 0,
+   "family_layer_words": 335,
+   "density": {
+    "min": 1.05,
+    "median": 1.08,
+    "max": 1.1,
+    "in_range": 8
+   },
+   "specific_sentences_layer_median_pct": 36.7
+  },
+  {
+   "family": "sb-na",
+   "kind": "panel",
+   "family_count": 46,
+   "written": 46,
+   "with_numbers": 4,
+   "without_numbers": 42,
+   "words_median": 425.0,
+   "words_ge600": 0,
+   "family_layer_words": 292,
+   "density": {
+    "min": 0.85,
+    "median": 1.18,
+    "max": 1.19,
+    "in_range": 46
+   },
+   "specific_sentences_layer_median_pct": 30.0
+  },
+  {
+   "family": "sk-ceramic",
+   "kind": "linear",
+   "family_count": 13,
+   "written": 13,
+   "with_numbers": 12,
+   "without_numbers": 1,
+   "words_median": 574,
+   "words_ge600": 0,
+   "family_layer_words": 369,
+   "density": {
+    "min": 0.84,
+    "median": 0.87,
+    "max": 0.97,
+    "in_range": 13
+   },
+   "specific_sentences_layer_median_pct": 33.3
+  },
+  {
+   "family": "sk-ext-foam",
+   "kind": "linear",
+   "family_count": 18,
+   "written": 18,
+   "with_numbers": 17,
+   "without_numbers": 1,
+   "words_median": 589.5,
+   "words_ge600": 0,
+   "family_layer_words": 368,
+   "density": {
+    "min": 0.84,
+    "median": 0.85,
+    "max": 0.97,
+    "in_range": 18
+   },
+   "specific_sentences_layer_median_pct": 42.9
+  },
+  {
+   "family": "sk-fiber",
+   "kind": "linear",
+   "family_count": 146,
+   "written": 146,
+   "with_numbers": 98,
+   "without_numbers": 48,
+   "words_median": 582.0,
+   "words_ge600": 5,
+   "family_layer_words": 375,
+   "density": {
+    "min": 0.82,
+    "median": 0.86,
+    "max": 0.99,
+    "in_range": 146
+   },
+   "specific_sentences_layer_median_pct": 46.7
+  },
+  {
+   "family": "sk-foam",
+   "kind": "linear",
+   "family_count": 24,
+   "written": 24,
+   "with_numbers": 23,
+   "without_numbers": 1,
+   "words_median": 586.0,
+   "words_ge600": 0,
+   "family_layer_words": 379,
+   "density": {
+    "min": 0.85,
+    "median": 0.85,
+    "max": 0.97,
+    "in_range": 24
+   },
+   "specific_sentences_layer_median_pct": 33.3
+  },
+  {
+   "family": "sk-led",
+   "kind": "linear",
+   "family_count": 14,
+   "written": 14,
+   "with_numbers": 12,
+   "without_numbers": 2,
+   "words_median": 580.0,
+   "words_ge600": 1,
+   "family_layer_words": 382,
+   "density": {
+    "min": 0.83,
+    "median": 0.86,
+    "max": 1.0,
+    "in_range": 14
+   },
+   "specific_sentences_layer_median_pct": 40.0
+  },
+  {
+   "family": "st-pu",
+   "kind": "panel",
+   "family_count": 60,
+   "written": 60,
+   "with_numbers": 57,
+   "without_numbers": 3,
+   "words_median": 585.5,
+   "words_ge600": 2,
+   "family_layer_words": 363,
+   "density": {
+    "min": 0.83,
+    "median": 0.85,
+    "max": 0.99,
+    "in_range": 60
+   },
+   "specific_sentences_layer_median_pct": 64.3
+  },
+  {
+   "family": "wd-flat-5",
+   "kind": "panel",
+   "family_count": 29,
+   "written": 29,
+   "with_numbers": 0,
+   "without_numbers": 29,
+   "words_median": 507,
+   "words_ge600": 0,
+   "family_layer_words": 371,
+   "density": {
+    "min": 0.97,
+    "median": 0.99,
+    "max": 1.0,
+    "in_range": 29
+   },
+   "specific_sentences_layer_median_pct": 30.0
+  },
+  {
+   "family": "wd-fluted-12",
+   "kind": "linear",
+   "family_count": 127,
+   "written": 127,
+   "with_numbers": 121,
+   "without_numbers": 6,
+   "words_median": 652,
+   "words_ge600": 121,
+   "family_layer_words": 415,
+   "density": {
+    "min": 0.71,
+    "median": 0.77,
+    "max": 0.88,
+    "in_range": 127
+   },
+   "specific_sentences_layer_median_pct": 64.7
+  },
+  {
+   "family": "wd-fluted-16",
+   "kind": "linear",
+   "family_count": 113,
+   "written": 113,
+   "with_numbers": 112,
+   "without_numbers": 1,
+   "words_median": 602,
+   "words_ge600": 59,
+   "family_layer_words": 372,
+   "density": {
+    "min": 0.78,
+    "median": 0.83,
+    "max": 0.98,
+    "in_range": 113
+   },
+   "specific_sentences_layer_median_pct": 62.5
+  },
+  {
+   "family": "wd-fluted-20",
+   "kind": "linear",
+   "family_count": 22,
+   "written": 22,
+   "with_numbers": 20,
+   "without_numbers": 2,
+   "words_median": 572.0,
+   "words_ge600": 0,
+   "family_layer_words": 373,
+   "density": {
+    "min": 0.87,
+    "median": 0.87,
+    "max": 0.92,
+    "in_range": 22
+   },
+   "specific_sentences_layer_median_pct": 38.5
+  },
+  {
+   "family": "wd-fluted-30",
+   "kind": "linear",
+   "family_count": 27,
+   "written": 27,
+   "with_numbers": 27,
+   "without_numbers": 0,
+   "words_median": 573,
+   "words_ge600": 0,
+   "family_layer_words": 374,
+   "density": {
+    "min": 0.87,
+    "median": 0.87,
+    "max": 0.88,
+    "in_range": 27
+   },
+   "specific_sentences_layer_median_pct": 23.1
+  },
+  {
+   "family": "wd-fluted-na",
+   "kind": "linear",
+   "family_count": 288,
+   "written": 288,
+   "with_numbers": 172,
+   "without_numbers": 116,
+   "words_median": 628.5,
+   "words_ge600": 171,
+   "family_layer_words": 367,
+   "density": {
+    "min": 0.75,
+    "median": 0.8,
+    "max": 1.03,
+    "in_range": 288
+   },
+   "specific_sentences_layer_median_pct": 72.7
+  },
+  {
+   "family": "wd-ps-panel",
+   "kind": "linear",
+   "family_count": 17,
+   "written": 16,
+   "with_numbers": 16,
+   "without_numbers": 0,
+   "words_median": 632.0,
+   "words_ge600": 16,
+   "family_layer_words": 366,
+   "density": {
+    "min": 0.77,
+    "median": 0.79,
+    "max": 0.81,
+    "in_range": 16
+   },
+   "specific_sentences_layer_median_pct": 44.1
+  },
+  {
+   "family": "wp-classic",
+   "kind": "roll",
+   "family_count": 49,
+   "written": 48,
+   "with_numbers": 48,
+   "without_numbers": 0,
+   "words_median": 684.5,
+   "words_ge600": 48,
+   "family_layer_words": 390,
+   "density": {
+    "min": 0.72,
+    "median": 0.73,
+    "max": 0.75,
+    "in_range": 48
+   },
+   "specific_sentences_layer_median_pct": 32.6
+  },
+  {
+   "family": "wp-floral",
+   "kind": "roll",
+   "family_count": 111,
+   "written": 111,
+   "with_numbers": 111,
+   "without_numbers": 0,
+   "words_median": 682,
+   "words_ge600": 111,
+   "family_layer_words": 387,
+   "density": {
+    "min": 0.72,
+    "median": 0.73,
+    "max": 0.78,
+    "in_range": 111
+   },
+   "specific_sentences_layer_median_pct": 34.8
+  },
+  {
+   "family": "wp-kids",
+   "kind": "roll",
+   "family_count": 53,
+   "written": 52,
+   "with_numbers": 51,
+   "without_numbers": 1,
+   "words_median": 678.0,
+   "words_ge600": 51,
+   "family_layer_words": 389,
+   "density": {
+    "min": 0.72,
+    "median": 0.74,
+    "max": 0.91,
+    "in_range": 52
+   },
+   "specific_sentences_layer_median_pct": 24.9
+  },
+  {
+   "family": "wp-marble",
+   "kind": "roll",
+   "family_count": 57,
+   "written": 57,
+   "with_numbers": 57,
+   "without_numbers": 0,
+   "words_median": 687,
+   "words_ge600": 57,
+   "family_layer_words": 388,
+   "density": {
+    "min": 0.72,
+    "median": 0.73,
+    "max": 0.75,
+    "in_range": 57
+   },
+   "specific_sentences_layer_median_pct": 32.0
+  },
+  {
+   "family": "wp-modern",
+   "kind": "roll",
+   "family_count": 75,
+   "written": 75,
+   "with_numbers": 75,
+   "without_numbers": 0,
+   "words_median": 688,
+   "words_ge600": 75,
+   "family_layer_words": 395,
+   "density": {
+    "min": 0.71,
+    "median": 0.73,
+    "max": 0.77,
+    "in_range": 75
+   },
+   "specific_sentences_layer_median_pct": 33.3
+  },
+  {
+   "family": "wp-pattern",
+   "kind": "roll",
+   "family_count": 156,
+   "written": 156,
+   "with_numbers": 156,
+   "without_numbers": 0,
+   "words_median": 691.0,
+   "words_ge600": 156,
+   "family_layer_words": 399,
+   "density": {
+    "min": 0.7,
+    "median": 0.72,
+    "max": 0.77,
+    "in_range": 156
+   },
+   "specific_sentences_layer_median_pct": 35.0
+  },
+  {
+   "family": "wp-plain",
+   "kind": "roll",
+   "family_count": 534,
+   "written": 534,
+   "with_numbers": 533,
+   "without_numbers": 1,
+   "words_median": 690.0,
+   "words_ge600": 533,
+   "family_layer_words": 399,
+   "density": {
+    "min": 0.7,
+    "median": 0.72,
+    "max": 0.9,
+    "in_range": 534
+   },
+   "specific_sentences_layer_median_pct": 31.8
+  },
+  {
+   "family": "wp-plain-texture",
+   "kind": "roll",
+   "family_count": 287,
+   "written": 287,
+   "with_numbers": 225,
+   "without_numbers": 62,
+   "words_median": 678,
+   "words_ge600": 225,
+   "family_layer_words": 386,
+   "density": {
+    "min": 0.71,
+    "median": 0.74,
+    "max": 0.99,
+    "in_range": 287
+   },
+   "specific_sentences_layer_median_pct": 42.9
+  },
+  {
+   "family": "wp-stripe",
+   "kind": "roll",
+   "family_count": 69,
+   "written": 69,
+   "with_numbers": 69,
+   "without_numbers": 0,
+   "words_median": 703,
+   "words_ge600": 69,
+   "family_layer_words": 406,
+   "density": {
+    "min": 0.7,
+    "median": 0.71,
+    "max": 0.76,
+    "in_range": 69
+   },
+   "specific_sentences_layer_median_pct": 33.3
+  }
+ ]
+}
