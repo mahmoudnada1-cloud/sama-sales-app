@@ -79,3 +79,38 @@ These passages carry no price, count or date, so they were left alone. They sit 
 ## Rollback
 
 WordPress revisions exist for every edit. Rendered backups: `texa/data/backup/post-<id>-before-round3.json`. Note that 18250 and 18255 had already been modified at 03:06–03:07 on 23 November, after those backups were saved (00:59).
+
+---
+
+# Follow-up (same day): the four "not fixed" items in 17238 and 17240
+
+Done on the coordinator's instruction. Method: one whole-content `wpcom-mcp-posts-update` per post (classic HTML is not reachable by the section tools), plus the excerpt in the same call. Both posts remain `publish` (modified 04:14:52 and 04:15:00).
+
+## 17238 (Arabic)
+
+- Removed from "أنواع ورق الجدران المتوفرة": the `<h3>ورق الجدران الأمريكي</h3>` section and the `<h3>ورق الجدران الطباعي المخصص</h3>` section, each with its paragraph. The section now lists "الكلاسيكي والعصري" and "ثلاثي الأبعاد (3D)".
+- Removed the FAQ "ما الفرق بين الورق الأمريكي والورق العادي؟" with its answer.
+- Excerpt: "…الفرق بين الكوري والأمريكي، مقاس الرول وتغطيته الفعلية بعد الهدر، وكيف تحسب…" → "دليل اختيار ورق الجدران في السعودية: مقاس الرول الكوري وتغطيته، وكيف تحسب عدد الرولات التي يحتاجها جدارك قبل الطلب."
+- "ضمان": the four occurrences ("لضمان محاذاة الأنماط", "لضمان نتيجة متناسقة", "لضمان نتيجة مثالية", "يضمن محاذاة النقوش") mean "to ensure", not a warranty on products or work. Left unchanged.
+
+## 17240 (English)
+
+- Removed from "Types of Wallpaper Available": the "American Wallpaper" and "Custom Printed Wallpaper" sections, each with its paragraph.
+- FAQ "best types of wallpaper": removed the clause "American wallpaper (known for its thickness and long lifespan),".
+- FAQ "best wallpaper brands": "…professional measuring and installation and a workmanship guarantee." → "…professional measuring and installation."
+- Removed the FAQ "What is the difference between American wallpaper and standard wallpaper?" with its answer.
+- Excerpt: "…Korean rolls versus American vinyl, real roll coverage after pattern matching and waste, and how many rolls…" → "A buying guide to wallpaper in Saudi Arabia: Korean roll size and coverage, and how many rolls your wall actually needs."
+
+## Verification of the follow-up
+
+- Re-read both posts in full (raw) and listed their sections after the update.
+- No "أمريكي", "American", "الطباعي المخصص", "Custom Printed" or "guarantee" remains in content or excerpt of either post.
+- The six blocks edited earlier in each post (lead, image, table heading, table, browse list, footer) have exactly the same block hashes as before the whole-content update.
+- Line endings were NOT preserved: the update stored LF everywhere, where the classic HTML, the group block and the "Browse" heading previously had CRLF. Because of that, the group block and "Browse" heading hashes changed (17238: 39ed7fd9… → 2fa62f85…, 6f0c5967… → 4e976807…; 17240: 7d227524… → c1853b04…, 53181263… → ca343459…). Their text reads the same in the re-read.
+- The rest of the classic HTML was compared by reading the re-read against the pre-update raw content, not by a byte diff; no difference was seen other than the removals above.
+- Still not checked: the rendered public pages (public REST returned 401 from this environment).
+
+## Left as is
+
+- 3D wallpaper section and the "3D wallpaper" mention in the 17240 FAQ: not in the instruction; whether the catalogue has 3D wallpaper was not checked.
+- "Texa Decor supplies and installs all types of wallpaper" / "بجميع أنواعه" in the service paragraph: unchanged.
