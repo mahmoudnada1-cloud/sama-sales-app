@@ -1,0 +1,13 @@
+{
+ "id": 18255,
+ "site": "texadecore.store",
+ "note": "Changed blocks only (old markup, SHA-1 verified against the live block hash before the edit). Full pre-edit content is in the WordPress revisions.",
+ "blocks": [
+  {
+   "index": 0,
+   "type": "core/paragraph",
+   "old_hash": "bb1e2865fce01136454887e2e139d801d24ea029",
+   "old": "<!-- wp:paragraph -->\n<p><strong>Short answer:</strong> wallpaper in Saudi Arabia costs <strong>SAR 64 to SAR 240 per metre</strong>, most commonly SAR 166, VAT included. The price shown is per metre, and 720 designs are in stock.</p>\n<!-- /wp:paragraph -->"
+  }
+ ]
+}
