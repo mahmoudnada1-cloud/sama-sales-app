@@ -59,10 +59,16 @@ def total(r, spec):
 
 
 def main():
-    L = ba.load('live-after'); A = ba.load('raw')
+    # الكتالوج الحي بعد آخر تطبيق. الوصف المخزّن صار بلا دليل العائلة (يُعرض من مصدر واحد)،
+    # فيُحسب هنا الوصف كما يظهر في الصفحة: ملفات products-v6 تحمل النص الكامل نفسه.
+    L = ba.load('live-after2' if os.path.isdir(f'{B}/data/live-after2') else 'live-after'); A = ba.load('raw')
     metas = {}
-    for r in csv.DictReader(open(f'{B}/plugin/texa-desc-import/data/products-v5-200-all-families.csv', encoding='utf-8-sig')):
-        metas[int(r['ID'])] = dict(kw=r['Meta: rank_math_focus_keyword'], title=r['Meta: rank_math_title'], meta=r['Meta: rank_math_description'])
+    for f in glob.glob(f'{B}/data/out/products-v6-*.csv'):
+        for r in csv.DictReader(open(f, encoding='utf-8-sig')):
+            i = int(r['ID'])
+            metas[i] = dict(kw=r['Meta: rank_math_focus_keyword'], title=r['Meta: rank_math_title'], meta=r['Meta: rank_math_description'])
+            if i in L and 'txa-family' not in (L[i]['description'] or ''):
+                L[i]['description'] = r['Description']
     kwc = collections.Counter(m['kw'].strip() for m in metas.values())
     rows = []; fails = {'seo': collections.Counter(), 'geo': collections.Counter()}
     for i in sorted(L):

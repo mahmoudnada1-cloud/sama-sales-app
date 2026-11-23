@@ -250,17 +250,6 @@
    "geo_before": 38
   },
   {
-   "id": 2168,
-   "name": "باركيه بني",
-   "level": "فرعي",
-   "parent_slug": "الباركيه",
-   "products": 184,
-   "seo": 88,
-   "seo_min": 78,
-   "geo": 78,
-   "geo_before": 37
-  },
-  {
    "id": 1956,
    "name": "البانوهات والزخارف",
    "level": "رئيسي",
@@ -270,6 +259,17 @@
    "seo_min": 78,
    "geo": 70,
    "geo_before": 38
+  },
+  {
+   "id": 2168,
+   "name": "باركيه بني",
+   "level": "فرعي",
+   "parent_slug": "الباركيه",
+   "products": 184,
+   "seo": 88,
+   "seo_min": 78,
+   "geo": 78,
+   "geo_before": 37
   },
   {
    "id": 1462,
@@ -635,17 +635,6 @@
    "geo_before": 56
   },
   {
-   "id": 1519,
-   "name": "عروض النعلات",
-   "level": "فرعي",
-   "parent_slug": "نعلات",
-   "products": 52,
-   "seo": 89,
-   "seo_min": 78,
-   "geo": 78,
-   "geo_before": 36
-  },
-  {
    "id": 2163,
    "name": "أعمدة وكرانيش",
    "level": "فرعي",
@@ -654,6 +643,17 @@
    "seo": 85,
    "seo_min": 78,
    "geo": 71,
+   "geo_before": 36
+  },
+  {
+   "id": 1519,
+   "name": "عروض النعلات",
+   "level": "فرعي",
+   "parent_slug": "نعلات",
+   "products": 52,
+   "seo": 89,
+   "seo_min": 78,
+   "geo": 78,
    "geo_before": 36
   },
   {
@@ -745,17 +745,6 @@
    "geo_before": 38
   },
   {
-   "id": 2176,
-   "name": "بديل رخام أسود",
-   "level": "فرعي",
-   "parent_slug": "بديل-رخام",
-   "products": 26,
-   "seo": 89,
-   "seo_min": 77,
-   "geo": 84,
-   "geo_before": 52
-  },
-  {
    "id": 2187,
    "name": "عروض ورق جدران مميزة",
    "level": "رئيسي",
@@ -765,6 +754,17 @@
    "seo_min": 90,
    "geo": 80,
    "geo_before": 55
+  },
+  {
+   "id": 2176,
+   "name": "بديل رخام أسود",
+   "level": "فرعي",
+   "parent_slug": "بديل-رخام",
+   "products": 26,
+   "seo": 89,
+   "seo_min": 77,
+   "geo": 84,
+   "geo_before": 52
   },
   {
    "id": 2164,
@@ -822,17 +822,6 @@
    "geo_before": 66
   },
   {
-   "id": 2165,
-   "name": "زوايا بانوهات",
-   "level": "فرعي",
-   "parent_slug": "البانوهات-والزخارف",
-   "products": 19,
-   "seo": 80,
-   "seo_min": 78,
-   "geo": 65,
-   "geo_before": 37
-  },
-  {
    "id": 2157,
    "name": "بديل طوب باروك",
    "level": "فرعي",
@@ -842,6 +831,17 @@
    "seo_min": 90,
    "geo": 79,
    "geo_before": 16
+  },
+  {
+   "id": 2165,
+   "name": "زوايا بانوهات",
+   "level": "فرعي",
+   "parent_slug": "البانوهات-والزخارف",
+   "products": 19,
+   "seo": 80,
+   "seo_min": 78,
+   "geo": 65,
+   "geo_before": 37
   },
   {
    "id": 2155,
@@ -888,15 +888,15 @@
    "geo_before": 35
   },
   {
-   "id": 1587,
-   "name": "نعلات سيراميك",
+   "id": 2154,
+   "name": "بديل رخام قشرة الشيبورد",
    "level": "فرعي",
-   "parent_slug": "نعلات",
+   "parent_slug": "بديل-رخام",
    "products": 13,
-   "seo": 84,
-   "seo_min": 78,
-   "geo": 79,
-   "geo_before": 38
+   "seo": 86,
+   "seo_min": 86,
+   "geo": 76,
+   "geo_before": 54
   },
   {
    "id": 2158,
@@ -910,15 +910,15 @@
    "geo_before": 16
   },
   {
-   "id": 2154,
-   "name": "بديل رخام قشرة الشيبورد",
+   "id": 1587,
+   "name": "نعلات سيراميك",
    "level": "فرعي",
-   "parent_slug": "بديل-رخام",
+   "parent_slug": "نعلات",
    "products": 13,
-   "seo": 86,
-   "seo_min": 86,
-   "geo": 76,
-   "geo_before": 54
+   "seo": 84,
+   "seo_min": 78,
+   "geo": 79,
+   "geo_before": 38
   },
   {
    "id": 2183,
@@ -943,17 +943,6 @@
    "geo_before": 22
   },
   {
-   "id": 2146,
-   "name": "بديل شيبورد رخامي",
-   "level": "فرعي",
-   "parent_slug": "بديل-الشيبورد",
-   "products": 11,
-   "seo": 94,
-   "seo_min": 90,
-   "geo": 84,
-   "geo_before": 35
-  },
-  {
    "id": 2186,
    "name": "بديل خشب أسود",
    "level": "فرعي",
@@ -963,6 +952,17 @@
    "seo_min": 86,
    "geo": 65,
    "geo_before": 41
+  },
+  {
+   "id": 2146,
+   "name": "بديل شيبورد رخامي",
+   "level": "فرعي",
+   "parent_slug": "بديل-الشيبورد",
+   "products": 11,
+   "seo": 94,
+   "seo_min": 90,
+   "geo": 84,
+   "geo_before": 35
   },
   {
    "id": 1588,
@@ -976,6 +976,17 @@
    "geo_before": 41
   },
   {
+   "id": 1475,
+   "name": "باركيه تركي",
+   "level": "فرعي",
+   "parent_slug": "الباركيه",
+   "products": 9,
+   "seo": 90,
+   "seo_min": 86,
+   "geo": 77,
+   "geo_before": 48
+  },
+  {
    "id": 1966,
    "name": "بديل رخام اوبن بوك",
    "level": "فرعي",
@@ -987,15 +998,26 @@
    "geo_before": 34
   },
   {
-   "id": 1475,
-   "name": "باركيه تركي",
+   "id": 1968,
+   "name": "بديل رخام الريزن",
    "level": "فرعي",
-   "parent_slug": "الباركيه",
-   "products": 9,
-   "seo": 90,
+   "parent_slug": "بديل-رخام",
+   "products": 8,
+   "seo": 86,
    "seo_min": 86,
-   "geo": 77,
-   "geo_before": 48
+   "geo": 87,
+   "geo_before": 61
+  },
+  {
+   "id": 2159,
+   "name": "بديل طوب ضيق",
+   "level": "فرعي",
+   "parent_slug": "بديل-الطوب",
+   "products": 8,
+   "seo": 88,
+   "seo_min": 86,
+   "geo": 80,
+   "geo_before": 16
   },
   {
    "id": 2151,
@@ -1020,26 +1042,15 @@
    "geo_before": 33
   },
   {
-   "id": 2159,
-   "name": "بديل طوب ضيق",
+   "id": 2147,
+   "name": "بديل شيبورد هرمي",
    "level": "فرعي",
-   "parent_slug": "بديل-الطوب",
-   "products": 8,
-   "seo": 88,
-   "seo_min": 86,
+   "parent_slug": "بديل-الشيبورد",
+   "products": 7,
+   "seo": 93,
+   "seo_min": 90,
    "geo": 80,
-   "geo_before": 16
-  },
-  {
-   "id": 1968,
-   "name": "بديل رخام الريزن",
-   "level": "فرعي",
-   "parent_slug": "بديل-رخام",
-   "products": 8,
-   "seo": 86,
-   "seo_min": 86,
-   "geo": 87,
-   "geo_before": 61
+   "geo_before": 31
   },
   {
    "id": 1984,
@@ -1053,15 +1064,15 @@
    "geo_before": 56
   },
   {
-   "id": 2147,
-   "name": "بديل شيبورد هرمي",
+   "id": 2177,
+   "name": "بديل رخام أخضر",
    "level": "فرعي",
-   "parent_slug": "بديل-الشيبورد",
-   "products": 7,
-   "seo": 93,
-   "seo_min": 90,
-   "geo": 80,
-   "geo_before": 31
+   "parent_slug": "بديل-رخام",
+   "products": 5,
+   "seo": 90,
+   "seo_min": 86,
+   "geo": 84,
+   "geo_before": 55
   },
   {
    "id": 2162,
@@ -1073,17 +1084,6 @@
    "seo_min": 78,
    "geo": 80,
    "geo_before": 40
-  },
-  {
-   "id": 2177,
-   "name": "بديل رخام أخضر",
-   "level": "فرعي",
-   "parent_slug": "بديل-رخام",
-   "products": 5,
-   "seo": 90,
-   "seo_min": 86,
-   "geo": 84,
-   "geo_before": 55
   },
   {
    "id": 2153,
