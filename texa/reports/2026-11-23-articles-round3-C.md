@@ -67,3 +67,49 @@ Checked on all five: none carries 720, an October date or a price, so none was c
 3. The price heading still reads "أسعار ورق الجدران" although the table has a panels row (unchanged, as before).
 4. 17300 classic FAQ (not touched): "كم سعر متر ورق جدران؟" says a per-metre price cannot be given, which sits
    awkwardly with the per-roll prices above it, and another answer mentions "ضمان على العمل".
+
+---
+
+# Follow-up (same day): column header, table heading, 17300 classic FAQ
+
+Coordinator follow-up, same five posts, same guardrails. All five still `publish`.
+
+## 1. Price tables — 17663, 17642, 17300, 17641 (section tools, hash-locked)
+All four tables include the panels row, so both changes were applied to all four.
+
+| Block | Before | After |
+|---|---|---|
+| Column header | المتوفر / In stock | المعروض / Listed |
+| Table heading | أسعار ورق الجدران — 22 نوفمبر 2026، شاملة الضريبة | أسعار ورق الجدران والبانوهات — 22 نوفمبر 2026، شاملة الضريبة |
+| Table heading (EN, 17641) | Wallpaper prices — 22 November 2026, VAT included | Wallpaper and panel prices — 22 November 2026, VAT included |
+
+Row values unchanged. 18247 has no table, so nothing to do there.
+
+## 2. Post 17300 — classic HTML FAQ (whole-content update, two string changes)
+- "ما أفضل شركات ورق الحائط؟": removed " وضمان على العمل". Sentence now ends
+  "…مع خدمة قياس وتركيب احترافية."
+- "كم سعر متر ورق جدران؟": answer replaced.
+  - Before: "يختلف سعر متر ورق الجدران حسب نوع الخامة وبلد المنشأ وسماكة الورق وتقنية الطباعة إضافة إلى تكلفة التركيب،
+    لذلك يصعب تحديد سعر ثابت للمتر. ويُنصح بطلب عرض سعر مخصص من تكسا ديكور بناءً على المساحة والنوع المطلوب للحصول على تقدير دقيق."
+  - After: "ورق الجدران في تكسا ديكور يُسعَّر بالرول لا بالمتر: من 75 إلى 229 ريالًا للرول شاملًا الضريبة، والأشيع 179 ريالًا
+    (قراءة 22 نوفمبر 2026). ويختلف السعر حسب نوع الخامة والتصميم، والسعر المعروض على صفحة المنتج هو سعر الرول."
+- Side effect: the stored content's Windows line endings (CRLF) became LF. Whitespace only; no visible change.
+
+## 3. "ضمان" scan on all five posts
+Only one warranty mention existed (17300, removed above). Other hits are the verb "to ensure", not a warranty, and were left:
+- 17663: "لضمان استواء الأوراق", "لضمان عمر افتراضي أطول"
+- 17642: "لضمان تناغم بصري متوازن"
+- 17300: "لضمان بقائه لفترة طويلة" (also "تضمن أفضل نتيجة", "يضمن محاذاة النقوش")
+- 17641 (EN): no "warranty" or "guarantee"
+- 18247: none
+
+## Verification
+- 17300: live page text before and after the classic update compared line by line (1,294 lines each): exactly two lines
+  differ, the two FAQ answers above. Heading count unchanged.
+- 17663, 17642, 17300 live pages: header "المعروض" present, "المتوفر" header gone, new heading present, no "ضمان على".
+- 17641: section re-list shows the new heading and "Listed" header; untouched blocks keep their hashes (public URL still redirects to 17642).
+
+## Still open
+- Footer note still says "أعداد المتوفر" / "stock counts" while the column is now "المعروض" / "Listed" (all five posts). Not requested, left.
+- 17300 FAQ "كم يكلف ورق الحائط؟" still says to ask for a custom quote; it does not contradict the per-roll prices, left.
+- English post 17641 remains unreachable publicly (redirects to the Arabic post).
