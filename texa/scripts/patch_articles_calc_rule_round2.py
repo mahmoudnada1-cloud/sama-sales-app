@@ -99,6 +99,12 @@ e29_o = P('A room with 40 m² of wall area needs about 46 m² once 15% waste is 
 e29_n = P('A 3 × 4 m room with walls up to 3 m high needs one roll per wall, which is four rolls; a 4 × 5 m room needs six. At SAR 105 per roll, four rolls come to about SAR 420.')
 E26937 = [('core/list', e15_o, e15_n), ('core/paragraph', e16_o, e16_n), ('core/paragraph', e29_o, e29_n)]
 
+POSTS[17663] = [(0, 'core/paragraph', None, t_intro_o, t_intro_n), (16, 'core/table', '55a6a8f89e4ed995a59feb11df1d1b88838ed962', t_table_o(), t_table_n), (19, 'core/paragraph', None, t_price_o, t_price_n), (21, 'core/paragraph', None, t_qty_o, t_qty_n)]
+POSTS[17642] = [(0, 'core/paragraph', None, t_intro_o, t_intro_n), (17, 'core/table', '55a6a8f89e4ed995a59feb11df1d1b88838ed962', t_table_o(), t_table_n), (20, 'core/paragraph', None, t_price_o, t_price_n), (22, 'core/paragraph', None, t_qty_o, t_qty_n)]
+POSTS[17300] = [(0, 'core/paragraph', 'd55a8dcd0759af01f43c12439f738c8a927b77fa', t_intro_o.replace('\n', '\r\n'), t_intro_n), (4, 'core/table', '3a5717b3c9b606ab7b3bf380ada46c4678509e34', t_table_o('\r\n'), t_table_n)]
+POSTS[17641] = [(0, 'core/paragraph', None, e_intro_o, e_intro_n), (5, 'core/table', '63a7d127d03c4b30430630e1fb60ef9a9b8a7584', e_table_o, e_table_n)]
+POSTS[26937] = [(14, 'core/list', 'e27d3403e4fce3dcfd6584ba9dc544203c77ada4', e15_o, e15_n), (15, 'core/paragraph', '05d10e1a61d4da097d8102ff6c8a6b0a74e5a41f', e16_o, e16_n), (28, 'core/paragraph', '1f1e633d85bcec34b04b73ddea6c82fc60c4131b', e29_o, e29_n)]
+
 if __name__ == '__main__':
     out = {}
     for pid, blocks in POSTS.items():

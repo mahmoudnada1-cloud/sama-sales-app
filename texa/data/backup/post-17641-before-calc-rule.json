@@ -1,0 +1,19 @@
+{
+ "id": 17641,
+ "site": "texadecore.store",
+ "note": "Changed blocks only (old markup, SHA-1 verified against the live block hash before the edit). Full pre-edit content is in the WordPress revisions.",
+ "blocks": [
+  {
+   "index": 0,
+   "type": "core/paragraph",
+   "old_hash": "bb1e2865fce01136454887e2e139d801d24ea029",
+   "old": "<!-- wp:paragraph -->\n<p><strong>Short answer:</strong> wallpaper in Saudi Arabia costs <strong>SAR 64 to SAR 240 per metre</strong>, most commonly SAR 166, VAT included. The price shown is per metre, and 720 designs are in stock.</p>\n<!-- /wp:paragraph -->"
+  },
+  {
+   "index": 5,
+   "type": "core/table",
+   "old_hash": "63a7d127d03c4b30430630e1fb60ef9a9b8a7584",
+   "old": "<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><thead><tr><th>Type</th><th>SAR per metre</th><th>Most common</th><th>In stock</th></tr></thead><tbody><tr><td><a href=\"https://texadecore.store/product-category/%D9%88%D8%B1%D9%82-%D8%A7%D9%84%D8%AC%D8%AF%D8%B1%D8%A7%D9%86/\">Wallpaper</a></td><td>64 – 240</td><td>166</td><td>720 designs</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%D9%88%D8%B1%D9%82-%D8%AC%D8%AF%D8%B1%D8%A7%D9%86-%D8%A7%D8%B7%D9%81%D8%A7%D9%84/\">Kids wallpaper</a></td><td>174 – 240</td><td>240</td><td>40 designs</td></tr><tr><td>American wallpaper</td><td>64 – 240</td><td>166</td><td>10 designs</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%D8%A7%D9%84%D8%A8%D8%A7%D9%86%D9%88%D9%87%D8%A7%D8%AA-%D9%88%D8%A7%D9%84%D8%B2%D8%AE%D8%A7%D8%B1%D9%81/\">Panels and mouldings</a></td><td>7 – 181</td><td>46</td><td>90 items</td></tr></tbody></table></figure>\n<!-- /wp:table -->"
+  }
+ ]
+}

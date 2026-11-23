@@ -1,0 +1,31 @@
+{
+ "id": 17663,
+ "site": "texadecore.store",
+ "note": "Changed blocks only (old markup, SHA-1 verified against the live block hash before the edit). Full pre-edit content is in the WordPress revisions.",
+ "blocks": [
+  {
+   "index": 0,
+   "type": "core/paragraph",
+   "old_hash": "870829f809d976ade487eb60319bbab75563470c",
+   "old": "<!-- wp:paragraph -->\n<p><strong>الإجابة المختصرة:</strong> سعر ورق الجدران في السعودية <strong>من 64 إلى 240 ريالًا للمتر</strong>، والأشيع 166 ريالًا للمتر، شاملًا الضريبة. السعر المعروض للمتر، و720 تصميمًا متوفرًا الآن.</p>\n<!-- /wp:paragraph -->"
+  },
+  {
+   "index": 16,
+   "type": "core/table",
+   "old_hash": "55a6a8f89e4ed995a59feb11df1d1b88838ed962",
+   "old": "<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><thead><tr><th>النوع</th><th>ريال للمتر</th><th>الأشيع</th><th>المتوفر</th></tr></thead><tbody><tr><td><a href=\"https://texadecore.store/product-category/%D9%88%D8%B1%D9%82-%D8%A7%D9%84%D8%AC%D8%AF%D8%B1%D8%A7%D9%86/\">ورق جدران</a></td><td>64 – 240</td><td>166</td><td>720 تصميمًا</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%D9%88%D8%B1%D9%82-%D8%AC%D8%AF%D8%B1%D8%A7%D9%86-%D8%A7%D8%B7%D9%81%D8%A7%D9%84/\">ورق جدران أطفال</a></td><td>174 – 240</td><td>240</td><td>40 تصميمًا</td></tr><tr><td>ورق جدران أمريكي</td><td>64 – 240</td><td>166</td><td>10 تصاميم</td></tr><tr><td><a href=\"https://texadecore.store/product-category/%D8%A7%D9%84%D8%A8%D8%A7%D9%86%D9%88%D9%87%D8%A7%D8%AA-%D9%88%D8%A7%D9%84%D8%B2%D8%AE%D8%A7%D8%B1%D9%81/\">البانوهات والزخارف</a></td><td>7 – 181</td><td>46</td><td>90 قطعة</td></tr></tbody></table></figure>\n<!-- /wp:table -->"
+  },
+  {
+   "index": 19,
+   "type": "core/paragraph",
+   "old_hash": "689a7969d0710895f95138697ada5186a4cb139e",
+   "old": "<!-- wp:paragraph -->\n<p>من 64 إلى 240 ريالًا للمتر شاملًا الضريبة، والأشيع 166 ريالًا. السعر المعروض على صفحة المنتج هو سعر المتر.</p>\n<!-- /wp:paragraph -->"
+  },
+  {
+   "index": 21,
+   "type": "core/paragraph",
+   "old_hash": "d7547c91918e7e7ee8222d2cb1a2a30c0a3860a9",
+   "old": "<!-- wp:paragraph -->\n<p>اجمع أطوال الجدران بالأمتار واضرب في الارتفاع، ثم أضف 10% للقص ومطابقة النقشة. جدار 4 أمتار بارتفاع 3 أمتار يحتاج نحو 13 مترًا.</p>\n<!-- /wp:paragraph -->"
+  }
+ ]
+}

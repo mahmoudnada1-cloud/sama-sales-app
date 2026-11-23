@@ -1,0 +1,25 @@
+{
+ "id": 26937,
+ "site": "texadecore.store",
+ "note": "Changed blocks only (old markup, SHA-1 verified against the live block hash before the edit). Full pre-edit content is in the WordPress revisions.",
+ "blocks": [
+  {
+   "index": 14,
+   "type": "core/list",
+   "old_hash": "e27d3403e4fce3dcfd6584ba9dc544203c77ada4",
+   "old": "<!-- wp:list {\"ordered\":true} -->\n<ol><!-- wp:list-item -->\n<li><strong>Measure the area:</strong> multiply each wall’s width by its height, then add the results.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong>Deduct large openings:</strong> subtract any door or window over 2 m²; leave smaller ones in as a margin.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong>Add waste:</strong> 10% for plain patterns, 15 to 20% for designs needing pattern matching such as florals and wide stripes.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong>Divide by 13:</strong> the net coverage per roll — then round up.</li>\n<!-- /wp:list-item --></ol>\n<!-- /wp:list -->"
+  },
+  {
+   "index": 15,
+   "type": "core/paragraph",
+   "old_hash": "05d10e1a61d4da097d8102ff6c8a6b0a74e5a41f",
+   "old": "<!-- wp:paragraph -->\n<p><strong>Worked example — a majlis wall:</strong> 6 m wide × 3 m high is 18 m². With 15% waste that becomes 20.7 m². Divided by 13 that is 1.6, so you need <strong>two rolls</strong>. The wallpaper cost is <strong>SAR 210</strong> at SAR 105 per roll, <strong>SAR 408</strong> at SAR 204, and <strong>SAR 480</strong> at SAR 240. Adhesive and fitting labour are additional.</p>\n<!-- /wp:paragraph -->"
+  },
+  {
+   "index": 28,
+   "type": "core/paragraph",
+   "old_hash": "1f1e633d85bcec34b04b73ddea6c82fc60c4131b",
+   "old": "<!-- wp:paragraph -->\n<p>A room with 40 m² of wall area needs about 46 m² once 15% waste is added, which is four rolls at a net coverage of 13 m² each. At SAR 105 per roll the wallpaper comes to about SAR 420.</p>\n<!-- /wp:paragraph -->"
+  }
+ ]
+}
