@@ -37,7 +37,7 @@ add_action( 'wp_footer', function () {
 #texa-pkg-home .tph-t{height:130px}
 }
 </style>
-<a class="tph" href="<?php echo esc_url( home_url( '/room-packages/' ) ); ?>">
+<a class="tph" href="<?php echo esc_url( get_permalink( 35565 ) ); ?>">
 	<div>
 		<span class="tph-chip">جديد · باقات تِكسا المميزة</span>
 		<p class="tph-h">جدّد غرفتك كاملة</p>

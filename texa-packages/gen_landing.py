@@ -25,7 +25,7 @@ def card(key):
     pid,role,name,price,unit,qty,img=P[key]
     uw=unit.split('/')[-1] if '/' in unit else 'قطعة'
     return f'''      <div class="tpk-card">
-        <div class="tpk-img"><img src="{IMG.format(img)}" alt="{name}"></div>
+        <div class="tpk-img"><img src="{IMG.format(img)}" alt="{name} - باقات الديكور والتشطيب"></div>
         <div class="tpk-role">{role}</div>
         <div class="tpk-name">{name}</div>
         <div class="tpk-foot"><div><div class="tpk-price"><b>{price}</b> ريال</div><div class="tpk-qty">الوحدة: {uw} · العدد: {qty}</div></div><button type="button" class="tpk-add" onclick="texaAddOne({pid},{qty})">أضف للسلة</button></div>
@@ -65,9 +65,9 @@ itemlist=','.join(prod_items)
 CSS='''<style>
 .texa-pkg{--navy:#16213e;--orange:#cc5500;--orangeD:#b64d00;--gold:#e9b84a;--goldL:#f2c86f;max-width:none;margin:0;padding:0;font-family:Inter,sans-serif;direction:rtl;box-sizing:border-box;color:#1c1c1c;line-height:1.8;font-size:15.5px;}
 .texa-pkg *{box-sizing:border-box;font-family:Inter,sans-serif;}
-.texa-pkg .tpk-lead{font-size:15.87px;line-height:26px;font-weight:400;color:#211d17;margin:0 0 18px;padding:6px 18px 0;max-width:none;width:100%;}
-.texa-pkg .tpk-h1{font-size:30px;font-weight:900;color:#16213e;line-height:1.4;margin:0;padding:16px 18px 0;}
-.texa-pkg .tpk-strong{display:block;font-weight:800;font-size:17px;color:#1c1c1c;margin-bottom:4px;}
+.texa-pkg .tpk-lead{font-size:17.92px;line-height:35.84px;font-weight:400;color:#1e1e1e;margin:0 0 18px;padding:0 18px;max-width:none;width:100%;}
+.texa-pkg .tpk-h1{font-size:40px;font-weight:500;color:#1e1e1e;line-height:52px;margin:25px 0 0;padding:0 18px;}
+.texa-pkg .tpk-strong{display:block;font-weight:700;font-size:17.92px;color:#1e1e1e;}
 .texa-pkg .tpk-pack{margin:0 0 26px;background:transparent;}
 .texa-pkg .tpk-phead{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;background:#cc5500;color:#fff;padding:20px 28px;border-radius:14px;margin:0 18px;box-shadow:0 6px 18px rgba(204,85,0,.22);}
 .texa-pkg .tpk-pchip{display:inline-block;background:#fff;color:#cc5500;font-weight:800;font-size:13px;padding:5px 14px;border-radius:30px;margin-bottom:8px;}
@@ -92,16 +92,15 @@ CSS='''<style>
 .texa-pkg .tpk-add::before{content:"";width:17px;height:17px;flex:0 0 17px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM3 2h2.6l.9 3H21l-2.2 8.2a2 2 0 0 1-1.9 1.5H8.4a2 2 0 0 1-1.9-1.5L4.1 4H3z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM3 2h2.6l.9 3H21l-2.2 8.2a2 2 0 0 1-1.9 1.5H8.4a2 2 0 0 1-1.9-1.5L4.1 4H3z'/%3E%3C/svg%3E") center/contain no-repeat;}
 .texa-pkg .tpk-add:hover{filter:brightness(1.15);}
 .texa-pkg .tpk-sec{margin-top:40px;padding:0 18px;}
-.texa-pkg .tpk-sec h2{font-size:26px;font-weight:900;color:var(--navy);margin:0 0 14px;}
-.texa-pkg .tpk-sec p{font-size:15.5px;color:#211d17;margin:0 0 12px;}
+.texa-pkg .tpk-sec h2{font-size:28px;font-weight:500;line-height:40px;color:#1e1e1e;margin:0 0 10px;}
+.texa-pkg .tpk-sec p{font-size:17.92px;line-height:35.84px;color:#1e1e1e;margin:0 0 12px;}
+.texa-pkg .tpk-sec a{color:#cc5500;text-decoration:underline;}
 .texa-pkg .tpk-faq details{background:#fff;border:1px solid #eee;border-radius:12px;padding:0 18px;margin-bottom:10px;}
 .texa-pkg .tpk-faq summary{cursor:pointer;font-weight:600;color:#1c1c1c;font-size:15.5px;padding:14px 0;list-style:none;}
 .texa-pkg .tpk-faq summary::-webkit-details-marker{display:none;}
 .texa-pkg .tpk-faq summary::before{content:"\\002B";color:var(--orange);font-weight:900;margin-left:10px;}
 .texa-pkg .tpk-faq details[open] summary::before{content:"\\2212";}
 .texa-pkg .tpk-faq p{padding:0 0 16px;margin:0;color:#3a4256;font-size:15.5px;}
-.texa-pkg .tpk-foot{flex-direction:column;align-items:stretch;gap:10px;margin-top:6px;}
-.texa-pkg .tpk-price b{font-size:22px;}
 @media (max-width:980px){
   .texa-pkg .tpk-phead{padding:16px;margin:0 12px;}
   .texa-pkg .tpk-phead h2{font-size:24px;}
@@ -120,11 +119,11 @@ function texaAddOne(id,q){texaAdd([[id,q]]);}
 
 SCHEMA='''<script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
-{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"https://texadecore.store/"},{"@type":"ListItem","position":2,"name":"باقات الغرفة الكاملة","item":"https://texadecore.store/room-packages/"}]},
-{"@type":"Service","name":"باقات تجديد الغرف الكاملة","serviceType":"توريد وتركيب ديكور الغرف","provider":{"@type":"HomeGoodsStore","name":"تِكسا للديكور","url":"https://texadecore.store/","telephone":"+966591409002","areaServed":{"@type":"Country","name":"المملكة العربية السعودية"}},"offers":{"@type":"Offer","priceCurrency":"SAR","price":"3142","availability":"https://schema.org/InStock","url":"https://texadecore.store/room-packages/"}},
-{"@type":"ItemList","name":"منتجات باقات الغرفة الكاملة","itemListElement":[__ITEMS__]},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"https://texadecore.store/"},{"@type":"ListItem","position":2,"name":"باقات الديكور والتشطيب","item":"https://texadecore.store/باقات-الديكور-والتشطيب/"}]},
+{"@type":"Service","name":"باقات الديكور والتشطيب من تكسا","serviceType":"توريد وتركيب ديكور الغرف","provider":{"@type":"HomeGoodsStore","name":"تِكسا للديكور","url":"https://texadecore.store/","telephone":"+966591409002","areaServed":{"@type":"Country","name":"المملكة العربية السعودية"}},"offers":{"@type":"Offer","priceCurrency":"SAR","price":"3142","availability":"https://schema.org/InStock","url":"https://texadecore.store/باقات-الديكور-والتشطيب/"}},
+{"@type":"ItemList","name":"منتجات باقات الديكور والتشطيب","itemListElement":[__ITEMS__]},
 {"@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"كم تكلفة تجديد غرفة كاملة مع تِكسا؟","acceptedAnswer":{"@type":"Answer","text":"تبدأ باقات الغرفة الكاملة من أقل من 3,399 ريال شامل الضريبة لغرفة بمقاس 5×5 متر تقريبًا، وتشمل الأرضية والجدار المميز وورق الجدران والنعلة."}},
+{"@type":"Question","name":"كم تكلفة باقات الديكور والتشطيب من تكسا؟","acceptedAnswer":{"@type":"Answer","text":"تبدأ باقات الغرفة الكاملة من أقل من 3,399 ريال شامل الضريبة لغرفة بمقاس 5×5 متر تقريبًا، وتشمل الأرضية والجدار المميز وورق الجدران والنعلة."}},
 {"@type":"Question","name":"كم عدد الباقات المتاحة؟","acceptedAnswer":{"@type":"Answer","text":"خمس باقات منسّقة بألوان مختلفة، وكل باقة تشمل أربعة منتجات أساسية."}},
 {"@type":"Question","name":"هل يشمل العرض التركيب؟","acceptedAnswer":{"@type":"Answer","text":"نعم، تِكسا للديكور توفّر توريد وتركيب احترافي مع رفع المقاسات. السعر المعروض هو قيمة المنتجات."}},
 {"@type":"Question","name":"هل الباركيه مناسب للمناخ السعودي؟","acceptedAnswer":{"@type":"Answer","text":"نعم، باركيه SPC مقاوم للماء والرطوبة والخدش ولا يتقوّس كالخشب الطبيعي."}},
@@ -137,16 +136,16 @@ html=f'''<!-- wp:html -->
 <section class="texa-pkg" dir="rtl">
 {CSS}
   <h1 class="tpk-h1">باقات الديكور والتشطيب من تكسا</h1>
-  <p class="tpk-lead"><strong class="tpk-strong">سهّلناها عليك! بدل ما تحتار بين مئات الخيارات، جهّزنا لك باقات غرفة كاملة منسّقة وجاهزة</strong>تختار باقتك وتطلبها بضغطة وحدة، وبأقل الأسعار في السعودية. كل باقة من تِكسا للديكور لغرفة 5×5 متر تقريبًا وتجمع أرضية باركيه SPC ضد الماء، جدار مميز من بديل الشيبورد، ورق جدران كوري، ونعلة فايبر، بألوان نسّقها مختصّو الديكور. اضغط «أضف الباقة كاملة للسلة» وتنضاف منتجاتها الأربعة دفعة واحدة. قيمة المنتجات شاملة الضريبة حتى نفاذ الكمية.</p>
+  <p class="tpk-lead"><strong class="tpk-strong">سهّلناها عليك! بدل ما تحتار بين مئات الخيارات، جهّزنا لك باقات غرفة كاملة منسّقة وجاهزة</strong>باقات الديكور والتشطيب من تكسا تخلّيك تختار باقتك وتطلبها بضغطة وحدة، وبأقل الأسعار في السعودية. كل باقة لغرفة 5×5 متر تقريبًا وتجمع أرضية باركيه SPC ضد الماء، جدار مميز من بديل الشيبورد، ورق جدران كوري، ونعلة فايبر، بألوان نسّقها مختصّو الديكور. اضغط «أضف الباقة كاملة للسلة» وتنضاف منتجاتها الأربعة دفعة واحدة. قيمة المنتجات شاملة الضريبة حتى نفاذ الكمية.</p>
 {chr(10).join(blocks)}
   <div class="tpk-sec">
-    <h2>ليه تختار باقات تِكسا للديكور؟</h2>
-    <p>فكرة الباقات إننا نسهّل عليك قرار الشراء: كل باقة مصمّمة لتغطي غرفة كاملة من الأرض إلى الجدران بألوان متناسقة، بدل ما تختار كل منتج لوحده وتخاف ما يتناسق. باركيه SPC مقاوم للماء والخدش يناسب المناخ السعودي، وبديل الشيبورد يعطي الجدار المميز دفء الخشب، وورق الجدران الكوري يكمّل باقي الجدران، والنعلة تعطي تشطيبًا نظيفًا. توريد وتركيب احترافي مع رفع المقاسات، وأسعار واضحة شاملة الضريبة.</p>
+    <h2>ليه تختار باقات الديكور والتشطيب من تكسا؟</h2>
+    <p>فكرة <strong>باقات الديكور والتشطيب</strong> إننا نسهّل عليك قرار الشراء: كل باقة مصمّمة لتغطي غرفة كاملة من الأرض إلى الجدران بألوان متناسقة، بدل ما تختار كل منتج لوحده وتخاف ما يتناسق. <a href="https://texadecore.store/product-category/الباركيه/">باركيه SPC</a> مقاوم للماء والخدش يناسب المناخ السعودي، و<a href="https://texadecore.store/product-category/بديل-الشيبورد/">بديل الشيبورد</a> يعطي الجدار المميز دفء الخشب، و<a href="https://texadecore.store/product-category/ورق-الجدران/">ورق الجدران</a> الكوري يكمّل باقي الجدران، و<a href="https://texadecore.store/product-category/نعلات/">النعلات</a> تعطي تشطيبًا نظيفًا. باقات الديكور والتشطيب تناسب ديكورات غرف النوم والمجالس وتشطيب الشقق، مع توريد وتركيب احترافي ورفع مقاسات وأسعار واضحة شاملة الضريبة. وتقدر تشوف كمان <a href="https://texadecore.store/عروض-التشطيبات-والديكور/">عروض التشطيبات والديكور</a>.</p>
   </div>
   <div class="tpk-sec">
-    <h2>أسئلة شائعة عن باقات الغرفة الكاملة</h2>
+    <h2>أسئلة شائعة عن باقات الديكور والتشطيب</h2>
     <div class="tpk-faq">
-      <details><summary>كم تكلفة تجديد غرفة كاملة مع تِكسا؟</summary><p>تبدأ الباقات من أقل من 3,399 ريال شامل الضريبة لغرفة 5×5 متر تقريبًا، وتشمل الأرضية والجدار المميز وورق الجدران والنعلة. القيمة تمثّل المنتجات، وتختلف حسب مقاس غرفتك وعدد الجدران.</p></details>
+      <details><summary>كم تكلفة باقات الديكور والتشطيب من تكسا؟</summary><p>تبدأ الباقات من أقل من 3,399 ريال شامل الضريبة لغرفة 5×5 متر تقريبًا، وتشمل الأرضية والجدار المميز وورق الجدران والنعلة. القيمة تمثّل المنتجات، وتختلف حسب مقاس غرفتك وعدد الجدران.</p></details>
       <details><summary>كم عدد الباقات المتاحة؟</summary><p>خمس باقات منسّقة بألوان مختلفة — وكل باقة تشمل أربعة منتجات أساسية.</p></details>
       <details><summary>هل يشمل العرض التركيب؟</summary><p>نعم، تِكسا للديكور توفّر توريد وتركيب احترافي مع رفع المقاسات. السعر المعروض هو قيمة المنتجات.</p></details>
       <details><summary>هل الباركيه مناسب للمناخ السعودي؟</summary><p>نعم، باركيه SPC مقاوم للماء والرطوبة والخدش ولا يتقوّس كالخشب الطبيعي.</p></details>
