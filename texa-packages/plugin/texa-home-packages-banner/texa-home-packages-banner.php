@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Texa — Home Packages Banner
  * Description: Front page only: shows the packages banner under the welcome text and moves the room-planner banner to just before the marble-alternative offers row. Deactivate to revert.
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: Texa Decor
  */
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,17 +32,17 @@ add_action( 'wp_footer', function () {
 #texa-pkg-home .tph-t img{width:100%;height:100%;object-fit:cover;display:block}
 #texa-pkg-home .tph-t span{position:absolute;bottom:8px;right:8px;background:#fff;color:#16213e;font-weight:800;font-size:12.5px;padding:4px 11px;border-radius:20px}
 @media (max-width:980px){
-#texa-pkg-home a.tph{display:flex;flex-direction:column;height:350px;padding:16px 16px;gap:12px}
-#texa-pkg-home .tph-x{align-self:stretch;flex:0 0 auto}
-#texa-pkg-home .tph-chip{margin-bottom:8px;font-size:12px}
-#texa-pkg-home .tph-h{font-size:26px}
-#texa-pkg-home .tph-pr{margin:4px 0 8px;font-size:17px}
+#texa-pkg-home a.tph{display:flex;flex-direction:column;height:350px;padding:14px 14px;gap:12px}
+#texa-pkg-home .tph-x{align-self:stretch;flex:0 0 auto;display:grid;grid-template-columns:1fr auto;grid-template-areas:"chip cta" "h h" "pr pr";align-items:center;row-gap:10px;column-gap:8px}
+#texa-pkg-home .tph-chip{grid-area:chip;justify-self:start;margin:0;font-size:12px;padding:6px 12px;white-space:nowrap}
+#texa-pkg-home .tph-cta{grid-area:cta;justify-self:end;padding:7px 16px;font-size:13.5px;white-space:nowrap}
+#texa-pkg-home .tph-h{grid-area:h;font-size:27px;line-height:1.2;text-align:center!important;width:100%}
+#texa-pkg-home .tph-pr{grid-area:pr;margin:0;font-size:17px;text-align:center}
 #texa-pkg-home .tph-pr b{font-size:28px}
 #texa-pkg-home .tph-sub,#texa-pkg-home .tph-note{display:none}
-#texa-pkg-home .tph-cta{padding:9px 22px;font-size:14px}
 #texa-pkg-home .tph-m{grid-template-columns:repeat(2,1fr);grid-template-rows:1fr 1fr;gap:8px;flex:1 1 0;height:auto}
 }
-@media (max-width:767px){#texa-home-rows .thos-intro-short{display:none!important}}
+@media (max-width:767px){#texa-home-rows .thos-intro-short,#texa-home-rows .txhr-intro-p{display:none!important}}
 </style>
 <a class="tph" href="<?php echo esc_url( get_permalink( 35565 ) ); ?>">
 	<div class="tph-x">
