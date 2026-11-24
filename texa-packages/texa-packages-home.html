@@ -1,0 +1,129 @@
+<!-- ============================================================
+     Texa — Packages banner + shelf (home section)
+     Paste as an HTML widget/block on the homepage, directly under
+     "أهلاً بك" and ABOVE the room-planner banner.
+     Products shown are the exact package products (same as the
+     video / Excel). Add-to-cart links use ?add-to-cart=<id>.
+     ============================================================ -->
+<section class="texa-pkg" dir="rtl">
+<style>
+.texa-pkg{--navy:#16213d;--cream:#faf9f7;--orange:#cc5500;--steel:#5b6b8c;max-width:1240px;margin:0 auto 10px;padding:0 20px;font-family:"Noto Sans Arabic","Tajawal","Segoe UI",sans-serif;direction:rtl;box-sizing:border-box;}
+.texa-pkg *{box-sizing:border-box;}
+.texa-pkg a{text-decoration:none;}
+.texa-pkg .tpk-banner{display:grid;grid-template-columns:1.05fr 1fr;gap:34px;align-items:center;background:linear-gradient(120deg,#16213d 0%,#1f2d52 60%,#2a3a66 100%);border-radius:18px;padding:38px 46px;color:#fff;position:relative;overflow:hidden;}
+.texa-pkg .tpk-chip{display:inline-block;background:var(--orange);color:#fff;font-weight:800;font-size:14px;padding:6px 16px;border-radius:30px;margin-bottom:14px;}
+.texa-pkg .tpk-banner h2{font-size:48px;line-height:1.12;font-weight:900;margin:0;color:#fff;}
+.texa-pkg .tpk-pr{font-size:54px;font-weight:900;color:#ff8a3d;margin:8px 0 10px;line-height:1.1;}
+.texa-pkg .tpk-pr small{font-size:28px;color:#fff;font-weight:800;}
+.texa-pkg .tpk-pr b{font-weight:900;}
+.texa-pkg .tpk-sub{font-size:17px;line-height:1.8;color:#dfe5f3;max-width:520px;margin:0 0 20px;}
+.texa-pkg .tpk-cta{display:inline-block;background:var(--orange);color:#fff;font-weight:800;font-size:17px;padding:14px 34px;border-radius:10px;}
+.texa-pkg .tpk-cta:hover{background:#b64d00;}
+.texa-pkg .tpk-note{font-size:13px;color:#b9c3da;margin-top:16px;}
+.texa-pkg .tpk-mosaic{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.texa-pkg .tpk-tile{position:relative;border-radius:14px;overflow:hidden;height:150px;box-shadow:0 10px 24px rgba(0,0,0,.35);}
+.texa-pkg .tpk-tile img{width:100%;height:100%;object-fit:cover;display:block;}
+.texa-pkg .tpk-tile span{position:absolute;bottom:10px;right:10px;background:#fff;color:var(--navy);font-weight:800;font-size:14px;padding:5px 14px;border-radius:20px;}
+.texa-pkg .tpk-shelf{background:#fff;border:1px solid #e9d8c4;border-radius:18px;margin-top:18px;padding:22px 26px 26px;}
+.texa-pkg .tpk-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
+.texa-pkg .tpk-head h3{font-size:26px;font-weight:900;color:var(--navy);margin:0;}
+.texa-pkg .tpk-all{background:var(--navy);color:#fff;font-weight:700;font-size:14px;padding:10px 20px;border-radius:10px;}
+.texa-pkg .tpk-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.texa-pkg .tpk-card{border:1px solid #eee;border-radius:14px;padding:12px;background:#fff;display:flex;flex-direction:column;transition:box-shadow .15s,transform .15s;}
+.texa-pkg .tpk-card:hover{box-shadow:0 10px 26px rgba(22,33,61,.12);transform:translateY(-2px);}
+.texa-pkg .tpk-img{position:relative;border-radius:10px;overflow:hidden;height:210px;background:#f3f1ed;}
+.texa-pkg .tpk-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.texa-pkg .tpk-badge{position:absolute;top:10px;right:10px;background:#c8102e;color:#fff;font-size:12.5px;font-weight:800;padding:4px 12px;border-radius:6px;}
+.texa-pkg .tpk-role{font-size:12.5px;color:var(--orange);font-weight:800;margin-top:12px;}
+.texa-pkg .tpk-name{font-weight:800;color:var(--navy);font-size:15px;margin:3px 0 0;line-height:1.4;min-height:42px;}
+.texa-pkg .tpk-code{font-size:12px;color:#8a93a3;margin-top:4px;}
+.texa-pkg .tpk-foot{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
+.texa-pkg .tpk-price{color:#c8102e;font-size:15px;}
+.texa-pkg .tpk-price b{font-size:24px;font-weight:900;}
+.texa-pkg .tpk-add{background:var(--navy);color:#fff;font-weight:700;font-size:14px;padding:9px 16px;border-radius:9px;}
+.texa-pkg .tpk-add:hover{background:#0f1830;}
+@media (max-width:980px){
+  .texa-pkg .tpk-banner{grid-template-columns:1fr;padding:28px 22px;gap:22px;}
+  .texa-pkg .tpk-banner h2{font-size:34px;}
+  .texa-pkg .tpk-pr{font-size:40px;}
+  .texa-pkg .tpk-pr small{font-size:22px;}
+  .texa-pkg .tpk-row{grid-template-columns:repeat(2,1fr);}
+  .texa-pkg .tpk-all{display:none;}
+}
+@media (max-width:480px){
+  .texa-pkg .tpk-tile{height:120px;}
+  .texa-pkg .tpk-img{height:170px;}
+}
+</style>
+
+  <div class="tpk-banner">
+    <div>
+      <span class="tpk-chip">جديد · باقات تِكسا المميزة</span>
+      <h2>جدّد غرفتك كاملة</h2>
+      <div class="tpk-pr"><small>بأقل من</small> <b>3,399</b> ريال</div>
+      <p class="tpk-sub">5 باقات منسّقة جاهزة لغرفة 5×5: أرضية باركيه SPC، جدار مميز من بديل الشيبورد، ورق جدران كوري، ونعلة — كلها من مكان واحد.</p>
+      <a class="tpk-cta" href="https://texadecore.store/shop/">تسوّق الباقات ←</a>
+      <div class="tpk-note">قيمة المنتجات فقط · شاملة الضريبة · حتى نفاذ الكمية</div>
+    </div>
+    <div class="tpk-mosaic">
+      <div class="tpk-tile"><img src="https://i0.wp.com/texadecore.store/wp-content/uploads/2026/11/jXOJSiwXhXMK.jpg?fit=500%2C500&ssl=1" alt="جدار مميز"><span>جدار مميز</span></div>
+      <div class="tpk-tile"><img src="https://i0.wp.com/texadecore.store/wp-content/uploads/2026/11/ufLYwLuwXlQh.jpg?fit=500%2C500&ssl=1" alt="أرضية باركيه"><span>أرضية باركيه</span></div>
+      <div class="tpk-tile"><img src="https://i0.wp.com/texadecore.store/wp-content/uploads/2026/11/zLJKoVoTKGPZ.jpg?fit=500%2C500&ssl=1" alt="نعلة"><span>نعلة</span></div>
+      <div class="tpk-tile"><img src="https://i0.wp.com/texadecore.store/wp-content/uploads/2026/11/texa-wp-avenue-77307-2-1.webp?fit=500%2C500&ssl=1" alt="ورق جدران"><span>ورق جدران</span></div>
+    </div>
+  </div>
+
+  <div class="tpk-shelf">
+    <div class="tpk-head">
+      <h3>منتجات الباقات</h3>
+      <a class="tpk-all" href="https://texadecore.store/shop/">تسوّق كل منتجات الباقات ←</a>
+    </div>
+    <div class="tpk-row">
+
+      <div class="tpk-card">
+        <a class="tpk-img" href="https://texadecore.store/product/%d9%84%d9%88%d8%ad-%d8%ac%d8%af%d8%a7%d8%b1%d9%8a-%d8%a8%d8%af%d9%8a%d9%84-%d8%b4%d9%8a%d8%a8%d9%88%d8%b1%d8%af-%d8%ae%d8%b4%d8%a8%d9%8a-%d8%a8%d9%84%d9%88%d8%b7-%d9%81%d8%a7%d8%aa%d8%ad-5%d9%85%d9%85/">
+          <img src="https://i0.wp.com/texadecore.store/wp-content/uploads/2026/11/jXOJSiwXhXMK.jpg?fit=500%2C500&ssl=1" alt="بديل شيبورد خشبي بلوط">
+          <span class="tpk-badge">ضمن الباقات</span>
+        </a>
+        <div class="tpk-role">الجدار المميز</div>
+        <div class="tpk-name">بديل شيبورد خشبي بلوط فاتح 5مم</div>
+        <div class="tpk-code">كود 22124</div>
+        <div class="tpk-foot"><div class="tpk-price"><b>125</b> ريال</div><a class="tpk-add" href="https://texadecore.store/?add-to-cart=34548">أضف للسلة</a></div>
+      </div>
+
+      <div class="tpk-card">
+        <a class="tpk-img" href="https://texadecore.store/product/%d8%a8%d8%a7%d8%b1%d9%83%d9%8a%d9%87-spc-%d8%b6%d8%af-%d8%a7%d9%84%d9%85%d8%a7%d8%a1-%d8%a8%d9%84%d9%88%d8%b7-%d9%81%d8%a7%d8%aa%d8%ad-3849/">
+          <img src="https://i0.wp.com/texadecore.store/wp-content/uploads/2026/11/ufLYwLuwXlQh.jpg?fit=500%2C500&ssl=1" alt="باركيه SPC بلوط فاتح">
+          <span class="tpk-badge">ضمن الباقات</span>
+        </a>
+        <div class="tpk-role">الأرضية</div>
+        <div class="tpk-name">باركيه SPC ضد الماء بلوط فاتح</div>
+        <div class="tpk-code">كود 3849</div>
+        <div class="tpk-foot"><div class="tpk-price"><b>65</b> ريال/م²</div><a class="tpk-add" href="https://texadecore.store/?add-to-cart=34466">أضف للسلة</a></div>
+      </div>
+
+      <div class="tpk-card">
+        <a class="tpk-img" href="https://texadecore.store/product/wallpaper-avenue-77307-2/">
+          <img src="https://i0.wp.com/texadecore.store/wp-content/uploads/2026/11/texa-wp-avenue-77307-2-1.webp?fit=500%2C500&ssl=1" alt="ورق جدران أوف وايت">
+          <span class="tpk-badge">ضمن الباقات</span>
+        </a>
+        <div class="tpk-role">ورق الجدران</div>
+        <div class="tpk-name">ورق جدران كوري أوف وايت قماشي</div>
+        <div class="tpk-code">AVENUE 77307-2</div>
+        <div class="tpk-foot"><div class="tpk-price"><b>189</b> ريال/لفة</div><a class="tpk-add" href="https://texadecore.store/?add-to-cart=32411">أضف للسلة</a></div>
+      </div>
+
+      <div class="tpk-card">
+        <a class="tpk-img" href="https://texadecore.store/product/%d9%86%d8%b9%d9%84%d8%a9-%d9%81%d8%a7%d9%8a%d8%a8%d8%b1-%d9%85%d8%b9%d8%af%d9%86%d9%8a%d8%a9-%d9%81%d8%b6%d9%8a-4720/">
+          <img src="https://i0.wp.com/texadecore.store/wp-content/uploads/2026/11/zLJKoVoTKGPZ.jpg?fit=500%2C500&ssl=1" alt="نعلة فايبر فضي">
+          <span class="tpk-badge">ضمن الباقات</span>
+        </a>
+        <div class="tpk-role">النعلة</div>
+        <div class="tpk-name">نعلة فايبر معدنية فضي</div>
+        <div class="tpk-code">كود 4720</div>
+        <div class="tpk-foot"><div class="tpk-price"><b>25</b> ريال/قطعة</div><a class="tpk-add" href="https://texadecore.store/?add-to-cart=34576">أضف للسلة</a></div>
+      </div>
+
+    </div>
+  </div>
+</section>
