@@ -18,9 +18,9 @@ add_action( 'wp_footer', function () {
 <style>
 #texa-pkg-home{max-width:100%;margin:0 0 22px;font-family:"Noto Sans Arabic","Noto Sans","Segoe UI",sans-serif;box-sizing:border-box}
 #texa-pkg-home *{box-sizing:border-box;font-family:inherit}
-#texa-pkg-home a.tph{display:grid;grid-template-columns:minmax(300px,0.5fr) 1.5fr;gap:22px;align-items:stretch;height:var(--tph-h,493px);background:linear-gradient(120deg,#cc5500 0%,#d9640f 60%,#e07a2c 100%);border-radius:18px;padding:18px 22px;color:#fff;text-decoration:none;overflow:hidden;box-shadow:0 8px 22px rgba(204,85,0,.22)}
+#texa-pkg-home a.tph{display:grid;grid-template-columns:minmax(300px,0.5fr) 1.5fr;gap:22px;align-items:stretch;height:380px;background:linear-gradient(120deg,#cc5500 0%,#d9640f 60%,#e07a2c 100%);border-radius:18px;padding:16px 20px;color:#fff;text-decoration:none;overflow:hidden;box-shadow:0 8px 22px rgba(204,85,0,.22)}
 #texa-pkg-home .tph-chip{display:inline-block;background:#fff;color:#cc5500;font-weight:800;font-size:13px;padding:5px 14px;border-radius:30px;margin-bottom:12px}
-#texa-pkg-home .tph-h{font-size:34px;line-height:1.15;font-weight:900;color:#fff;margin:0}
+#texa-pkg-home .tph-h{font-size:30px;line-height:1.15;font-weight:900;color:#fff;margin:0}
 #texa-pkg-home .tph-pr{font-size:20px;font-weight:700;color:#fff;margin:6px 0 8px}
 #texa-pkg-home .tph-pr b{font-size:36px;font-weight:900;color:#cc0008;background:#fff;padding:0 14px;border-radius:12px;display:inline-block;line-height:1.35;margin:0 4px}
 #texa-pkg-home .tph-sub{font-size:14.5px;line-height:1.7;color:#fff3ea;margin:0 0 14px;max-width:520px}
@@ -32,7 +32,7 @@ add_action( 'wp_footer', function () {
 #texa-pkg-home .tph-t img{width:100%;height:100%;object-fit:cover;display:block}
 #texa-pkg-home .tph-t span{position:absolute;bottom:8px;right:8px;background:#fff;color:#16213e;font-weight:800;font-size:12.5px;padding:4px 11px;border-radius:20px}
 @media (max-width:980px){
-#texa-pkg-home a.tph{display:flex;flex-direction:column;height:var(--tph-h,437px);padding:16px 16px;gap:12px}
+#texa-pkg-home a.tph{display:flex;flex-direction:column;height:350px;padding:16px 16px;gap:12px}
 #texa-pkg-home .tph-x{align-self:stretch;flex:0 0 auto}
 #texa-pkg-home .tph-chip{margin-bottom:8px;font-size:12px}
 #texa-pkg-home .tph-h{font-size:26px}
@@ -73,8 +73,6 @@ add_action( 'wp_footer', function () {
 		/* 1) packages banner takes the planner's current place */
 		wrap.insertBefore(b,a);
 		try{b.style.setProperty('order',window.getComputedStyle(a).order,'important');}catch(e){}
-		var ah=Math.round(a.getBoundingClientRect().height);
-		if(ah>200){b.style.setProperty('--tph-h',ah+'px');}
 		b.style.display='block';
 		/* 2) planner moves down, right before the marble-alternative offers row */
 		var target=null,hs=rows.querySelectorAll('h2,h3');
