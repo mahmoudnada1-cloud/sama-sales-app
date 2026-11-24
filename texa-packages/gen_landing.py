@@ -28,7 +28,7 @@ def card(key):
         <div class="tpk-img"><img src="{IMG.format(img)}" alt="{name}"></div>
         <div class="tpk-role">{role}</div>
         <div class="tpk-name">{name}</div>
-        <div class="tpk-foot"><div><div class="tpk-price"><b>{price}</b> ريال</div><div class="tpk-qty">الوحدة: {uw} · العدد: {qty}</div></div><button type="button" class="tpk-add" onclick="texaAddOne({pid},{qty})">أضف</button></div>
+        <div class="tpk-foot"><div><div class="tpk-price"><b>{price}</b> ريال</div><div class="tpk-qty">الوحدة: {uw} · العدد: {qty}</div></div><button type="button" class="tpk-add" onclick="texaAddOne({pid},{qty})">أضف للسلة</button></div>
       </div>'''
 
 blocks=[]
@@ -43,7 +43,7 @@ for num,title,theme,keys in PACKS:
         <span class="tpk-pchip">باقة {num} · غرفة كاملة</span>
         <div class="tpk-pprice">بأقل من <b>3,399</b> ريال <small>قيمة المنتجات شاملة الضريبة · حتى نفاذ الكمية</small></div>
       </div>
-      <button type="button" class="tpk-addall" onclick="texaAddPkg([{addarr}])">أضف الباقة كاملة للسلة 🛒</button>
+      <button type="button" class="tpk-addall" onclick="texaAddPkg([{addarr}])">أضف الباقة كاملة للسلة</button>
     </div>
     <div class="tpk-row">
 {cards}
@@ -87,8 +87,9 @@ CSS='''<style>
 .texa-pkg .tpk-price{color:#c8102e;font-size:13px;}
 .texa-pkg .tpk-price b{font-size:20px;font-weight:800;color:#c8102e;}
 .texa-pkg .tpk-qty{font-size:12.5px;color:#8a8372;font-weight:500;margin-top:2px;}
-.texa-pkg .tpk-add{background:#16213e;color:#e9b84a;border:0;cursor:pointer;font-weight:800;font-size:14.5px;padding:9px 18px;border-radius:11px;transition:all .15s;}
-.texa-pkg .tpk-add:hover{background:#0f1830;}
+.texa-pkg .tpk-add{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:linear-gradient(90deg,#10173a,#1d2748);color:#e9b84a;border:0;cursor:pointer;font-weight:800;font-size:14.5px;line-height:21.75px;padding:11px;border-radius:11px;}
+.texa-pkg .tpk-add::before{content:"";width:17px;height:17px;flex:0 0 17px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM3 2h2.6l.9 3H21l-2.2 8.2a2 2 0 0 1-1.9 1.5H8.4a2 2 0 0 1-1.9-1.5L4.1 4H3z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM3 2h2.6l.9 3H21l-2.2 8.2a2 2 0 0 1-1.9 1.5H8.4a2 2 0 0 1-1.9-1.5L4.1 4H3z'/%3E%3C/svg%3E") center/contain no-repeat;}
+.texa-pkg .tpk-add:hover{filter:brightness(1.15);}
 .texa-pkg .tpk-sec{margin-top:40px;padding:0 18px;}
 .texa-pkg .tpk-sec h2{font-size:26px;font-weight:900;color:var(--navy);margin:0 0 14px;}
 .texa-pkg .tpk-sec p{font-size:15.5px;color:#211d17;margin:0 0 12px;}
@@ -100,8 +101,6 @@ CSS='''<style>
 .texa-pkg .tpk-faq p{padding:0 0 16px;margin:0;color:#3a4256;font-size:15.5px;}
 .texa-pkg .tpk-foot{flex-direction:column;align-items:stretch;gap:10px;margin-top:6px;}
 .texa-pkg .tpk-price b{font-size:22px;}
-.texa-pkg .tpk-add{width:100%;padding:13px 18px;font-size:0;border-radius:11px;}
-.texa-pkg .tpk-add::after{content:"\\1F6D2\\00A0\\00A0أضف للسلة";font-size:15px;font-weight:800;}
 @media (max-width:980px){
   .texa-pkg .tpk-phead{padding:16px;margin:0 12px;}
   .texa-pkg .tpk-phead h2{font-size:24px;}
