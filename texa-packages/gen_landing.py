@@ -66,7 +66,9 @@ CSS='''<style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap');
 .texa-pkg{--navy:#16213e;--orange:#cc5500;--orangeD:#b64d00;--gold:#e9b84a;--goldL:#f2c86f;max-width:none;margin:0;padding:0;font-family:"Noto Sans Arabic","Noto Sans","Segoe UI",sans-serif;direction:rtl;box-sizing:border-box;color:#1c1c1c;line-height:1.8;font-size:15.5px;}
 .texa-pkg *{box-sizing:border-box;font-family:"Noto Sans Arabic","Noto Sans","Segoe UI",sans-serif;}
-.texa-pkg .tpk-lead{font-size:15.5px;font-weight:400;color:#211d17;margin:0 0 18px;padding:14px 18px 0;max-width:none;width:100%;}
+.texa-pkg .tpk-lead{font-size:15.5px;font-weight:400;color:#211d17;margin:0 0 18px;padding:6px 18px 0;max-width:none;width:100%;}
+.texa-pkg .tpk-h1{font-size:30px;font-weight:900;color:#16213e;line-height:1.4;margin:0;padding:16px 18px 0;}
+.texa-pkg .tpk-strong{display:block;font-weight:800;font-size:17px;color:#1c1c1c;margin-bottom:4px;}
 .texa-pkg .tpk-pack{margin:0 0 26px;background:transparent;}
 .texa-pkg .tpk-phead{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;background:#cc5500;color:#fff;padding:20px 28px;border-radius:14px;margin:0 18px;box-shadow:0 6px 18px rgba(204,85,0,.22);}
 .texa-pkg .tpk-pchip{display:inline-block;background:#fff;color:#cc5500;font-weight:800;font-size:13px;padding:5px 14px;border-radius:30px;margin-bottom:8px;}
@@ -135,7 +137,8 @@ SCHEMA='''<script type="application/ld+json">
 html=f'''<!-- wp:html -->
 <section class="texa-pkg" dir="rtl">
 {CSS}
-  <p class="tpk-lead">سهّلناها عليك! بدل ما تحتار بين مئات الخيارات، جهّزنا لك باقات غرفة كاملة منسّقة وجاهزة — تختار باقتك وتطلبها بضغطة وحدة، وبأقل الأسعار في السعودية. كل باقة من تِكسا للديكور لغرفة 5×5 متر تقريبًا وتجمع أرضية باركيه SPC ضد الماء، جدار مميز من بديل الشيبورد، ورق جدران كوري، ونعلة فايبر، بألوان نسّقها مختصّو الديكور. اضغط «أضف الباقة كاملة للسلة» وتنضاف منتجاتها الأربعة دفعة واحدة. قيمة المنتجات شاملة الضريبة حتى نفاذ الكمية.</p>
+  <h1 class="tpk-h1">باقات الديكور والتشطيب من تكسا</h1>
+  <p class="tpk-lead"><strong class="tpk-strong">سهّلناها عليك! بدل ما تحتار بين مئات الخيارات، جهّزنا لك باقات غرفة كاملة منسّقة وجاهزة</strong>تختار باقتك وتطلبها بضغطة وحدة، وبأقل الأسعار في السعودية. كل باقة من تِكسا للديكور لغرفة 5×5 متر تقريبًا وتجمع أرضية باركيه SPC ضد الماء، جدار مميز من بديل الشيبورد، ورق جدران كوري، ونعلة فايبر، بألوان نسّقها مختصّو الديكور. اضغط «أضف الباقة كاملة للسلة» وتنضاف منتجاتها الأربعة دفعة واحدة. قيمة المنتجات شاملة الضريبة حتى نفاذ الكمية.</p>
 {chr(10).join(blocks)}
   <div class="tpk-sec">
     <h2>ليه تختار باقات تِكسا للديكور؟</h2>
