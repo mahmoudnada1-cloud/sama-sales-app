@@ -1,8 +1,9 @@
 <?php
 /**
  * Texa — Home Packages Banner
- * Shows the room-packages banner on the front page only, placed right above
- * the room-planner banner (#txpl-banner). Stays hidden if that anchor is missing.
+ * Front page only: shows the packages banner where the room-planner banner was,
+ * and moves the room-planner banner (#txpl-banner) to just before the
+ * marble-alternative offers row. Does nothing if those anchors are missing.
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -58,9 +59,28 @@ add_action( 'wp_footer', function () {
 	var b=document.getElementById('texa-pkg-home');
 	var a=document.getElementById('txpl-banner');
 	if(!b||!a||!a.parentNode){return;}
-	a.parentNode.insertBefore(b,a);
-	try{b.style.order=window.getComputedStyle(a).order;}catch(e){}
+	var wrap=a.parentNode;
+	var aDisp='block';try{aDisp=window.getComputedStyle(a).display||'block';}catch(e){}
+	/* 1) packages banner takes the planner's current place */
+	wrap.insertBefore(b,a);
+	try{b.style.setProperty('order',window.getComputedStyle(a).order,'important');}catch(e){}
 	b.style.display='block';
+	/* 2) planner moves down, right before the marble-alternative offers row */
+	var target=null,hs=wrap.querySelectorAll('h2,h3');
+	for(var i=0;i<hs.length;i++){
+		if(hs[i].textContent.indexOf('عروض بديل الرخام')!==-1){
+			/* climb to the row element: the node whose parent also holds the other offer rows */
+			var n=hs[i];
+			while(n.parentNode&&n.parentNode!==wrap&&n.parentNode.querySelectorAll('h2,h3').length<2){n=n.parentNode;}
+			target=n;break;
+		}
+	}
+	if(target&&target.parentNode){
+		target.parentNode.insertBefore(a,target);
+		try{a.style.setProperty('order',window.getComputedStyle(target).order,'important');}catch(e){}
+		a.style.marginBottom='22px';
+		if(aDisp&&aDisp!=='none'){a.style.setProperty('display',aDisp,'important');}
+	}
 })();
 </script>
 </div>
