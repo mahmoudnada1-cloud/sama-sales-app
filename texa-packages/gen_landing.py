@@ -98,6 +98,10 @@ CSS='''<style>
 .texa-pkg .tpk-faq summary::before{content:"\\002B";color:var(--orange);font-weight:900;margin-left:10px;}
 .texa-pkg .tpk-faq details[open] summary::before{content:"\\2212";}
 .texa-pkg .tpk-faq p{padding:0 0 16px;margin:0;color:#3a4256;font-size:15.5px;}
+.texa-pkg .tpk-foot{flex-direction:column;align-items:stretch;gap:10px;margin-top:6px;}
+.texa-pkg .tpk-price b{font-size:22px;}
+.texa-pkg .tpk-add{width:100%;padding:13px 18px;font-size:0;border-radius:11px;}
+.texa-pkg .tpk-add::after{content:"\\1F6D2\\00A0\\00A0أضف للسلة";font-size:15px;font-weight:800;}
 @media (max-width:980px){
   .texa-pkg .tpk-phead{padding:16px;margin:0 12px;}
   .texa-pkg .tpk-phead h2{font-size:24px;}
