@@ -3,8 +3,13 @@ const R='/home/user/sama-sales-app/texa-ai-video/', F='/home/user/sama-sales-app
 const b64=f=>fs.readFileSync(f).toString('base64');
 const font=w=>`@font-face{font-family:Tj;font-weight:${w};src:url(data:font/woff2;base64,${b64(F+`tajawal-arabic-${w}-normal.woff2`)}) format('woff2');unicode-range:U+0600-06FF,U+200C-200E,U+FB50-FDFF,U+FE80-FEFC;}@font-face{font-family:Tj;font-weight:${w};src:url(data:font/woff2;base64,${b64(F+`tajawal-latin-${w}-normal.woff2`)}) format('woff2');}`;
 const svg=(n,c)=>fs.readFileSync(R+'logos/'+n+'.svg','utf8').replace('<svg ',`<svg fill="${c}" `);
-const gem=svg('googlegemini','url(#gg)').replace('<path','<defs><linearGradient id="gg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#4285f4"/><stop offset=".5" stop-color="#9b72cb"/><stop offset="1" stop-color="#d96570"/></linearGradient></defs><path');
-const L={c:svg('openai','#111'),p:svg('perplexity','#20808d'),g:gem};
+const gpath=(fs.readFileSync(R+'logos/googlegemini.svg','utf8').match(/ d="([^"]+)"/)||[])[1];
+const gem=`<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="gc"><path d="${gpath}"/></clipPath>
+<radialGradient id="g1" cx="12" cy="0" r="11" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#EA4335"/><stop offset="1" stop-color="#EA4335" stop-opacity="0"/></radialGradient>
+<radialGradient id="g2" cx="0" cy="12" r="11" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FBBC04"/><stop offset="1" stop-color="#FBBC04" stop-opacity="0"/></radialGradient>
+<radialGradient id="g3" cx="12" cy="24" r="11" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#34A853"/><stop offset="1" stop-color="#34A853" stop-opacity="0"/></radialGradient></defs>
+<g clip-path="url(#gc)"><rect width="24" height="24" fill="#4285F4"/><rect width="24" height="24" fill="url(#g1)"/><rect width="24" height="24" fill="url(#g2)"/><rect width="24" height="24" fill="url(#g3)"/></g></svg>`;
+const L={c:svg('openai','#111'),p:svg('perplexity','#13343b'),g:gem};
 const Q='عروض بديل الشيبورد';
 const card=(id,logo,name,body)=>`<div class="scene" id="${id}"><div class="ask">اسأل <b>${name}</b></div>
 <div class="card"><div class="ch"><span class="lg">${logo}</span><span class="nm">${name}</span></div>
