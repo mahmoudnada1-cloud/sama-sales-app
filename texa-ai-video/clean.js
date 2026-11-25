@@ -50,7 +50,7 @@ ${card('s3',L.g,'Gemini',`<h3>أبرز العروض في السوق السعود
 <div class="scene" id="s4"><div class=lgs><span>${L.c}<em>✓</em></span><span>${L.p}<em>✓</em></span><span>${L.g}<em>✓</em></span></div><div class="med ln">وين ما تبحث وتسأل…</div><div class="big ln">تلقى <span class=w>تكسا ديكور</span> قدّامك</div><div class="med ln">وجهتك الأولى لبديل الشيبورد<br>في السعودية</div><div class="tag">اطلب الحين</div><div class="med ln">وخلي ديكورها غير.</div></div>
 <div class=bot>texadecore.store</div>
 <script>
-const Q=${JSON.stringify(Q)},C=[0,3.47,6.3,9.12,11.36,23.43];
+const Q=${JSON.stringify(Q)},C=[0,3.5,6.36,9.14,11.34,23.35];
 const cl=(x)=>Math.max(0,Math.min(1,x)),ez=x=>1-Math.pow(1-cl(x),3);
 function show(e,p){e.style.opacity=ez(p);e.style.transform='translateY('+(1-ez(p))*40+'px)';}
 window.setT=t=>{for(let i=0;i<5;i++){const s=document.getElementById('s'+i),a=C[i],b=C[i+1],l=t-a;
@@ -62,12 +62,12 @@ window.setT=t=>{for(let i=0;i<5;i++){const s=document.getElementById('s'+i),a=C[
   [...s.querySelector('.ans').children].forEach((e,k)=>show(e,(l-A-k*0.09)/0.25));
   show(s.querySelector('.src'),(l-A-0.6)/0.3);const tg=s.querySelector('.tag');show(tg,(l-1.3)/0.3);
   s.querySelectorAll('.hl').forEach(e=>{const p=cl((l-1.15)/0.3);e.style.background=p>0?'#cc5500':'#ffe2cc';e.style.color=p>0?'#fff':'#cc5500';});}
- else{show(s.querySelector('.lgs'),(l-0.05)/0.4);s.querySelectorAll('.ln').forEach((e,k)=>show(e,(l-[0.17,1.78,4.84,9.96][k])/0.45));show(s.querySelector('.tag'),(l-7.8)/0.4);}
+ else{show(s.querySelector('.lgs'),(l-0.05)/0.4);s.querySelectorAll('.ln').forEach((e,k)=>show(e,(l-[0.19,1.79,4.87,9.66][k])/0.45));show(s.querySelector('.tag'),(l-7.83)/0.4);}
 }};
 </script></body></html>`;
 (async()=>{const b=await chromium.launch({args:['--no-sandbox']});const p=await b.newPage({viewport:{width:1080,height:1920}});
 await p.setContent(html);await p.waitForTimeout(800);
 const mode=process.argv[2];
 if(mode==='test'){for(const t of [3.2,6.1,9.0,11.2,23.0]){await p.evaluate(t=>setT(t),t);await p.screenshot({path:R+`work/t${t}.png`});}}
-else{fs.mkdirSync(R+'frames',{recursive:true});const fps=25,N=Math.round(23.43*fps);for(let i=0;i<N;i++){await p.evaluate(t=>setT(t),i/fps);await p.screenshot({path:R+`frames/f${String(i).padStart(4,'0')}.jpg`,type:'jpeg',quality:92});}}
+else{fs.mkdirSync(R+'frames',{recursive:true});const fps=25,N=Math.round(23.35*fps);for(let i=0;i<N;i++){await p.evaluate(t=>setT(t),i/fps);await p.screenshot({path:R+`frames/f${String(i).padStart(4,'0')}.jpg`,type:'jpeg',quality:92});}}
 await b.close();})();
