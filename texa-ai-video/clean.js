@@ -21,8 +21,8 @@ const html=`<html><head><meta charset=utf8><style>${font(500)}${font(700)}${font
 .top{position:absolute;top:0;left:0;right:0;height:170px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:60px}
 .bot{position:absolute;bottom:0;left:0;right:0;height:150px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:46px;direction:ltr;background:rgba(0,0,0,.18)}
 .scene{position:absolute;top:170px;bottom:150px;left:0;right:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:46px;padding:0 54px;text-align:center;opacity:0}
-.big{font-weight:900;font-size:108px;line-height:1.38}.med{font-weight:700;font-size:60px;line-height:1.5}
-.w{background:#fff;color:#cc5500;padding:4px 34px;border-radius:26px;display:inline-block}
+.big{font-weight:900;font-size:100px;line-height:1.75}.med{font-weight:700;font-size:60px;line-height:1.5}
+.w{background:#fff;color:#cc5500;padding:0 34px;border-radius:26px;display:inline-block;line-height:1.35}
 .ln{display:block;opacity:0}
 .ask{font-weight:700;font-size:70px}.ask b{font-weight:900}
 .card{background:#fff;color:#1c1c1c;border-radius:40px;width:100%;padding:38px 44px 30px;box-shadow:0 30px 70px rgba(0,0,0,.35);text-align:right}
