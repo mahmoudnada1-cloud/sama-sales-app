@@ -11,21 +11,22 @@ const gem=`<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><cl
 <g clip-path="url(#gc)"><rect width="24" height="24" fill="#4285F4"/><rect width="24" height="24" fill="url(#g1)"/><rect width="24" height="24" fill="url(#g2)"/><rect width="24" height="24" fill="url(#g3)"/></g></svg>`;
 const L={c:svg('openai','#111'),p:svg('perplexity','#13343b'),g:gem};
 const Q='عروض بديل الشيبورد';
+const LOGO=`data:image/png;base64,${b64('/home/user/sama-sales-app/texa-offer-videos/public/brand/logo.png')}`;
 const card=(id,logo,name,body)=>`<div class="scene" id="${id}"><div class="ask">اسأل <b>${name}</b></div>
 <div class="card"><div class="ch"><span class="lg">${logo}</span><span class="nm">${name}</span></div>
 <div class="q"><span class="qt"></span><i class="cur"></i></div><div class="dots"><i></i><i></i><i></i></div>
 <div class="ans">${body}</div><div class="src">مقتطف من الإجابة</div></div>
 <div class="tag">تكسا ديكور قدّامك ✓</div></div>`;
 const html=`<html><head><meta charset=utf8><style>${font(500)}${font(700)}${font(900)}
-*{box-sizing:border-box;margin:0}body{width:1080px;height:1920px;font-family:Tj;direction:rtl;background:radial-gradient(circle at 50% 30%,#e06a14,#cc5500 55%,#a94600);color:#fff;overflow:hidden;position:relative}
-.top{position:absolute;top:0;left:0;right:0;height:170px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:60px}
-.bot{position:absolute;bottom:0;left:0;right:0;height:150px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:46px;direction:ltr;background:rgba(0,0,0,.18)}
-.scene{position:absolute;top:170px;bottom:150px;left:0;right:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:38px;padding:0 54px;text-align:center;opacity:0}
-.big{font-weight:900;font-size:100px;line-height:1.75}.med{font-weight:700;font-size:60px;line-height:1.5}
-.w{background:#fff;color:#cc5500;padding:0 34px;border-radius:26px;display:inline-block;line-height:1.35}
+*{box-sizing:border-box;margin:0}body{width:1080px;height:1920px;font-family:Tj;direction:rtl;background:#faf9f7;color:#16213d;overflow:hidden;position:relative}
+.top{position:absolute;top:0;left:0;right:0;height:320px;display:flex;align-items:flex-end;justify-content:center}.top img{height:200px;width:200px;object-fit:contain;background:#fff;border-radius:40px;padding:16px;box-shadow:0 14px 34px rgba(22,33,61,.16)}
+.bot{position:absolute;bottom:0;left:0;right:0;height:150px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:46px;direction:ltr;background:#16213d;color:#e8b33d}
+.scene{position:absolute;top:320px;bottom:150px;left:0;right:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:38px;padding:0 54px;text-align:center;opacity:0}
+.big{font-weight:900;font-size:100px;line-height:1.75}.med{font-weight:700;font-size:60px;line-height:1.5;color:#5b6478}
+.w{background:#cc5500;color:#fff;padding:0 34px;border-radius:26px;display:inline-block;line-height:1.35}
 .ln{display:block;opacity:0}
-.ask{font-weight:700;font-size:70px}.ask b{font-weight:900}
-.card{background:#fff;color:#1c1c1c;border-radius:40px;width:100%;padding:38px 44px 30px;box-shadow:0 30px 70px rgba(0,0,0,.35);text-align:right}
+.ask{font-weight:700;font-size:70px;color:#16213d}.ask b{font-weight:900;color:#cc5500}
+.card{background:#fff;color:#1c1c1c;border-radius:40px;width:100%;padding:38px 44px 30px;box-shadow:0 20px 50px rgba(22,33,61,.16);border:2px solid #eee6da;text-align:right}
 .ch{display:flex;align-items:center;gap:20px;padding-bottom:26px;border-bottom:2px solid #eee;direction:ltr}
 .lg svg{width:76px;height:76px;display:block}.nm{font-weight:900;font-size:52px;color:#111}
 .q{margin:30px 0 0;background:#eef3fb;border-radius:36px;padding:20px 38px;font-weight:700;font-size:46px;display:inline-block;min-height:96px}
@@ -38,10 +39,10 @@ const html=`<html><head><meta charset=utf8><style>${font(500)}${font(700)}${font
 .row{display:grid!important;grid-template-columns:300px 1fr;border-bottom:2px solid #eee;padding:16px 8px;align-items:center}.row.h{font-weight:900;background:#f6f6f6;border-radius:12px}
 .chip{display:inline-block!important;background:#f0f0f0;border-radius:12px;padding:2px 20px;font-size:32px;color:#555;font-family:monospace;margin-top:14px}
 .src{font-size:28px;color:#999;margin-top:22px;text-align:left}
-.tag{background:#16213e;color:#e9b84a;font-weight:900;font-size:58px;padding:20px 54px;border-radius:26px;opacity:0}
-.lgs{display:flex;gap:40px;direction:ltr}.lgs span{background:#fff;border-radius:36px;padding:26px;position:relative;display:block}.lgs svg{width:120px;height:120px;display:block}
+.tag{background:#16213d;color:#e8b33d;font-weight:900;font-size:58px;padding:20px 54px;border-radius:26px;opacity:0}
+.lgs{display:flex;gap:40px;direction:ltr}.lgs span{background:#fff;box-shadow:0 12px 30px rgba(22,33,61,.14);border:2px solid #eee6da;border-radius:36px;padding:26px;position:relative;display:block}.lgs svg{width:120px;height:120px;display:block}
 .lgs em{position:absolute;bottom:-18px;right:-18px;background:#16a34a;color:#fff;width:60px;height:60px;border-radius:50%;font-style:normal;font-weight:900;font-size:38px;display:flex;align-items:center;justify-content:center}
-</style></head><body><div class=top>تكسا ديكور</div>
+</style></head><body><div class=top><img src="${LOGO}"></div>
 <div class="scene" id="s0"><div class="big"><span class="ln">تدوّر على</span><span class="ln"><span class=w>بديل شيبورد</span></span><span class="ln">بسعر أقل</span><span class="ln">وجودة تجمّل؟</span></div></div>
 ${card('s1',L.c,'ChatGPT',`<h3>🔥 عروض بديل الشيبورد من <span class=hl>تِكسا للديكور</span></h3><h4>لماذا تختار بديل الشيبورد من تِكسا؟</h4><li>مقاس اللوح 120 × 290 سم.</li><li>تشكيلة ألوان وتشطيبات.</li><li>خيارات مناسبة لتجديد جدران المجالس وغرف النوم.</li><span class=lk>عروض بديل الشيبورد – متجر تِكسا للديكور ↗</span>`)}
 ${card('s2',L.p,'Perplexity',`<h3>عروض مميزة</h3><div class="row h"><span>المتجر</span><span>العرض</span></div><div class=row><span class=hl>تكسا ديكور</span><span>بديل شيبورد بيج لاتيه</span></div><div class=row><span class=hl>تكسا ديكور</span><span>بديل شيبورد بيج كاتشي</span></div><div class=row><span class=hl>تكسا ديكور</span><span>ألوان بني وخشبي وسادة</span></div><span class=chip>texadecore</span>`)}
