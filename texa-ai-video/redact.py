@@ -4,7 +4,7 @@ OR=(204,85,0)
 def blur(im,box,r=14):
     reg=im.crop(box).filter(ImageFilter.GaussianBlur(r)); im.paste(reg,box)
 def pill(im,box):
-    d=ImageDraw.Draw(im); d.rounded_rectangle(box,radius=10,fill=OR)
+    x0,y0,x1,y1=box; blur(im,(x0-6,y0-4,x1+6,y1+4),11)
 # ChatGPT
 a=Image.open(I+'34.webp').convert('RGB')
 pill(a,(728,312,862,350))
