@@ -37,8 +37,10 @@ body{width:1080px;height:1080px;background:${C.cream};color:${C.navy};direction:
 function slideHTML(s, i, n) {
   const pg = `${i + 1}/${n}`;
   const foot = `<div class="foot"><span class="site">texadecore.store</span><span class="pg">${pg}</span></div>`;
+  const footCta = `<div class="foot"><span class="site">texadecore.store&nbsp;&nbsp;·&nbsp;&nbsp;واتساب 0591409002</span><span class="pg">${pg}</span></div>`;
+  const logoName = `<div style="display:flex;flex-direction:column;align-items:flex-start;gap:14px"><img class="logo" src="${LOGO}"><span style="font-weight:900;font-size:40px;color:${C.navy}">تِكسا للديكور</span></div>`;
   if (s.type === 'cover') {
-    return `<div class="pad"><img class="logo" src="${LOGO}">
+    return `<div class="pad">${logoName}
       <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:34px">
         <div><span class="kick">${s.kick || 'دليل تِكسا'}</span></div>
         <div style="font-weight:900;font-size:80px;line-height:1.28">${s.title}</div>
@@ -47,16 +49,15 @@ function slideHTML(s, i, n) {
       <div class="swipe"><span class="arrow">←</span><span>اسحب</span></div>${foot}`;
   }
   if (s.type === 'cta') {
-    return `<div class="pad"><img class="logo" src="${LOGO}">
-      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:40px">
+    return `<div class="pad">${logoName}
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:36px">
         <div style="font-weight:900;font-size:68px;line-height:1.3">${s.title}</div>
         <div style="font-weight:700;font-size:42px;color:${C.grey};line-height:1.6">${s.sub || ''}</div>
         <div style="display:flex;flex-direction:column;gap:26px;margin-top:10px">
           ${(s.points || []).map((p) => `<div style="display:flex;align-items:center;gap:22px;font-weight:700;font-size:42px"><span style="color:${accent};font-size:38px">✓</span><span>${p}</span></div>`).join('')}
         </div>
         <div style="margin-top:20px"><span class="navybtn">${s.button || 'اطلب الحين'}</span></div>
-        <div style="font-weight:900;font-size:46px;direction:ltr;color:${C.navy}">واتساب: 0591409002</div>
-      </div></div>${foot}`;
+      </div></div>${footCta}`;
   }
   // content
   return `<div class="pad"><div style="display:flex;align-items:center;justify-content:space-between">
