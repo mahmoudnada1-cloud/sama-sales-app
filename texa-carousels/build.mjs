@@ -38,7 +38,7 @@ function slideHTML(s, i, n) {
   const pg = `${i + 1}/${n}`;
   const foot = `<div class="foot"><span class="site">texadecore.store</span><span class="pg">${pg}</span></div>`;
   const footCta = `<div class="foot"><span class="site">texadecore.store&nbsp;&nbsp;·&nbsp;&nbsp;واتساب 0591409002</span><span class="pg">${pg}</span></div>`;
-  const logoName = `<div style="display:flex;flex-direction:column;align-items:flex-start;gap:14px"><img class="logo" src="${LOGO}"><span style="font-weight:900;font-size:40px;color:${C.navy}">تِكسا للديكور</span></div>`;
+  const logoName = `<div style="display:flex;flex-direction:row;align-items:center;gap:22px;margin-bottom:34px"><img class="logo" src="${LOGO}"><span style="font-weight:900;font-size:46px;color:${C.navy}">تِكسا للديكور</span></div>`;
   if (s.type === 'cover') {
     return `<div class="pad">${logoName}
       <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:34px">
